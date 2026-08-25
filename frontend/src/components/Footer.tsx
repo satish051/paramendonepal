@@ -38,6 +38,18 @@ export default function Footer() {
           </div>
 
           <div>
+            <h3 className="font-semibold text-white mb-4">Enterprise Hub</h3>
+            <ul className="space-y-2">
+              <li><Link href="/corporate-takeback" className="text-[var(--color-offwhite)]/80 hover:text-[var(--color-leaf)] transition-colors">Corporate Takeback</Link></li>
+              <li><Link href="/cad-hub" className="text-[var(--color-offwhite)]/80 hover:text-[var(--color-leaf)] transition-colors">Architect CAD Hub</Link></li>
+              <li><Link href="/passport" className="text-[var(--color-offwhite)]/80 hover:text-[var(--color-leaf)] transition-colors">Digital Passport</Link></li>
+              <li><Link href="/trekking-offset" className="text-[var(--color-offwhite)]/80 hover:text-[var(--color-leaf)] transition-colors">Trekking Offset</Link></li>
+              <li><Link href="/eco-tourism" className="text-[var(--color-offwhite)]/80 hover:text-[var(--color-leaf)] transition-colors">Eco-Tourism</Link></li>
+              <li><Link href="/innovation-lab" className="text-[var(--color-offwhite)]/80 hover:text-[var(--color-leaf)] transition-colors">Innovation Lab</Link></li>
+            </ul>
+          </div>
+
+          <div>
             <h3 className="font-semibold text-white mb-4">Follow Us</h3>
             <div className="flex space-x-4">
               <a href="#" className="text-[var(--color-offwhite)]/80 hover:text-[var(--color-leaf)] transition-colors">
