@@ -1,0 +1,49 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Product {
+  id          String   @id @default(cuid())
+  name        String
+  category    String   // e.g., 'Roofing', 'Flooring', 'Custom'
+  description String
+  pricePerUnit Float?
+  plasticOffset Float? // kg of plastic offset per unit
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  quoteRequests QuoteRequest[]
+}
+
+model QuoteRequest {
+  id            String   @id @default(cuid())
+  firstName     String
+  lastName      String
+  email         String
+  inquiryType   String
+  message       String
+  projectArea   Float?
+  unit          String?
+  estimatedCost Float?
+  status        String   @default("PENDING") // PENDING, REVIEWED, COMPLETED
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  // Optional relationship to a specific product
+  productId     String?
+  product       Product? @relation(fields: [productId], references: [id])
+}
+
+model SiteMetric {
+  id              String   @id @default(cuid())
+  metricKey       String   @unique // e.g., 'total_plastic_recycled'
+  metricValue     Float
+  label           String
+  icon            String?
+  lastUpdated     DateTime @default(now())
+}

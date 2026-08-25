@@ -1,0 +1,52 @@
+@import "tailwindcss";
+
+@theme {
+  --color-forest: #2F5233;
+  --color-leaf: #94C973;
+  --color-earth: #D4B886;
+  --color-offwhite: #F9F6F0;
+
+  --color-background: var(--color-offwhite);
+  --color-foreground: #171717;
+
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+body {
+  background: var(--color-background);
+  color: var(--color-foreground);
+  font-family: var(--font-sans), Arial, Helvetica, sans-serif;
+}
+
+/* Hide Google Translate top bar */
+.skiptranslate iframe {
+  display: none !important;
+}
+body {
+  top: 0 !important;
+}
+
+/* Style the Google Translate dropdown */
+.goog-te-gadget-simple {
+  background-color: transparent !important;
+  border-left: none !important;
+  border-top: none !important;
+  border-bottom: none !important;
+  border-right: none !important;
+  font-size: 14px !important;
+  font-weight: 500 !important;
+  padding: 0 !important;
+}
+.goog-te-gadget-simple .goog-te-menu-value {
+  color: white !important;
+}
+.goog-te-gadget-simple .goog-te-menu-value span {
+  color: white !important;
+}
+.goog-te-menu-value span:nth-child(5) {
+  display:none; /* Hide the dropdown arrow image */
+}
+.goog-te-menu-value span:nth-child(3) {
+  display:none; /* Hide the separator */
+}
