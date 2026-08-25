@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Link from "next/link";
 import { CheckCircle2, ArrowLeft } from "lucide-react";
 import TileCalculator from "@/components/TileCalculator";

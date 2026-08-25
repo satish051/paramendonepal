@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import { getQuoteRequests } from '../actions/admin';
 
 export default async function AdminDashboard() {

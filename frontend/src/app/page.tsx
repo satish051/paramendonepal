@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import ImpactCounter from "@/components/ImpactCounter";
 import CircularJourney from "@/components/CircularJourney";
 import BeforeAfterSlider from "@/components/BeforeAfterSlider";
