@@ -12,6 +12,7 @@ model Product {
   name        String
   category    String   // e.g., 'Roofing', 'Flooring', 'Custom'
   description String
+  imageUrl    String?
   pricePerUnit Float?
   plasticOffset Float? // kg of plastic offset per unit
   createdAt   DateTime @default(now())
@@ -46,4 +47,22 @@ model SiteMetric {
   label           String
   icon            String?
   lastUpdated     DateTime @default(now())
+}
+
+model SiteContent {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  updatedAt DateTime @updatedAt
+}
+
+model BlogPost {
+  id        String   @id @default(cuid())
+  title     String
+  excerpt   String
+  content   String
+  imageUrl  String?
+  type      String   @default("Blog") // 'Blog', 'Video', 'News'
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
 }

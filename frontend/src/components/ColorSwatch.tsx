@@ -19,8 +19,8 @@ export default function ColorSwatch() {
   return (
     <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-gray-100 max-w-5xl mx-auto my-16">
       <div className="text-center mb-10">
-        <h2 className="text-3xl font-bold text-[var(--color-forest)] mb-4 flex items-center justify-center">
-          <Palette className="w-8 h-8 mr-3 text-[var(--color-leaf)]" />
+        <h2 className="text-3xl font-bold text-[var(--color-primary)] mb-4 flex items-center justify-center">
+          <Palette className="w-8 h-8 mr-3 text-[var(--color-secondary)]" />
           Interactive Terrazzo Customizer
         </h2>
         <p className="text-gray-600 text-lg">
@@ -67,7 +67,7 @@ export default function ColorSwatch() {
           
           <Link 
             href={`/contact?inquiry=Request a Sample&message=I would like a sample in ${primaryColor.name} and ${secondaryColor.name} terrazzo blend.`}
-            className="inline-block bg-[var(--color-forest)] text-white px-8 py-4 rounded-xl font-bold hover:bg-opacity-90 transition-all"
+            className="inline-block bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-bold hover:bg-opacity-90 transition-all"
           >
             Request Sample in this Colorway
           </Link>

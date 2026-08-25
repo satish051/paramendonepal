@@ -9,7 +9,7 @@ export default function TransparencyPage() {
     <div className="min-h-screen bg-gray-50 py-16">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center max-w-2xl mx-auto mb-16">
-          <h1 className="text-4xl font-extrabold text-[var(--color-forest)] mb-4">Institutional Data Room</h1>
+          <h1 className="text-4xl font-extrabold text-[var(--color-primary)] mb-4">Institutional Data Room</h1>
           <p className="text-lg text-gray-600">
             Committed to open governance. Access our Life Cycle Assessments (LCA), financial audits, and operational blueprints.
           </p>
@@ -30,7 +30,7 @@ export default function TransparencyPage() {
                 <span className="text-sm font-medium">Virgin PP CO2/kg</span>
                 <span className="text-sm font-bold">~1.9 kg</span>
               </div>
-              <div className="flex justify-between items-center text-[var(--color-leaf)]">
+              <div className="flex justify-between items-center text-[var(--color-secondary)]">
                 <span className="text-sm font-medium">Upcycled PP CO2/kg</span>
                 <span className="text-sm font-bold">~1.05 kg</span>
               </div>
@@ -38,9 +38,9 @@ export default function TransparencyPage() {
           </div>
 
           {/* CRC Blueprints */}
-          <div className="bg-[var(--color-forest)] text-white p-8 rounded-3xl shadow-sm flex flex-col justify-between">
+          <div className="bg-[var(--color-accent)] text-white p-8 rounded-3xl shadow-sm flex flex-col justify-between">
             <div>
-              <div className="w-12 h-12 bg-white/10 text-[var(--color-leaf)] rounded-xl flex items-center justify-center mb-6">
+              <div className="w-12 h-12 bg-white/10 text-[var(--color-secondary)] rounded-xl flex items-center justify-center mb-6">
                 <Factory className="w-6 h-6" />
               </div>
               <h2 className="text-2xl font-bold mb-4">CRC Technical Blueprints</h2>
@@ -48,7 +48,7 @@ export default function TransparencyPage() {
                 Our Dhading Community Recycling Center is designed to be a scalable, reproducible model. We open-source our machine layouts, safety protocols, and operational workflows for NGOs looking to replicate our success.
               </p>
             </div>
-            <button className="bg-white text-[var(--color-forest)] w-full py-3 rounded-xl font-bold flex items-center justify-center hover:bg-gray-100 transition-colors">
+            <button className="bg-white text-[var(--color-primary)] w-full py-3 rounded-xl font-bold flex items-center justify-center hover:bg-gray-100 transition-colors">
               <Download className="w-5 h-5 mr-2" /> Request Open-Source Blueprints
             </button>
           </div>
@@ -71,7 +71,7 @@ export default function TransparencyPage() {
                   <FileText className="w-5 h-5 text-gray-400 mr-4" />
                   <span className="font-medium text-gray-700">{doc}</span>
                 </div>
-                <button className="text-[var(--color-leaf)] font-bold text-sm hover:text-[var(--color-forest)]">Download</button>
+                <button className="text-[var(--color-secondary)] font-bold text-sm hover:text-[var(--color-primary)]">Download</button>
               </div>
             ))}
           </div>

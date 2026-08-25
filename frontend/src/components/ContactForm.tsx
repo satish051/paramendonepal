@@ -76,17 +76,17 @@ export default function ContactForm() {
       <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
         <div>
           <label htmlFor="first-name" className="block text-sm font-medium text-gray-700 mb-2">First name</label>
-          <input required value={firstName} onChange={(e) => setFirstName(e.target.value)} type="text" id="first-name" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--color-leaf)] focus:border-transparent outline-none transition-shadow" placeholder="Jane" />
+          <input required value={firstName} onChange={(e) => setFirstName(e.target.value)} type="text" id="first-name" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent outline-none transition-shadow" placeholder="Jane" />
         </div>
         <div>
           <label htmlFor="last-name" className="block text-sm font-medium text-gray-700 mb-2">Last name</label>
-          <input value={lastName} onChange={(e) => setLastName(e.target.value)} type="text" id="last-name" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--color-leaf)] focus:border-transparent outline-none transition-shadow" placeholder="Doe" />
+          <input value={lastName} onChange={(e) => setLastName(e.target.value)} type="text" id="last-name" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent outline-none transition-shadow" placeholder="Doe" />
         </div>
       </div>
       
       <div>
         <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">Email</label>
-        <input required value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--color-leaf)] focus:border-transparent outline-none transition-shadow" placeholder="jane@example.com" />
+        <input required value={email} onChange={(e) => setEmail(e.target.value)} type="email" id="email" className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent outline-none transition-shadow" placeholder="jane@example.com" />
       </div>
 
       <div>
@@ -95,7 +95,7 @@ export default function ContactForm() {
           id="inquiry-type" 
           value={inquiryType}
           onChange={(e) => setInquiryType(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--color-leaf)] focus:border-transparent outline-none transition-shadow bg-white"
+          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent outline-none transition-shadow bg-white"
         >
           <option>Request a Quote</option>
           <option>Request a Sample</option>
@@ -112,7 +112,7 @@ export default function ContactForm() {
           rows={6} 
           value={message}
           onChange={(e) => setMessage(e.target.value)}
-          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--color-leaf)] focus:border-transparent outline-none transition-shadow resize-none" 
+          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:ring-2 focus:ring-[var(--color-secondary)] focus:border-transparent outline-none transition-shadow resize-none" 
           placeholder="How can we help you?"
         />
       </div>
@@ -120,7 +120,7 @@ export default function ContactForm() {
       <button 
         type="submit" 
         disabled={status === "submitting"}
-        className="w-full bg-[var(--color-forest)] text-white px-8 py-4 rounded-xl font-bold hover:bg-opacity-90 transition-all disabled:opacity-70 flex justify-center"
+        className="w-full bg-[var(--color-primary)] text-white px-8 py-4 rounded-xl font-bold hover:bg-opacity-90 transition-all disabled:opacity-70 flex justify-center"
       >
         {status === "submitting" ? "Sending..." : "Send Message"}
       </button>

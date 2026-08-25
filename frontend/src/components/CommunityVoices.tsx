@@ -42,10 +42,10 @@ export default function CommunityVoices() {
   };
 
   return (
-    <div className="py-24 bg-[var(--color-offwhite)]">
+    <div className="py-24 bg-[var(--color-surface)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-[var(--color-forest)] sm:text-4xl mb-4">
+          <h2 className="text-3xl font-bold text-[var(--color-primary)] sm:text-4xl mb-4">
             Voices from the CRC
           </h2>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -55,12 +55,12 @@ export default function CommunityVoices() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-5xl mx-auto">
           {voices.map((voice) => (
-            <div key={voice.id} className="bg-white rounded-3xl overflow-hidden shadow-md border border-[var(--color-leaf)]/20 hover:shadow-lg transition-shadow flex flex-col">
+            <div key={voice.id} className="bg-white rounded-3xl overflow-hidden shadow-md border border-[var(--color-secondary)]/20 hover:shadow-lg transition-shadow flex flex-col">
               
               {/* Photo Area */}
               <div className="aspect-[4/3] bg-gray-200 relative flex items-center justify-center">
                 <span className="text-gray-500 font-medium">{voice.imagePlaceholder}</span>
-                <div className="absolute top-4 left-4 bg-[var(--color-leaf)] text-[var(--color-forest)] text-xs font-bold px-3 py-1 rounded-full shadow-sm">
+                <div className="absolute top-4 left-4 bg-[var(--color-secondary)] text-[var(--color-primary)] text-xs font-bold px-3 py-1 rounded-full shadow-sm">
                   Ree, Dhading
                 </div>
               </div>
@@ -68,8 +68,8 @@ export default function CommunityVoices() {
               {/* Content Area */}
               <div className="p-8 flex-grow flex flex-col">
                 <div className="mb-6">
-                  <h3 className="text-2xl font-bold text-[var(--color-forest)]">{voice.name}</h3>
-                  <p className="text-[var(--color-leaf)] font-medium">{voice.role}</p>
+                  <h3 className="text-2xl font-bold text-[var(--color-primary)]">{voice.name}</h3>
+                  <p className="text-[var(--color-secondary)] font-medium">{voice.role}</p>
                 </div>
 
                 {/* Before / After */}
@@ -80,29 +80,29 @@ export default function CommunityVoices() {
                   </div>
                   <div className="border-t border-gray-200 my-2"></div>
                   <div>
-                    <span className="text-xs font-bold text-[var(--color-leaf)] uppercase tracking-wider block mb-1">After</span>
-                    <p className="text-[var(--color-forest)] font-medium text-sm">{voice.after}</p>
+                    <span className="text-xs font-bold text-[var(--color-secondary)] uppercase tracking-wider block mb-1">After</span>
+                    <p className="text-[var(--color-primary)] font-medium text-sm">{voice.after}</p>
                   </div>
                 </div>
 
                 {/* Audio Player Mock */}
-                <div className="bg-[var(--color-forest)] rounded-2xl p-4 text-white">
+                <div className="bg-[var(--color-accent)] rounded-2xl p-4 text-white">
                   <div className="flex items-center space-x-4 mb-3">
                     <button 
                       onClick={() => togglePlay(voice.id)}
-                      className="w-12 h-12 bg-white text-[var(--color-forest)] rounded-full flex items-center justify-center hover:bg-[var(--color-leaf)] transition-colors flex-shrink-0"
+                      className="w-12 h-12 bg-white text-[var(--color-primary)] rounded-full flex items-center justify-center hover:bg-[var(--color-secondary)] transition-colors flex-shrink-0"
                     >
                       {playingId === voice.id ? <Pause className="w-5 h-5" /> : <Play className="w-5 h-5 ml-1" />}
                     </button>
                     <div className="flex-grow">
-                      <div className="flex justify-between text-xs mb-1 text-[var(--color-offwhite)]/80">
+                      <div className="flex justify-between text-xs mb-1 text-gray-300">
                         <span>Listen to Story (Nepali)</span>
                         <span>{playingId === voice.id ? "0:04" : "0:00"} / {voice.audioLength}</span>
                       </div>
                       {/* Progress Bar Mock */}
                       <div className="w-full h-2 bg-white/20 rounded-full overflow-hidden">
                         <div 
-                          className="h-full bg-[var(--color-leaf)] rounded-full transition-all duration-1000"
+                          className="h-full bg-[var(--color-secondary)] rounded-full transition-all duration-1000"
                           style={{ width: playingId === voice.id ? "25%" : "0%" }}
                         ></div>
                       </div>
@@ -111,7 +111,7 @@ export default function CommunityVoices() {
 
                   <button 
                     onClick={() => setShowTranscript(showTranscript === voice.id ? null : voice.id)}
-                    className="text-xs text-[var(--color-offwhite)]/80 hover:text-white underline underline-offset-2"
+                    className="text-xs text-gray-300 hover:text-white underline underline-offset-2"
                   >
                     {showTranscript === voice.id ? "Hide Transcript" : "Read English Transcript"}
                   </button>
@@ -120,7 +120,7 @@ export default function CommunityVoices() {
                   {showTranscript === voice.id && (
                     <div className="mt-4 p-4 bg-white/10 rounded-xl relative">
                       <Quote className="absolute top-3 left-3 w-4 h-4 text-white/20" />
-                      <p className="text-sm italic pl-6 text-[var(--color-offwhite)] leading-relaxed">
+                      <p className="text-sm italic pl-6 text-[var(--color-surface)] leading-relaxed">
                         "{voice.transcript}"
                       </p>
                     </div>

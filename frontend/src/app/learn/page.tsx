@@ -14,7 +14,7 @@ export default function LearnPage() {
           <BookOpen className="w-5 h-5 mr-2" />
           School Outreach Program
         </div>
-        <h1 className="text-4xl font-extrabold text-[var(--color-forest)] mb-4">Interactive Learning</h1>
+        <h1 className="text-4xl font-extrabold text-[var(--color-primary)] mb-4">Interactive Learning</h1>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
           Play the "Sort at the Source" mini-game to understand waste segregation, or use it in classrooms to educate the next generation of eco-champions.
         </p>

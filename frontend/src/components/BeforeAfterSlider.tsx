@@ -56,7 +56,7 @@ export default function BeforeAfterSlider() {
   return (
     <section className="py-24 bg-white overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-12">
-        <h2 className="text-3xl font-bold text-[var(--color-forest)] sm:text-4xl mb-4">
+        <h2 className="text-3xl font-bold text-[var(--color-primary)] sm:text-4xl mb-4">
           The Transformation
         </h2>
         <p className="text-lg text-gray-600 max-w-2xl mx-auto">
@@ -78,8 +78,8 @@ export default function BeforeAfterSlider() {
           }}
         >
           {/* AFTER Image (Background) - Finished Product */}
-          <div className="absolute inset-0 bg-[var(--color-leaf)]/20 flex flex-col items-end justify-center pr-12 sm:pr-24">
-            <span className="bg-white/90 text-[var(--color-forest)] font-bold px-4 py-2 rounded-lg shadow-sm text-sm sm:text-base">
+          <div className="absolute inset-0 bg-[var(--color-secondary)]/20 flex flex-col items-end justify-center pr-12 sm:pr-24">
+            <span className="bg-white/90 text-[var(--color-primary)] font-bold px-4 py-2 rounded-lg shadow-sm text-sm sm:text-base">
               AFTER: Durable PP Tile
             </span>
           </div>
@@ -99,8 +99,8 @@ export default function BeforeAfterSlider() {
             className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize flex items-center justify-center shadow-[0_0_10px_rgba(0,0,0,0.3)]"
             style={{ left: `${sliderPosition}%`, transform: 'translateX(-50%)' }}
           >
-            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-[var(--color-forest)]">
-              <ArrowLeftRight className="w-4 h-4 text-[var(--color-forest)]" />
+            <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-[var(--color-primary)]">
+              <ArrowLeftRight className="w-4 h-4 text-[var(--color-primary)]" />
             </div>
           </div>
         </div>

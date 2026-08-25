@@ -15,7 +15,7 @@ export default function TrekkingOffsetPage() {
     <div className="min-h-screen bg-white py-20">
       <div className="max-w-4xl mx-auto px-4">
         <div className="text-center mb-12">
-          <Mountain className="w-12 h-12 text-[var(--color-forest)] mx-auto mb-4" />
+          <Mountain className="w-12 h-12 text-[var(--color-primary)] mx-auto mb-4" />
           <h1 className="text-4xl font-extrabold text-gray-900 mb-4">Trekking Plastic Offset</h1>
           <p className="text-lg text-gray-600">Expedition agencies: Calculate and offset the exact plastic footprint of your mountain expeditions.</p>
         </div>
@@ -32,14 +32,14 @@ export default function TrekkingOffsetPage() {
             </div>
           </div>
           
-          <div className="w-full md:w-1/2 bg-[var(--color-forest)] text-white p-8 rounded-2xl text-center">
-            <Calculator className="w-8 h-8 text-[var(--color-earth)] mx-auto mb-4" />
-            <p className="text-[var(--color-offwhite)]/80 text-sm uppercase tracking-widest font-bold mb-2">Estimated Expedition Waste</p>
+          <div className="w-full md:w-1/2 bg-[var(--color-accent)] text-white p-8 rounded-2xl text-center">
+            <Calculator className="w-8 h-8 text-[var(--color-accent)] mx-auto mb-4" />
+            <p className="text-gray-300 text-sm uppercase tracking-widest font-bold mb-2">Estimated Expedition Waste</p>
             <p className="text-5xl font-extrabold text-white mb-6">{plasticWasteKg} <span className="text-2xl font-medium text-white/70">kg</span></p>
             
             <div className="border-t border-white/20 pt-6">
               <p className="text-sm mb-4">Sponsor our Dhading CRC to physically extract and upcycle this exact weight of plastic from the environment.</p>
-              <button className="w-full bg-[var(--color-earth)] text-white font-bold py-3 rounded-xl hover:bg-opacity-90">
+              <button className="w-full bg-[var(--color-accent)] text-white font-bold py-3 rounded-xl hover:bg-opacity-90">
                 Offset Expedition for ${offsetCost}
               </button>
             </div>

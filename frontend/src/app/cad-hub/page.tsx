@@ -13,7 +13,7 @@ export default function CadHubPage() {
     <div className="min-h-screen bg-gray-50 py-20">
       <div className="max-w-6xl mx-auto px-4">
         <div className="text-center mb-16">
-          <h1 className="text-4xl font-extrabold text-[var(--color-forest)] mb-4">Architect CAD Hub</h1>
+          <h1 className="text-4xl font-extrabold text-[var(--color-primary)] mb-4">Architect CAD Hub</h1>
           <p className="text-lg text-gray-600 max-w-2xl mx-auto">
             Incorporate sustainable, upcycled plastic materials into your next architectural render. Download our seamless textures and PBR materials for SketchUp, Blender, and AutoCAD.
           </p>
@@ -28,7 +28,7 @@ export default function CadHubPage() {
               </div>
               <h3 className="font-bold text-xl text-gray-900 mb-2">{tex.name}</h3>
               <p className="text-gray-500 text-sm mb-6 flex items-center"><Layers className="w-4 h-4 mr-2"/> {tex.format}</p>
-              <button className="w-full bg-[var(--color-offwhite)] text-[var(--color-forest)] border border-[var(--color-forest)]/20 px-4 py-3 rounded-lg font-bold flex items-center justify-center hover:bg-[var(--color-forest)] hover:text-white transition-colors">
+              <button className="w-full bg-[var(--color-surface)] text-[var(--color-primary)] border border-[var(--color-primary)]/20 px-4 py-3 rounded-lg font-bold flex items-center justify-center hover:bg-[var(--color-accent)] hover:text-white transition-colors">
                 <Download className="w-5 h-5 mr-2" /> Download Assets
               </button>
             </div>

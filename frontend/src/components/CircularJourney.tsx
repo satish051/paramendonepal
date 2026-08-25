@@ -32,10 +32,10 @@ const steps = [
 
 export default function CircularJourney() {
   return (
-    <section className="py-24 bg-[var(--color-offwhite)]">
+    <section className="py-24 bg-[var(--color-surface)]">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-bold text-[var(--color-forest)] sm:text-4xl">Our Circular Journey</h2>
+          <h2 className="text-3xl font-bold text-[var(--color-primary)] sm:text-4xl">Our Circular Journey</h2>
           <p className="mt-4 text-lg text-gray-600 max-w-2xl mx-auto">
             See how we transform everyday plastic waste into valuable construction materials.
           </p>
@@ -43,7 +43,7 @@ export default function CircularJourney() {
 
         <div className="relative">
           {/* Connecting line */}
-          <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-[var(--color-leaf)]/30 -translate-y-1/2 z-0"></div>
+          <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-[var(--color-secondary)]/30 -translate-y-1/2 z-0"></div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
             {steps.map((step, index) => {
@@ -57,14 +57,14 @@ export default function CircularJourney() {
                   transition={{ delay: index * 0.2, duration: 0.5 }}
                   className="bg-white rounded-xl p-6 shadow-sm border border-gray-100 text-center relative"
                 >
-                  <div className="w-16 h-16 mx-auto bg-[var(--color-leaf)] rounded-full flex items-center justify-center mb-4 text-[var(--color-forest)] shadow-md">
+                  <div className="w-16 h-16 mx-auto bg-[var(--color-secondary)] rounded-full flex items-center justify-center mb-4 text-[var(--color-primary)] shadow-md">
                     <Icon className="w-8 h-8" />
                   </div>
-                  <h3 className="text-xl font-semibold text-[var(--color-forest)] mb-2">{step.name}</h3>
+                  <h3 className="text-xl font-semibold text-[var(--color-primary)] mb-2">{step.name}</h3>
                   <p className="text-gray-600 text-sm">{step.description}</p>
                   
                   {/* Step number indicator */}
-                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-[var(--color-earth)] rounded-full flex items-center justify-center text-white font-bold border-2 border-white">
+                  <div className="absolute -top-3 -right-3 w-8 h-8 bg-[var(--color-accent)] rounded-full flex items-center justify-center text-white font-bold border-2 border-white">
                     {step.id}
                   </div>
                 </motion.div>

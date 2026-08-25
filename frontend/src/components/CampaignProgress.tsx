@@ -6,10 +6,10 @@ export default function CampaignProgress() {
   return (
     <div className="bg-white rounded-3xl p-8 sm:p-12 shadow-sm border border-gray-100 max-w-4xl mx-auto my-16 relative overflow-hidden">
       {/* Decorative background circle */}
-      <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[var(--color-leaf)]/10 rounded-full blur-3xl pointer-events-none"></div>
+      <div className="absolute top-0 right-0 -mr-16 -mt-16 w-64 h-64 bg-[var(--color-secondary)]/10 rounded-full blur-3xl pointer-events-none"></div>
 
       <div className="text-center mb-10 relative z-10">
-        <h2 className="text-3xl font-bold text-[var(--color-forest)] mb-4">
+        <h2 className="text-3xl font-bold text-[var(--color-primary)] mb-4">
           Monsoon Relief Progress
         </h2>
         <p className="text-gray-600 text-lg">
@@ -20,7 +20,7 @@ export default function CampaignProgress() {
       <div className="relative z-10">
         <div className="flex justify-between items-end mb-3">
           <div>
-            <span className="text-4xl font-extrabold text-[var(--color-forest)]">{achieved}</span>
+            <span className="text-4xl font-extrabold text-[var(--color-primary)]">{achieved}</span>
             <span className="text-gray-500 font-medium ml-2">Roofs Insulated</span>
           </div>
           <div className="text-right">
@@ -31,7 +31,7 @@ export default function CampaignProgress() {
         {/* Progress Bar */}
         <div className="w-full h-6 bg-gray-100 rounded-full overflow-hidden shadow-inner p-1">
           <div 
-            className="h-full bg-gradient-to-r from-[var(--color-leaf)] to-[var(--color-forest)] rounded-full relative"
+            className="h-full bg-gradient-to-r from-[var(--color-secondary)] to-[var(--color-primary)] rounded-full relative"
             style={{ width: `${percentage}%` }}
           >
             {/* Sparkle effect on progress */}
@@ -40,7 +40,7 @@ export default function CampaignProgress() {
         </div>
         
         <div className="mt-4 text-center">
-          <span className="inline-block bg-[var(--color-earth)]/20 text-[var(--color-earth)] font-bold px-4 py-1 rounded-full text-sm">
+          <span className="inline-block bg-[var(--color-accent)]/20 text-[var(--color-accent)] font-bold px-4 py-1 rounded-full text-sm">
             {percentage}% Funded — Thank you!
           </span>
         </div>

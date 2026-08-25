@@ -36,9 +36,9 @@ export default function SortGame() {
     <div className="bg-sky-50 rounded-3xl p-8 max-w-4xl mx-auto shadow-sm border border-sky-100 text-center relative overflow-hidden">
       {!isPlaying && !isGameOver && (
         <div className="absolute inset-0 bg-white/90 z-20 flex flex-col items-center justify-center p-8 backdrop-blur-sm">
-          <h2 className="text-4xl font-extrabold text-[var(--color-forest)] mb-4">Sort at the Source</h2>
+          <h2 className="text-4xl font-extrabold text-[var(--color-primary)] mb-4">Sort at the Source</h2>
           <p className="text-lg text-gray-700 mb-8 max-w-md">Drag the falling plastic items into the correct recycling bins before time runs out!</p>
-          <button onClick={startGame} className="bg-[var(--color-forest)] text-white px-8 py-4 rounded-full font-bold text-xl hover:bg-[var(--color-leaf)] hover:scale-105 transition-all shadow-lg">
+          <button onClick={startGame} className="bg-[var(--color-primary)] text-white px-8 py-4 rounded-full font-bold text-xl hover:bg-[var(--color-secondary)] hover:scale-105 transition-all shadow-lg">
             Start Game
           </button>
         </div>
@@ -46,8 +46,8 @@ export default function SortGame() {
 
       {isGameOver && (
         <div className="absolute inset-0 bg-white/95 z-20 flex flex-col items-center justify-center p-8">
-          <h2 className="text-4xl font-extrabold text-[var(--color-forest)] mb-2">Game Over!</h2>
-          <p className="text-2xl font-bold text-[var(--color-leaf)] mb-8">Final Score: {score}</p>
+          <h2 className="text-4xl font-extrabold text-[var(--color-primary)] mb-2">Game Over!</h2>
+          <p className="text-2xl font-bold text-[var(--color-secondary)] mb-8">Final Score: {score}</p>
           
           <div className="bg-orange-50 border-2 border-orange-200 p-6 rounded-2xl max-w-sm mb-8">
             <h3 className="font-bold text-orange-800 mb-2">🏆 Paramendo Eco-Champion</h3>
@@ -62,7 +62,7 @@ export default function SortGame() {
       )}
 
       <div className="flex justify-between items-center mb-8 px-4">
-        <div className="text-2xl font-bold text-[var(--color-forest)]">Score: {score}</div>
+        <div className="text-2xl font-bold text-[var(--color-primary)]">Score: {score}</div>
         <div className="text-2xl font-bold text-red-500">{timeLeft}s</div>
       </div>
 

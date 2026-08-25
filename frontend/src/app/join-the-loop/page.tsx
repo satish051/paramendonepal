@@ -7,9 +7,9 @@ export const metadata = {
 export default function JoinLoopPage() {
   return (
     <div className="min-h-screen flex flex-col">
-      <div className="bg-[var(--color-forest)] text-white py-16 text-center">
+      <div className="bg-[var(--color-accent)] text-white py-16 text-center">
         <h1 className="text-4xl font-extrabold mb-4">Community Collection Map</h1>
-        <p className="text-[var(--color-offwhite)]/80 max-w-2xl mx-auto">
+        <p className="text-gray-300 max-w-2xl mx-auto">
           Find your nearest collection point in Dhading or register your school/business to host a plastic drive.
         </p>
       </div>
@@ -20,9 +20,9 @@ export default function JoinLoopPage() {
           <h2 className="font-bold text-xl text-gray-900 mb-6">Active Points</h2>
           
           <div className="space-y-4 mb-8">
-            <div className="bg-gray-50 border border-gray-200 p-4 rounded-xl cursor-pointer hover:border-[var(--color-leaf)]">
+            <div className="bg-gray-50 border border-gray-200 p-4 rounded-xl cursor-pointer hover:border-[var(--color-secondary)]">
               <div className="flex items-start">
-                <MapPin className="w-5 h-5 text-[var(--color-leaf)] mr-3 mt-0.5" />
+                <MapPin className="w-5 h-5 text-[var(--color-secondary)] mr-3 mt-0.5" />
                 <div>
                   <h3 className="font-bold text-gray-900">Ree Central CRC</h3>
                   <p className="text-sm text-gray-500">Main Processing Facility</p>
@@ -31,7 +31,7 @@ export default function JoinLoopPage() {
               </div>
             </div>
             
-            <div className="bg-gray-50 border border-gray-200 p-4 rounded-xl cursor-pointer hover:border-[var(--color-leaf)]">
+            <div className="bg-gray-50 border border-gray-200 p-4 rounded-xl cursor-pointer hover:border-[var(--color-secondary)]">
               <div className="flex items-start">
                 <Users className="w-5 h-5 text-blue-500 mr-3 mt-0.5" />
                 <div>
@@ -43,10 +43,10 @@ export default function JoinLoopPage() {
             </div>
           </div>
 
-          <div className="bg-[var(--color-offwhite)] p-6 rounded-2xl border border-gray-100">
+          <div className="bg-[var(--color-surface)] p-6 rounded-2xl border border-gray-100">
             <h3 className="font-bold text-gray-900 mb-2">Want to collect?</h3>
             <p className="text-sm text-gray-600 mb-4">Register your community group to become an official partner.</p>
-            <button className="w-full bg-[var(--color-forest)] text-white py-3 rounded-lg font-bold text-sm hover:bg-opacity-90">
+            <button className="w-full bg-[var(--color-accent)] text-white py-3 rounded-lg font-bold text-sm hover:bg-opacity-90">
               Host a Plastic Drive
             </button>
           </div>
@@ -63,7 +63,7 @@ export default function JoinLoopPage() {
           </div>
           
           {/* Mock Map Pins */}
-          <div className="absolute top-1/3 left-1/3 w-6 h-6 bg-[var(--color-forest)] rounded-full border-4 border-white shadow-lg animate-bounce"></div>
+          <div className="absolute top-1/3 left-1/3 w-6 h-6 bg-[var(--color-accent)] rounded-full border-4 border-white shadow-lg animate-bounce"></div>
           <div className="absolute top-1/2 left-2/3 w-5 h-5 bg-blue-500 rounded-full border-4 border-white shadow-lg"></div>
         </div>
       </div>

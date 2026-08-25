@@ -32,13 +32,13 @@ export default function TileCalculator() {
   }).toString();
 
   return (
-    <div className="bg-white rounded-3xl shadow-lg border border-[var(--color-leaf)]/20 overflow-hidden">
-      <div className="bg-[var(--color-forest)] text-[var(--color-offwhite)] p-6 sm:p-8">
+    <div className="bg-white rounded-3xl shadow-lg border border-[var(--color-secondary)]/20 overflow-hidden">
+      <div className="bg-[var(--color-primary)] text-[var(--color-surface)] p-6 sm:p-8">
         <div className="flex items-center space-x-3 mb-2">
-          <Calculator className="w-8 h-8 text-[var(--color-leaf)]" />
+          <Calculator className="w-8 h-8 text-[var(--color-secondary)]" />
           <h2 className="text-2xl font-bold text-white">Impact & Material Estimator</h2>
         </div>
-        <p className="text-[var(--color-offwhite)]/80">
+        <p className="text-gray-300">
           Calculate your material needs and see your positive environmental impact.
         </p>
       </div>
@@ -54,8 +54,8 @@ export default function TileCalculator() {
                 onClick={() => setApplication("Flooring")}
                 className={`py-3 px-4 rounded-xl text-sm font-semibold border-2 transition-all ${
                   application === "Flooring"
-                    ? "border-[var(--color-forest)] bg-[var(--color-forest)] text-white"
-                    : "border-gray-200 text-gray-600 hover:border-[var(--color-leaf)]"
+                    ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-white"
+                    : "border-gray-200 text-gray-600 hover:border-[var(--color-secondary)]"
                 }`}
               >
                 Flooring (PP Tiles)
@@ -65,8 +65,8 @@ export default function TileCalculator() {
                 onClick={() => setApplication("Roofing")}
                 className={`py-3 px-4 rounded-xl text-sm font-semibold border-2 transition-all ${
                   application === "Roofing"
-                    ? "border-[var(--color-forest)] bg-[var(--color-forest)] text-white"
-                    : "border-gray-200 text-gray-600 hover:border-[var(--color-leaf)]"
+                    ? "border-[var(--color-primary)] bg-[var(--color-primary)] text-white"
+                    : "border-gray-200 text-gray-600 hover:border-[var(--color-secondary)]"
                 }`}
               >
                 Roofing (LDPE)
@@ -76,7 +76,7 @@ export default function TileCalculator() {
 
           <div>
             <label htmlFor="area" className="block text-sm font-medium text-gray-700 mb-2">Total Surface Area</label>
-            <div className="flex shadow-sm rounded-xl overflow-hidden border border-gray-300 focus-within:ring-2 focus-within:ring-[var(--color-leaf)] focus-within:border-transparent transition-shadow">
+            <div className="flex shadow-sm rounded-xl overflow-hidden border border-gray-300 focus-within:ring-2 focus-within:ring-[var(--color-secondary)] focus-within:border-transparent transition-shadow">
               <input
                 type="number"
                 id="area"
@@ -99,7 +99,7 @@ export default function TileCalculator() {
         </div>
 
         {/* Results */}
-        <div className="bg-[var(--color-offwhite)] rounded-2xl p-6 border border-gray-100 flex flex-col justify-center">
+        <div className="bg-[var(--color-surface)] rounded-2xl p-6 border border-gray-100 flex flex-col justify-center">
           {area === "" || area <= 0 ? (
             <div className="text-center text-gray-400">
               <Calculator className="w-12 h-12 mx-auto mb-4 opacity-50" />
@@ -110,7 +110,7 @@ export default function TileCalculator() {
               <div className="flex justify-between items-end border-b border-gray-200 pb-4">
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Materials Needed</p>
-                  <p className="text-3xl font-bold text-[var(--color-forest)]">
+                  <p className="text-3xl font-bold text-[var(--color-primary)]">
                     {tilesNeeded.toLocaleString()} <span className="text-lg font-medium text-gray-600">units</span>
                   </p>
                 </div>
@@ -119,7 +119,7 @@ export default function TileCalculator() {
               <div className="flex justify-between items-end border-b border-gray-200 pb-4">
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Estimated Cost</p>
-                  <p className="text-3xl font-bold text-[var(--color-forest)]">
+                  <p className="text-3xl font-bold text-[var(--color-primary)]">
                     <span className="text-lg font-medium text-gray-600 mr-1">NPR</span>
                     ~{estimatedCost}
                   </p>
@@ -129,27 +129,27 @@ export default function TileCalculator() {
               <div className="flex justify-between items-end border-b border-gray-200 pb-4">
                 <div>
                   <p className="text-sm text-gray-500 mb-1">Est. Completion Time</p>
-                  <p className="text-3xl font-bold text-[var(--color-forest)]">
+                  <p className="text-3xl font-bold text-[var(--color-primary)]">
                     {Math.max(1, Math.ceil(areaInSqFt / 250))} <span className="text-lg font-medium text-gray-600">days</span>
                   </p>
                 </div>
               </div>
 
-              <div className="bg-white p-4 rounded-xl border border-[var(--color-leaf)]/30 shadow-sm flex items-start space-x-4">
-                <div className="bg-[var(--color-leaf)]/20 p-2 rounded-full flex-shrink-0">
-                  <Leaf className="w-6 h-6 text-[var(--color-forest)]" />
+              <div className="bg-white p-4 rounded-xl border border-[var(--color-secondary)]/30 shadow-sm flex items-start space-x-4">
+                <div className="bg-[var(--color-secondary)]/20 p-2 rounded-full flex-shrink-0">
+                  <Leaf className="w-6 h-6 text-[var(--color-primary)]" />
                 </div>
                 <div>
-                  <p className="text-sm font-bold text-[var(--color-forest)] mb-1">Environmental Impact</p>
+                  <p className="text-sm font-bold text-[var(--color-primary)] mb-1">Environmental Impact</p>
                   <p className="text-sm text-gray-600">
-                    This project will divert approx. <span className="font-bold text-[var(--color-forest)]">{plasticRepurposed} kg</span> of plastic waste from landfills and nature.
+                    This project will divert approx. <span className="font-bold text-[var(--color-primary)]">{plasticRepurposed} kg</span> of plastic waste from landfills and nature.
                   </p>
                 </div>
               </div>
 
               <Link
                 href={`/contact?${queryParams}`}
-                className="w-full flex items-center justify-center bg-[var(--color-forest)] text-white px-6 py-4 rounded-xl font-bold hover:bg-opacity-90 transition-all shadow-md group"
+                className="w-full flex items-center justify-center bg-[var(--color-primary)] text-white px-6 py-4 rounded-xl font-bold hover:bg-opacity-90 transition-all shadow-md group"
               >
                 Request Official Quote
                 <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />

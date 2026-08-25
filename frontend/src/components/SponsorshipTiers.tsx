@@ -44,40 +44,40 @@ export default function SponsorshipTiers() {
               onClick={() => setSelectedTier(tier.id)}
               className={`relative cursor-pointer rounded-3xl p-8 border-2 transition-all duration-200 flex flex-col h-full ${
                 isSelected 
-                  ? "border-[var(--color-forest)] bg-[var(--color-forest)]/5 shadow-md scale-105" 
-                  : "border-gray-200 bg-white hover:border-[var(--color-leaf)] hover:shadow-sm"
+                  ? "border-[var(--color-primary)] bg-[var(--color-primary)]/5 shadow-md scale-105" 
+                  : "border-gray-200 bg-white hover:border-[var(--color-secondary)] hover:shadow-sm"
               }`}
             >
               {tier.popular && (
-                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[var(--color-earth)] text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">
+                <div className="absolute -top-4 left-1/2 -translate-x-1/2 bg-[var(--color-accent)] text-white text-xs font-bold px-4 py-1 rounded-full uppercase tracking-wider">
                   Most Popular
                 </div>
               )}
               
               <div className="flex justify-between items-start mb-6">
-                <div className={`p-4 rounded-2xl ${isSelected ? "bg-[var(--color-forest)] text-white" : "bg-gray-100 text-gray-500"}`}>
+                <div className={`p-4 rounded-2xl ${isSelected ? "bg-[var(--color-primary)] text-white" : "bg-gray-100 text-gray-500"}`}>
                   <Icon className="w-8 h-8" />
                 </div>
                 <div className="text-right">
-                  <span className={`text-3xl font-extrabold ${isSelected ? "text-[var(--color-forest)]" : "text-gray-900"}`}>
+                  <span className={`text-3xl font-extrabold ${isSelected ? "text-[var(--color-primary)]" : "text-gray-900"}`}>
                     ${tier.amount}
                   </span>
                   <span className="block text-xs text-gray-500 uppercase tracking-wider font-semibold">USD</span>
                 </div>
               </div>
               
-              <h3 className={`text-xl font-bold mb-3 ${isSelected ? "text-[var(--color-forest)]" : "text-gray-900"}`}>
+              <h3 className={`text-xl font-bold mb-3 ${isSelected ? "text-[var(--color-primary)]" : "text-gray-900"}`}>
                 {tier.name}
               </h3>
               
-              <p className={`text-sm leading-relaxed mb-8 flex-grow ${isSelected ? "text-[var(--color-forest)]/80" : "text-gray-600"}`}>
+              <p className={`text-sm leading-relaxed mb-8 flex-grow ${isSelected ? "text-[var(--color-primary)]/80" : "text-gray-600"}`}>
                 {tier.description}
               </p>
               
               <button 
                 className={`w-full py-4 rounded-xl font-bold transition-colors flex items-center justify-center ${
                   isSelected 
-                    ? "bg-[var(--color-forest)] text-white shadow-md hover:bg-opacity-90" 
+                    ? "bg-[var(--color-primary)] text-white shadow-md hover:bg-opacity-90" 
                     : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                 }`}
               >

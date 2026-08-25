@@ -11,13 +11,13 @@ export default function CommunityPage() {
   return (
     <div className="min-h-screen">
       {/* Community Hero */}
-      <section className="bg-[var(--color-forest)] py-20 text-center relative overflow-hidden">
+      <section className="bg-[var(--color-accent)] py-20 text-center relative overflow-hidden">
         <div className="absolute inset-0 bg-black/20" />
         <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <h1 className="text-4xl sm:text-5xl font-extrabold text-white tracking-tight mb-6">
             Human Impact First
           </h1>
-          <p className="text-xl text-[var(--color-offwhite)]/90 mb-10">
+          <p className="text-xl text-gray-200 mb-10">
             Behind every upcycled tile and roofing sheet is a story of community resilience and green job creation in rural Nepal.
           </p>
           <Link 

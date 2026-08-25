@@ -86,8 +86,8 @@ export default function LanguageToggle() {
             <button
               key={lang.code}
               onClick={() => changeLanguage(lang)}
-              className={`w-full text-left px-4 py-3 text-sm transition-colors hover:bg-[var(--color-leaf)] hover:text-[var(--color-forest)] font-medium ${
-                currentLang.code === lang.code ? "bg-gray-50 text-[var(--color-forest)] font-bold" : "text-gray-700"
+              className={`w-full text-left px-4 py-3 text-sm transition-colors hover:bg-[var(--color-secondary)] hover:text-[var(--color-primary)] font-medium ${
+                currentLang.code === lang.code ? "bg-gray-50 text-[var(--color-primary)] font-bold" : "text-gray-700"
               }`}
             >
               {lang.name}
