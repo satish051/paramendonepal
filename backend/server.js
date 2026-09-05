@@ -26,21 +26,24 @@ app.use('/uploads', express.static(path.join(__dirname, '../uploads')));
 app.use('/api', apiRoutes);
 app.use('/api/upload', uploadRoutes);
 
-// Serve frontend in production
-if (process.env.NODE_ENV === 'production') {
-  // Serve static files from the React app
+// Serve frontend in production (only for standalone Node server, not Vercel)
+if (process.env.NODE_ENV === 'production' && !process.env.VERCEL) {
   app.use(express.static(path.join(__dirname, '../dist')));
-
-  // All other GET requests not handled before will return the React app
   app.get('*', (req, res) => {
     res.sendFile(path.join(__dirname, '../dist', 'index.html'));
   });
-} else {
+} else if (!process.env.VERCEL) {
   app.get('/', (req, res) => {
     res.send('API is running. In development, frontend is served by Vite on port 5173.');
   });
 }
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// Only start listening when not running as a Vercel serverless function
+if (!process.env.VERCEL) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+export default app;
+
