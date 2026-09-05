@@ -25,7 +25,7 @@ const ManageContent = () => {
     .then(() => alert('Content updated successfully!'));
   };
 
-  const handleNestedChange = (section: string, field: string, value: string) => {
+  const handleNestedChange = (section: string, field: string, value: any) => {
     setContent((prev: any) => ({
       ...prev,
       [section]: {

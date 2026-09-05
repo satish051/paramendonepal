@@ -18,15 +18,11 @@ const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isLangOpen, setIsLangOpen] = useState(false);
   const [isMobileLangOpen, setIsMobileLangOpen] = useState(false);
-  const [isInitiativesOpen, setIsInitiativesOpen] = useState(false);
-  const [isMobileInitiativesOpen, setIsMobileInitiativesOpen] = useState(false);
   const [currentLangCode, setCurrentLangCode] = useState('en');
   const [isScrolled, setIsScrolled] = useState(false);
   const location = useLocation();
   const langDropdownRef = useRef<HTMLDivElement>(null);
   const mobileLangDropdownRef = useRef<HTMLDivElement>(null);
-  const initiativesDropdownRef = useRef<HTMLDivElement>(null);
-  const mobileInitiativesDropdownRef = useRef<HTMLDivElement>(null);
   const { theme, toggleTheme } = useTheme();
 
   const navLinks = [
@@ -77,12 +73,7 @@ const Navbar = () => {
       if (mobileLangDropdownRef.current && !mobileLangDropdownRef.current.contains(event.target as Node)) {
         setIsMobileLangOpen(false);
       }
-      if (initiativesDropdownRef.current && !initiativesDropdownRef.current.contains(event.target as Node)) {
-        setIsInitiativesOpen(false);
-      }
-      if (mobileInitiativesDropdownRef.current && !mobileInitiativesDropdownRef.current.contains(event.target as Node)) {
-        setIsMobileInitiativesOpen(false);
-      }
+
     };
     document.addEventListener('mousedown', handleClickOutside);
     return () => document.removeEventListener('mousedown', handleClickOutside);

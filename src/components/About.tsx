@@ -1,6 +1,5 @@
-import { Leaf, Mountain, ArrowRight, Shield, Zap, Globe, Cpu, Network, PenTool, Store } from 'lucide-react';
+import { Mountain, Shield, Zap, Globe, Cpu, Network, PenTool, Store } from 'lucide-react';
 import { motion } from 'framer-motion';
-
 const About = () => {
   return (
     <div className="bg-white dark:bg-slate-950 transition-colors duration-300">

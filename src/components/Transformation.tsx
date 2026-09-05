@@ -1,11 +1,11 @@
-import React, { useState, useRef, useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import { motion, useScroll, useTransform } from 'framer-motion';
 import { ArrowLeftRight } from 'lucide-react';
 
 const Transformation = () => {
   const [sliderPosition, setSliderPosition] = useState(50);
   const [isDragging, setIsDragging] = useState(false);
-  const containerRef = useRef(null);
+  const containerRef = useRef<HTMLDivElement>(null);
   
   const [content, setContent] = useState({
     title: "The Transformation",
@@ -28,7 +28,7 @@ const Transformation = () => {
       .catch(console.error);
   }, []);
 
-  const handleMove = (clientX) => {
+  const handleMove = (clientX: number) => {
     if (containerRef.current) {
       const rect = containerRef.current.getBoundingClientRect();
       const x = Math.max(0, Math.min(clientX - rect.left, rect.width));
@@ -37,17 +37,16 @@ const Transformation = () => {
     }
   };
 
-  const handleMouseMove = (e) => {
+  const handleMouseMove = (e: MouseEvent) => {
     if (!isDragging) return;
     handleMove(e.clientX);
   };
 
-  const handleTouchMove = (e) => {
+  const handleTouchMove = (e: TouchEvent) => {
     if (!isDragging) return;
     handleMove(e.touches[0].clientX);
   };
 
-  const handleInteractionStart = () => setIsDragging(true);
   const handleInteractionEnd = () => setIsDragging(false);
 
   useEffect(() => {
