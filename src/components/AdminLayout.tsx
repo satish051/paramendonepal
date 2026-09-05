@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, FileText, Settings, MessageSquare, LogOut, Menu, X } from 'lucide-react';
+import { LayoutDashboard, FileText, Settings, MessageSquare, LogOut, Menu, X, Image as ImageIcon } from 'lucide-react';
 import { useState } from 'react';
 
 const AdminLayout = () => {
@@ -14,13 +14,14 @@ const AdminLayout = () => {
 
   const navItems = [
     { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
+    { name: 'Media Gallery', path: '/admin/media', icon: ImageIcon },
     { name: 'Manage Blog', path: '/admin/blog', icon: FileText },
     { name: 'Edit Content', path: '/admin/content', icon: Settings },
     { name: 'Messages', path: '/admin/messages', icon: MessageSquare },
   ];
 
   return (
-    <div className="min-h-screen bg-slate-50 flex">
+    <div className="h-screen overflow-hidden bg-slate-50 flex">
       {/* Mobile sidebar toggle */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 z-50 flex items-center justify-between px-4">
         <div className="flex items-center space-x-3">
@@ -35,10 +36,18 @@ const AdminLayout = () => {
         </button>
       </div>
 
+      {/* Mobile backdrop */}
+      {isSidebarOpen && (
+        <div 
+          className="fixed inset-0 bg-slate-900/50 backdrop-blur-sm z-30 lg:hidden"
+          onClick={() => setIsSidebarOpen(false)}
+        />
+      )}
+
       {/* Sidebar */}
       <div className={`
         fixed inset-y-0 left-0 z-40 w-64 bg-slate-900 text-white transform transition-transform duration-300 ease-in-out
-        lg:translate-x-0 lg:static lg:flex-shrink-0
+        lg:translate-x-0 lg:static lg:flex-shrink-0 shadow-2xl lg:shadow-none
         ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full'}
       `}>
         <div className="h-full flex flex-col">
@@ -62,7 +71,7 @@ const AdminLayout = () => {
                     className={`
                       flex items-center px-3 py-3 rounded-lg transition-colors group
                       ${isActive 
-                        ? 'bg-green-600 text-white' 
+                        ? 'bg-primary-600 text-white' 
                         : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                       }
                     `}

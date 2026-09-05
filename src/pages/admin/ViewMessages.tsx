@@ -39,7 +39,7 @@ const ViewMessages = () => {
                     </span>
                   </td>
                   <td className="px-6 py-4 text-right">
-                    <button className="p-2 text-slate-400 hover:text-green-600 transition-colors mr-2" title="Mark as read">
+                    <button className="p-2 text-slate-400 hover:text-primary-600 transition-colors mr-2" title="Mark as read">
                       <MailOpen size={18} />
                     </button>
                     <button className="p-2 text-slate-400 hover:text-red-600 transition-colors" title="Delete">

@@ -1,11 +1,21 @@
 import Hero from '../components/Hero';
-import VisionMission from '../components/VisionMission';
+import HomeProducts from '../components/HomeProducts';
+import ImpactMetrics from '../components/ImpactMetrics';
+import MediaAndInsights from '../components/MediaAndInsights';
+import SDGCommitment from '../components/SDGCommitment';
+import Transformation from '../components/Transformation';
+import OurPartners from '../components/OurPartners';
 
 const Home = () => {
   return (
     <>
       <Hero />
-      <VisionMission />
+      <ImpactMetrics />
+      <HomeProducts />
+      <OurPartners />
+      <MediaAndInsights />
+      <SDGCommitment />
+      <Transformation />
     </>
   );
 };

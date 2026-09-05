@@ -1,8 +1,7 @@
 import { BrowserRouter as Router, Routes, Route, Outlet } from 'react-router-dom';
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
 import Navbar from './components/Navbar';
 import Footer from './components/Footer';
+import ScrollToTop from './components/ScrollToTop';
 
 // Pages
 import Home from './pages/Home';
@@ -10,6 +9,15 @@ import AboutPage from './pages/AboutPage';
 import WorkPage from './pages/WorkPage';
 import ContactPage from './pages/ContactPage';
 import BlogPage from './pages/BlogPage';
+import SingleBlogPage from './pages/SingleBlogPage';
+import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
+import TermsOfServicePage from './pages/TermsOfServicePage';
+import ProductsPage from './pages/ProductsPage';
+import ServicesPage from './pages/ServicesPage';
+import SponsorARoofPage from './pages/SponsorARoofPage';
+import DataRoomPage from './pages/DataRoomPage';
+import JoinTheLoopPage from './pages/JoinTheLoopPage';
+import CRCPortalPage from './pages/CRCPortalPage';
 
 // Admin Pages
 import AdminLayout from './components/AdminLayout';
@@ -19,6 +27,7 @@ import Dashboard from './pages/admin/Dashboard';
 import ManageBlog from './pages/admin/ManageBlog';
 import ManageContent from './pages/admin/ManageContent';
 import ViewMessages from './pages/admin/ViewMessages';
+import ManageMedia from './pages/admin/ManageMedia';
 
 const MainLayout = () => (
   <div className="flex flex-col min-h-screen font-sans">
@@ -31,23 +40,26 @@ const MainLayout = () => (
 );
 
 function App() {
-  const { i18n } = useTranslation();
-
-  useEffect(() => {
-    document.documentElement.dir = i18n.language === 'ar' ? 'rtl' : 'ltr';
-    document.documentElement.lang = i18n.language;
-  }, [i18n.language]);
-
   return (
     <Router>
+      <ScrollToTop />
       <Routes>
         {/* Main Public Site */}
         <Route element={<MainLayout />}>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<AboutPage />} />
+          <Route path="/products" element={<ProductsPage />} />
+          <Route path="/services" element={<ServicesPage />} />
+          <Route path="/sponsor-a-roof" element={<SponsorARoofPage />} />
+          <Route path="/transparency" element={<DataRoomPage />} />
+          <Route path="/join-the-loop" element={<JoinTheLoopPage />} />
+          <Route path="/crc-portal" element={<CRCPortalPage />} />
           <Route path="/work" element={<WorkPage />} />
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/blog" element={<BlogPage />} />
+          <Route path="/blog/:id" element={<SingleBlogPage />} />
+          <Route path="/privacy" element={<PrivacyPolicyPage />} />
+          <Route path="/terms" element={<TermsOfServicePage />} />
         </Route>
 
         {/* Admin Login (Public) */}
@@ -59,6 +71,7 @@ function App() {
             <Route index element={<Dashboard />} />
             <Route path="blog" element={<ManageBlog />} />
             <Route path="content" element={<ManageContent />} />
+            <Route path="media" element={<ManageMedia />} />
             <Route path="messages" element={<ViewMessages />} />
           </Route>
         </Route>
