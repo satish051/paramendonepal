@@ -1,0 +1,13 @@
+﻿{
+  "version": 2,
+  "rewrites": [
+    {
+      "source": "/api/(.*)",
+      "destination": "/api"
+    },
+    {
+      "source": "/((?!api/|uploads/|favicon.ico|logo.webp|assets/).*)",
+      "destination": "/index.html"
+    }
+  ]
+}
