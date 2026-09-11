@@ -39,7 +39,12 @@ const MediaAndInsights = () => {
       .then(data => {
         const published = data.filter((b: BlogPost) => b.status === 'Published');
         const sorted = published.sort((a: BlogPost, b: BlogPost) => new Date(b.date).getTime() - new Date(a.date).getTime());
-        setRecentBlogs(sorted.slice(0, 3));
+        
+        // Filter those marked to show on home, or fallback to top 3 newest if none selected
+        const featuredOnHome = sorted.filter((b: any) => b.showOnHome);
+        const toDisplay = featuredOnHome.length > 0 ? featuredOnHome.slice(0, 3) : sorted.slice(0, 3);
+        
+        setRecentBlogs(toDisplay);
         setLoading(false);
       })
       .catch(() => setLoading(false));

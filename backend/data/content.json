@@ -1,0 +1,132 @@
+{
+  "hero": {
+    "title": "Turning Himalayan Plastic Waste into Sustainable Value",
+    "subtitle": "Paramendo Nepal builds community-centric circular economies by upcycling high-density plastics and multi-layered waste into premium recycled boards, structural materials, and eco-friendly products."
+  },
+  "impactMetrics": {
+    "badge": "Verified Impact",
+    "title": "Measurable Change, Real-World Value",
+    "metrics": [
+      {
+        "id": 1,
+        "title": "Plastic Waste Diverted",
+        "value": "10,000+ kg",
+        "description": "Low-value plastics collected across remote high-altitude regions including Ree Village & Ruby Valley."
+      },
+      {
+        "id": 2,
+        "title": "Recycled Polymer Types",
+        "value": "HDPE, PP & MLP",
+        "description": "Upcycling multi-layered and rigid plastics that standard recyclers usually reject."
+      },
+      {
+        "id": 3,
+        "title": "Community Reach",
+        "value": "Mountain Ecosystems",
+        "description": "Local collection models providing income and environmental protection to remote Himalayan villages."
+      }
+    ]
+  },
+  "homeProducts": {
+    "title": "Our Products",
+    "subtitle": "Premium recycled boards, structural materials, and eco-friendly products made from high-density plastics and multi-layered waste.",
+    "products": [
+      {
+        "id": 1,
+        "title": "Recycled HDPE Boards",
+        "description": "Heavy-duty boards designed to replace traditional timber and plywood.",
+        "showOnHome": true,
+        "image": "/uploads/1789105643060-987478653.png"
+      },
+      {
+        "id": 2,
+        "title": "Eco-Friendly Furniture",
+        "description": "Sustainable furniture pieces crafted from upcycled multi-layered plastics.",
+        "showOnHome": true,
+        "image": "/uploads/1789105597144-921569237.png"
+      },
+      {
+        "id": 3,
+        "title": "\"Carry Everest\" Souvenirs",
+        "description": "Premium eco-friendly mountain souvenirs supporting local communities.",
+        "showOnHome": true,
+        "image": "/uploads/1789105609859-306296165.png"
+      }
+    ]
+  },
+  "catalogue": {
+    "title": "Product Catalogue",
+    "subtitle": "Flip through our digital catalogue below to explore technical specifications, material dimensions, and full product line.",
+    "images": [
+      "/catalogue/1.jpg",
+      "/catalogue/2.jpg",
+      "/catalogue/3.jpg",
+      "/catalogue/4.jpg",
+      "/catalogue/5.jpg",
+      "/catalogue/6.jpg"
+    ]
+  },
+  "partners": {
+    "title": "Our Awesome Partners",
+    "subtitle": "Teaming up with incredible organizations to make Nepal cleaner and greener!",
+    "logos": [
+      {
+        "id": 1,
+        "name": "Prarambha",
+        "url": "https://paramendonepal.com/wp-content/uploads/2024/07/images.jpeg"
+      },
+      {
+        "id": 2,
+        "name": "Partner 2",
+        "url": "https://paramendonepal.com/wp-content/uploads/2024/07/2-1.png"
+      },
+      {
+        "id": 3,
+        "name": "Partner 3",
+        "url": "https://paramendonepal.com/wp-content/uploads/2024/07/download-2.png"
+      },
+      {
+        "id": 4,
+        "name": "Partner 4",
+        "url": "https://paramendonepal.com/wp-content/uploads/2024/07/images-1.png"
+      },
+      {
+        "id": 5,
+        "name": "Partner 5",
+        "url": "https://paramendonepal.com/wp-content/uploads/2024/07/images-2.png"
+      }
+    ]
+  },
+  "impactInsights": {
+    "title": "Impact & Insights",
+    "subtitle": "Watch how we are transforming plastic waste into sustainable solutions and building circular economies in remote Himalayan villages. Stay up to date with our newest recycling innovations, community stories, and environmental milestones."
+  },
+  "sdg": {
+    "title": "Our Commitment To UN Sustainable Development Goals",
+    "paragraph1": "Paramendo Nepal activities are focused on adding value to the Triple Bottom Line of 'People, Planet and Prosperity', thereby creating an entity that can truly achieve a Net Positive Impact.",
+    "paragraph2": "With the United Nation's Sustainable Development Goals serving as a guiding light, all our activities have a positive environmental and social impact on individuals and communities across Nepal."
+  },
+  "transformation": {
+    "title": "The Transformation",
+    "subtitle": "Drag the slider to see how shredded plastic waste from Dhading becomes high-grade construction material."
+  },
+  "footer": {
+    "aboutText": "Transforming plastic waste into sustainable solutions. We are dedicated to creating a circular economy that empowers rural communities across Nepal.",
+    "location": "Pulchowk, Lalitpur, Bagmati Province, Nepal",
+    "email1": "contact@paramendonepal.com",
+    "email2": "paramendonepal@gmail.com"
+  },
+  "contact": {
+    "heroTitle": "Join Our Journey Toward a Zero-Waste Future.",
+    "heroSubtitle": "Whether you are an architect looking for sustainable building supplies, a business seeking Extended Producer Responsibility (EPR) solutions, or a consumer choosing eco-friendly products, your partnership turns waste into purpose.",
+    "email1": "contact@paramendonepal.com",
+    "email2": "paramendonepal@gmail.com",
+    "location": "Pulchowk, Lalitpur, Nepal",
+    "mapEmbedUrl": "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2751.1542112464817!2d85.31257827428458!3d27.678515376199098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19edf4545bd3%3A0xe5c043330fc58a7d!2sImpact%20Hub%20Kathmandu!5e1!3m2!1sen!2snp!4v1788077606111!5m2!1sen!2snp",
+    "socialLinks": {
+      "facebook": "https://www.facebook.com/ParamendoNepal",
+      "instagram": "https://www.instagram.com/paramendonepal/",
+      "linkedin": "https://www.linkedin.com/company/paramendo-nepal/"
+    }
+  }
+}

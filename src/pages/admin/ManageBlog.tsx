@@ -1,4 +1,4 @@
-import { Plus, Edit, Trash2, X, Upload, Loader2 } from 'lucide-react';
+import { Plus, Edit, Trash2, X, Upload, Loader2, Home } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const ManageBlog = () => {
@@ -13,7 +13,8 @@ const ManageBlog = () => {
   
   const [formData, setFormData] = useState({ 
     title: '', status: 'Draft', content: '', 
-    excerpt: '', author: '', category: '', image: '', externalLink: '' 
+    excerpt: '', author: '', category: '', image: '', externalLink: '',
+    showOnHome: false
   });
 
   const loadPosts = () => {
@@ -39,15 +40,33 @@ const ManageBlog = () => {
     if (post) {
       setFormData({ 
         title: post.title, status: post.status, content: post.content || '',
-        excerpt: post.excerpt || '', author: post.author || '', category: post.category || '', image: post.image || '', externalLink: post.externalLink || ''
+        excerpt: post.excerpt || '', author: post.author || '', category: post.category || '', image: post.image || '', externalLink: post.externalLink || '',
+        showOnHome: !!post.showOnHome
       });
     } else {
       setFormData({ 
         title: '', status: 'Draft', content: '', 
-        excerpt: '', author: '', category: '', image: '', externalLink: '' 
+        excerpt: '', author: '', category: '', image: '', externalLink: '',
+        showOnHome: false
       });
     }
     setIsModalOpen(true);
+  };
+
+  const handleToggleHome = async (post: any) => {
+    try {
+      const updatedValue = !post.showOnHome;
+      const res = await fetch(`/api/blogs/${post.id}`, {
+        method: 'PUT',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ showOnHome: updatedValue })
+      });
+      if (res.ok) {
+        setPosts(prev => prev.map(p => p.id === post.id ? { ...p, showOnHome: updatedValue } : p));
+      }
+    } catch (err) {
+      console.error('Failed to toggle show on home:', err);
+    }
   };
 
   const handleImageUpload = async (file: File) => {
@@ -135,14 +154,15 @@ const ManageBlog = () => {
                 <th className="px-6 py-4 font-medium">Title</th>
                 <th className="px-6 py-4 font-medium">Date</th>
                 <th className="px-6 py-4 font-medium">Status</th>
+                <th className="px-6 py-4 font-medium">Home Page</th>
                 <th className="px-6 py-4 font-medium text-right">Actions</th>
               </tr>
             </thead>
             <tbody>
               {loading ? (
-                <tr><td colSpan={4} className="text-center py-8 text-slate-500">Loading blogs...</td></tr>
+                <tr><td colSpan={5} className="text-center py-8 text-slate-500">Loading blogs...</td></tr>
               ) : posts.length === 0 ? (
-                <tr><td colSpan={4} className="text-center py-8 text-slate-500">No blog posts found. Create one!</td></tr>
+                <tr><td colSpan={5} className="text-center py-8 text-slate-500">No blog posts found. Create one!</td></tr>
               ) : (
                 posts.map((post) => (
                   <tr key={post.id} className="border-b border-slate-50 hover:bg-slate-50/50 transition-colors">
@@ -154,6 +174,21 @@ const ManageBlog = () => {
                       }`}>
                         {post.status}
                       </span>
+                    </td>
+                    <td className="px-6 py-4">
+                      <button
+                        type="button"
+                        onClick={() => handleToggleHome(post)}
+                        className={`inline-flex items-center gap-1.5 px-3 py-1 rounded-lg text-xs font-semibold border transition-all ${
+                          post.showOnHome
+                            ? 'bg-emerald-50 text-emerald-700 border-emerald-300 hover:bg-emerald-100'
+                            : 'bg-slate-100 text-slate-500 border-slate-200 hover:bg-slate-200'
+                        }`}
+                        title={post.showOnHome ? 'Shown on Homepage. Click to hide.' : 'Not on Homepage. Click to show.'}
+                      >
+                        <Home size={13} className={post.showOnHome ? 'text-emerald-600' : 'text-slate-400'} />
+                        <span>{post.showOnHome ? 'On Home' : 'Off Home'}</span>
+                      </button>
                     </td>
                     <td className="px-6 py-4 text-right">
                       <button onClick={() => openModal(post)} className="p-2 text-slate-400 hover:text-blue-600 transition-colors mr-2">
@@ -214,6 +249,21 @@ const ManageBlog = () => {
                     className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-primary-500 focus:border-primary-500" 
                   />
                 </div>
+              </div>
+
+              {/* Show on Home Page Switch */}
+              <div className="flex items-center gap-3 p-3 bg-slate-50 border border-slate-200 rounded-xl">
+                <input 
+                  type="checkbox" 
+                  id="showOnHomeModal"
+                  checked={formData.showOnHome} 
+                  onChange={e => setFormData({ ...formData, showOnHome: e.target.checked })}
+                  className="w-4 h-4 text-emerald-600 rounded border-slate-300 focus:ring-emerald-500 cursor-pointer"
+                />
+                <label htmlFor="showOnHomeModal" className="text-sm font-medium text-slate-700 cursor-pointer flex items-center gap-1.5">
+                  <Home size={16} className="text-emerald-600" />
+                  <span>Feature this post on the Home Page (&quot;Impact &amp; Insights&quot; section)</span>
+                </label>
               </div>
 
               <div className="grid grid-cols-2 gap-4">

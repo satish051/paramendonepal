@@ -125,7 +125,7 @@ router.get('/blogs/:id', (req, res) => {
 
 // Create a new blog
 router.post('/blogs', (req, res) => {
-  const { title, status, content, excerpt, author, category, image, externalLink } = req.body;
+  const { title, status, content, excerpt, author, category, image, externalLink, showOnHome } = req.body;
   const newBlog = {
     id: nextId++,
     title: title || 'Untitled Blog',
@@ -136,7 +136,8 @@ router.post('/blogs', (req, res) => {
     author: author || 'Admin',
     category: category || 'Uncategorized',
     image: image || 'https://images.pexels.com/photos/1250283/pexels-photo-1250283.jpeg?auto=compress&cs=tinysrgb&w=800',
-    externalLink: externalLink || ''
+    externalLink: externalLink || '',
+    showOnHome: showOnHome !== undefined ? !!showOnHome : false
   };
   blogs.push(newBlog);
   saveData(blogsFilePath, blogs);
