@@ -164,6 +164,18 @@ let siteContent = {
       }
     ]
   },
+  catalogue: {
+    title: "Product Catalogue",
+    subtitle: "Flip through our digital catalogue below to explore technical specifications, material dimensions, and full product line.",
+    images: [
+      '/catalogue/1.jpg',
+      '/catalogue/2.jpg',
+      '/catalogue/3.jpg',
+      '/catalogue/4.jpg',
+      '/catalogue/5.jpg',
+      '/catalogue/6.jpg'
+    ]
+  },
   partners: {
     title: "Our Awesome Partners",
     subtitle: "Teaming up with incredible organizations to make Nepal cleaner and greener!",

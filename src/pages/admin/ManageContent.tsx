@@ -9,7 +9,25 @@ const ManageContent = () => {
     fetch('/api/content')
       .then(res => res.json())
       .then(data => {
-        setContent(data);
+        setContent({
+          ...data,
+          homeProducts: {
+            ...data?.homeProducts,
+            products: data?.homeProducts?.products || []
+          },
+          catalogue: data?.catalogue || {
+            title: "Product Catalogue",
+            subtitle: "Flip through our digital catalogue below to explore technical specifications, material dimensions, and full product line.",
+            images: [
+              '/catalogue/1.jpg',
+              '/catalogue/2.jpg',
+              '/catalogue/3.jpg',
+              '/catalogue/4.jpg',
+              '/catalogue/5.jpg',
+              '/catalogue/6.jpg'
+            ]
+          }
+        });
         setIsLoading(false);
       });
   }, []);
@@ -169,15 +187,154 @@ const ManageContent = () => {
         {/* Our Products Section */}
         <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 max-w-3xl">
           <h2 className="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-100">Our Products</h2>
-          <div className="space-y-4">
+          <div className="space-y-4 mb-6">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
-              <input type="text" value={content.homeProducts.title} onChange={(e) => handleNestedChange('homeProducts', 'title', e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:ring-primary-500 focus:border-primary-500" />
+              <input type="text" value={content.homeProducts?.title || ''} onChange={(e) => handleNestedChange('homeProducts', 'title', e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:ring-primary-500 focus:border-primary-500" />
             </div>
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Subtitle</label>
-              <textarea rows={2} value={content.homeProducts.subtitle} onChange={(e) => handleNestedChange('homeProducts', 'subtitle', e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:ring-primary-500 focus:border-primary-500" />
+              <textarea rows={2} value={content.homeProducts?.subtitle || ''} onChange={(e) => handleNestedChange('homeProducts', 'subtitle', e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:ring-primary-500 focus:border-primary-500" />
             </div>
+          </div>
+
+          <h3 className="text-md font-semibold text-slate-700 mb-3">Product Items</h3>
+          <div className="space-y-4">
+            {content.homeProducts?.products?.map((product: any, index: number) => (
+              <div key={product.id || index} className="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-3">
+                <div className="flex justify-between items-center">
+                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Product #{index + 1}</span>
+                  <button 
+                    type="button" 
+                    onClick={() => {
+                      const newProducts = content.homeProducts.products.filter((_: any, i: number) => i !== index);
+                      handleNestedChange('homeProducts', 'products', newProducts);
+                    }}
+                    className="px-2.5 py-1 bg-red-100 text-red-600 rounded text-xs font-medium hover:bg-red-200 transition-colors"
+                  >
+                    Remove
+                  </button>
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-600 mb-1">Product Title</label>
+                  <input 
+                    type="text" 
+                    value={product.title || ''} 
+                    onChange={(e) => {
+                      const newProducts = [...(content.homeProducts.products || [])];
+                      newProducts[index] = { ...newProducts[index], title: e.target.value };
+                      handleNestedChange('homeProducts', 'products', newProducts);
+                    }} 
+                    className="w-full px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500" 
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-600 mb-1">Description</label>
+                  <textarea 
+                    rows={2} 
+                    value={product.description || ''} 
+                    onChange={(e) => {
+                      const newProducts = [...(content.homeProducts.products || [])];
+                      newProducts[index] = { ...newProducts[index], description: e.target.value };
+                      handleNestedChange('homeProducts', 'products', newProducts);
+                    }} 
+                    className="w-full px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500" 
+                  />
+                </div>
+                <div>
+                  <label className="block text-xs font-bold text-slate-600 mb-1">Image URL (Optional)</label>
+                  <input 
+                    type="text" 
+                    value={product.image || ''} 
+                    onChange={(e) => {
+                      const newProducts = [...(content.homeProducts.products || [])];
+                      newProducts[index] = { ...newProducts[index], image: e.target.value };
+                      handleNestedChange('homeProducts', 'products', newProducts);
+                    }} 
+                    placeholder="https://... or /catalogue/1.jpg"
+                    className="w-full px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500" 
+                  />
+                </div>
+              </div>
+            ))}
+            <button 
+              type="button"
+              onClick={() => {
+                const newProducts = [
+                  ...(content.homeProducts?.products || []),
+                  { id: Date.now(), title: 'New Product', description: '', image: '' }
+                ];
+                handleNestedChange('homeProducts', 'products', newProducts);
+              }}
+              className="mt-2 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-200 transition-colors border border-slate-200"
+            >
+              + Add Product
+            </button>
+          </div>
+        </div>
+
+        {/* Product Catalogue Section */}
+        <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 max-w-3xl">
+          <h2 className="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-100">Product Catalogue</h2>
+          <div className="space-y-4 mb-6">
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Catalogue Section Title</label>
+              <input 
+                type="text" 
+                value={content.catalogue?.title || ''} 
+                onChange={(e) => handleNestedChange('catalogue', 'title', e.target.value)} 
+                className="w-full px-4 py-2 border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
+              />
+            </div>
+            <div>
+              <label className="block text-sm font-medium text-slate-700 mb-1">Catalogue Subtitle</label>
+              <textarea 
+                rows={2} 
+                value={content.catalogue?.subtitle || ''} 
+                onChange={(e) => handleNestedChange('catalogue', 'subtitle', e.target.value)} 
+                className="w-full px-4 py-2 border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
+              />
+            </div>
+          </div>
+
+          <h3 className="text-md font-semibold text-slate-700 mb-3">Catalogue Pages (Image URLs)</h3>
+          <div className="space-y-3">
+            {content.catalogue?.images?.map((imgUrl: string, index: number) => (
+              <div key={index} className="flex gap-3 items-center bg-slate-50 p-3 rounded-lg border border-slate-200">
+                <span className="text-xs font-bold text-slate-500 w-16 flex-shrink-0">Page {index + 1}</span>
+                <input 
+                  type="text" 
+                  value={imgUrl} 
+                  onChange={(e) => {
+                    const newImages = [...(content.catalogue?.images || [])];
+                    newImages[index] = e.target.value;
+                    handleNestedChange('catalogue', 'images', newImages);
+                  }} 
+                  placeholder="/catalogue/1.jpg or image URL"
+                  className="flex-1 px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500" 
+                />
+                <button 
+                  type="button" 
+                  onClick={() => {
+                    const newImages = content.catalogue.images.filter((_: any, i: number) => i !== index);
+                    handleNestedChange('catalogue', 'images', newImages);
+                  }}
+                  className="px-3 py-1.5 bg-red-100 text-red-600 rounded text-sm hover:bg-red-200 transition-colors flex-shrink-0"
+                >
+                  Remove
+                </button>
+              </div>
+            ))}
+            <button 
+              type="button"
+              onClick={() => {
+                const newImages = [...(content.catalogue?.images || []), ''];
+                handleNestedChange('catalogue', 'images', newImages);
+              }}
+              className="mt-2 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-200 transition-colors border border-slate-200"
+            >
+              + Add Catalogue Page
+            </button>
           </div>
         </div>
 
