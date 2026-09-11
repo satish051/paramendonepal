@@ -18,6 +18,7 @@ import SponsorARoofPage from './pages/SponsorARoofPage';
 import DataRoomPage from './pages/DataRoomPage';
 import JoinTheLoopPage from './pages/JoinTheLoopPage';
 import CRCPortalPage from './pages/CRCPortalPage';
+import MediaKitPage from './pages/MediaKitPage';
 
 // Admin Pages
 import AdminLayout from './components/AdminLayout';
@@ -60,6 +61,8 @@ function App() {
           <Route path="/contact" element={<ContactPage />} />
           <Route path="/blog" element={<BlogPage />} />
           <Route path="/blog/:id" element={<SingleBlogPage />} />
+          <Route path="/media" element={<MediaKitPage />} />
+          <Route path="/media-kit" element={<MediaKitPage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="/terms" element={<TermsOfServicePage />} />
         </Route>

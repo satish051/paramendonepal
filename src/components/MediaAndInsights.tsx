@@ -72,9 +72,9 @@ const MediaAndInsights = () => {
               <Link to="/products" className="inline-flex items-center justify-center px-6 py-3 bg-secondary-600 hover:bg-secondary-700 text-white rounded-full transition-colors font-medium">
                 View Product Catalogue
               </Link>
-              <a href="https://docs.google.com/document/d/1Cc2TJQ5bW9kBvsW-0IsrJpRBcW5tUIkjP-7sHYviBZY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-6 py-3 border border-slate-300 dark:border-slate-700 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors font-medium">
+              <Link to="/media" target="_blank" rel="noopener noreferrer" className="inline-flex items-center justify-center px-6 py-3 border border-slate-300 dark:border-slate-700 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors font-medium">
                 View Media Kit
-              </a>
+              </Link>
               <Link to="/blog" className="inline-flex items-center justify-center px-6 py-3 border border-slate-300 dark:border-slate-700 rounded-full text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-900 transition-colors font-medium">
                 Read Latest News
               </Link>

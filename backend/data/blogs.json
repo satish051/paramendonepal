@@ -8,7 +8,8 @@
     "excerpt": "Discover how local communities are driving the new wave of recycling in Nepal.",
     "author": "Paramendo Team",
     "category": "Innovation",
-    "image": "https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=800"
+    "image": "https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=800",
+    "showOnHome": false
   },
   {
     "id": 2,
