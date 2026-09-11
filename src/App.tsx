@@ -29,6 +29,7 @@ import ManageContent from './pages/admin/ManageContent';
 import ViewMessages from './pages/admin/ViewMessages';
 import ManageMedia from './pages/admin/ManageMedia';
 import ManageProducts from './pages/admin/ManageProducts';
+import ManageContact from './pages/admin/ManageContact';
 
 const MainLayout = () => (
   <div className="flex flex-col min-h-screen font-sans">
@@ -71,6 +72,7 @@ function App() {
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
             <Route path="products" element={<ManageProducts />} />
+            <Route path="contact" element={<ManageContact />} />
             <Route path="blog" element={<ManageBlog />} />
             <Route path="content" element={<ManageContent />} />
             <Route path="media" element={<ManageMedia />} />

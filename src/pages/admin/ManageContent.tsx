@@ -1,4 +1,4 @@
-import { Save, CheckCircle2, AlertCircle, Loader2, Package, ArrowUpRight } from 'lucide-react';
+import { Save, CheckCircle2, AlertCircle, Loader2, Package, ArrowUpRight, PhoneCall } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -279,109 +279,27 @@ const ManageContent = () => {
           </div>
         </div>
 
-        {/* Contact Us & Social Links Section */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 max-w-3xl">
-          <h2 className="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-100">Contact Us & Social Links</h2>
-          
-          <div className="space-y-4 mb-6">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Contact Page Header</h3>
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Header Title</label>
-              <input 
-                type="text" 
-                value={content.contact?.heroTitle || ''} 
-                onChange={(e) => handleNestedChange('contact', 'heroTitle', e.target.value)} 
-                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
-                placeholder="Join Our Journey Toward a Zero-Waste Future."
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Header Subtitle</label>
-              <textarea 
-                rows={2} 
-                value={content.contact?.heroSubtitle || ''} 
-                onChange={(e) => handleNestedChange('contact', 'heroSubtitle', e.target.value)} 
-                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
-              />
-            </div>
-          </div>
-
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 pt-2 border-t border-slate-100">
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Primary Email</label>
-              <input 
-                type="email" 
-                value={content.contact?.email1 || ''} 
-                onChange={(e) => handleNestedChange('contact', 'email1', e.target.value)} 
-                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
-                placeholder="contact@paramendonepal.com"
-              />
-            </div>
-            <div>
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Secondary Email</label>
-              <input 
-                type="email" 
-                value={content.contact?.email2 || ''} 
-                onChange={(e) => handleNestedChange('contact', 'email2', e.target.value)} 
-                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
-                placeholder="paramendonepal@gmail.com"
-              />
-            </div>
-            <div className="sm:col-span-2">
-              <label className="block text-xs font-semibold text-slate-600 mb-1">Location / Address</label>
-              <input 
-                type="text" 
-                value={content.contact?.location || ''} 
-                onChange={(e) => handleNestedChange('contact', 'location', e.target.value)} 
-                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
-                placeholder="Pulchowk, Lalitpur, Nepal"
-              />
-            </div>
-          </div>
-
-          <div className="space-y-4 pt-2 border-t border-slate-100">
-            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Follow Our Journey - Social Links</h3>
-            <div className="space-y-3">
-              <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Facebook URL</label>
-                <input 
-                  type="url" 
-                  value={content.contact?.socialLinks?.facebook || ''} 
-                  onChange={(e) => {
-                    const updated = { ...(content.contact?.socialLinks || {}), facebook: e.target.value };
-                    handleNestedChange('contact', 'socialLinks', updated);
-                  }} 
-                  className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
-                  placeholder="https://www.facebook.com/ParamendoNepal"
-                />
+        {/* Contact Page Shortcut Notice */}
+        <div className="bg-gradient-to-r from-blue-50 to-indigo-50 border border-blue-200 rounded-2xl p-6 max-w-3xl shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <div className="p-3 bg-blue-600 text-white rounded-xl shrink-0">
+                <PhoneCall size={24} />
               </div>
               <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">Instagram URL</label>
-                <input 
-                  type="url" 
-                  value={content.contact?.socialLinks?.instagram || ''} 
-                  onChange={(e) => {
-                    const updated = { ...(content.contact?.socialLinks || {}), instagram: e.target.value };
-                    handleNestedChange('contact', 'socialLinks', updated);
-                  }} 
-                  className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
-                  placeholder="https://www.instagram.com/paramendonepal/"
-                />
-              </div>
-              <div>
-                <label className="block text-xs font-semibold text-slate-600 mb-1">LinkedIn URL</label>
-                <input 
-                  type="url" 
-                  value={content.contact?.socialLinks?.linkedin || ''} 
-                  onChange={(e) => {
-                    const updated = { ...(content.contact?.socialLinks || {}), linkedin: e.target.value };
-                    handleNestedChange('contact', 'socialLinks', updated);
-                  }} 
-                  className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
-                  placeholder="https://www.linkedin.com/company/paramendo-nepal/"
-                />
+                <h3 className="text-base font-bold text-slate-800">Looking to manage Contact Details & Social Links?</h3>
+                <p className="text-slate-600 text-xs mt-1">
+                  Contact information (Emails, Physical Address, Google Map Embed, and Social Media links) has its own dedicated <strong>Contact Page</strong> tab on the left sidebar to prevent double-updates.
+                </p>
               </div>
             </div>
+            <Link
+              to="/admin/contact"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-blue-600 hover:bg-blue-700 text-white text-xs font-bold rounded-xl transition-all shadow-sm shrink-0"
+            >
+              <span>Open Contact Panel</span>
+              <ArrowUpRight size={14} />
+            </Link>
           </div>
         </div>
 

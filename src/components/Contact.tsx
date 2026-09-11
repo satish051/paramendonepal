@@ -7,6 +7,7 @@ const defaultContact = {
   email1: "contact@paramendonepal.com",
   email2: "paramendonepal@gmail.com",
   location: "Pulchowk, Lalitpur, Nepal",
+  mapEmbedUrl: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2751.1542112464817!2d85.31257827428458!3d27.678515376199098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19edf4545bd3%3A0xe5c043330fc58a7d!2sImpact%20Hub%20Kathmandu!5e1!3m2!1sen!2snp!4v1788077606111!5m2!1sen!2snp",
   socialLinks: {
     facebook: "https://www.facebook.com/ParamendoNepal",
     instagram: "https://www.instagram.com/paramendonepal/",
@@ -161,7 +162,7 @@ const Contact = () => {
             {/* Overlay to prevent map scroll trapping until hover/click */}
             <div className="absolute inset-0 bg-slate-900/5 dark:bg-slate-900/20 group-hover:opacity-0 transition-opacity duration-500 pointer-events-none z-10"></div>
             <iframe 
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2751.1542112464817!2d85.31257827428458!3d27.678515376199098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19edf4545bd3%3A0xe5c043330fc58a7d!2sImpact%20Hub%20Kathmandu!5e1!3m2!1sen!2snp!4v1788077606111!5m2!1sen!2snp" 
+              src={contactData.mapEmbedUrl || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2751.1542112464817!2d85.31257827428458!3d27.678515376199098!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x39eb19edf4545bd3%3A0xe5c043330fc58a7d!2sImpact%20Hub%20Kathmandu!5e1!3m2!1sen!2snp!4v1788077606111!5m2!1sen!2snp"} 
               className="w-full h-full grayscale-[20%] group-hover:grayscale-0 transition-all duration-700"
               style={{ border: 0 }} 
               allowFullScreen 

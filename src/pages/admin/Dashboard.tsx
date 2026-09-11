@@ -120,6 +120,13 @@ const Dashboard = () => {
                 </div>
                 <div className="text-xs text-slate-300 mt-0.5">Upload product images (≤2MB) & catalogue (≤10MB)</div>
               </Link>
+              <Link to="/admin/contact" className="block p-3.5 rounded-xl bg-blue-500/10 border border-blue-500/20 hover:bg-blue-500/20 transition-colors group">
+                <div className="flex items-center justify-between font-medium text-blue-400">
+                  <span>Contact Page</span>
+                  <ArrowUpRight size={16} className="text-blue-400 group-hover:text-blue-300 transition-colors" />
+                </div>
+                <div className="text-xs text-slate-300 mt-0.5">Update emails, address, Google Maps & social links</div>
+              </Link>
               <Link to="/admin/blog" className="block p-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors group">
                 <div className="flex items-center justify-between font-medium">
                   <span>Manage Blog</span>

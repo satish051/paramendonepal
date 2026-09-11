@@ -1,5 +1,5 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, FileText, Settings, MessageSquare, LogOut, Menu, X, Image as ImageIcon, ExternalLink, Package } from 'lucide-react';
+import { LayoutDashboard, FileText, Settings, MessageSquare, LogOut, Menu, X, Image as ImageIcon, ExternalLink, Package, PhoneCall } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const AdminLayout = () => {
@@ -27,6 +27,7 @@ const AdminLayout = () => {
   const navItems = [
     { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
     { name: 'Products & Catalogue', path: '/admin/products', icon: Package },
+    { name: 'Contact Page', path: '/admin/contact', icon: PhoneCall },
     { name: 'Media Gallery', path: '/admin/media', icon: ImageIcon },
     { name: 'Manage Blog', path: '/admin/blog', icon: FileText },
     { name: 'Edit Content', path: '/admin/content', icon: Settings },
