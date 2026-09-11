@@ -1,4 +1,4 @@
-import { Plus, Edit, Trash2, X } from 'lucide-react';
+import { Plus, Edit, Trash2, X, Upload, Loader2 } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const ManageBlog = () => {
@@ -8,6 +8,8 @@ const ManageBlog = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<any>(null);
   const [isSaving, setIsSaving] = useState(false);
+  const [isUploadingImage, setIsUploadingImage] = useState(false);
+  const [uploadError, setUploadError] = useState<string | null>(null);
   
   const [formData, setFormData] = useState({ 
     title: '', status: 'Draft', content: '', 
@@ -33,6 +35,7 @@ const ManageBlog = () => {
 
   const openModal = (post: any = null) => {
     setEditingPost(post);
+    setUploadError(null);
     if (post) {
       setFormData({ 
         title: post.title, status: post.status, content: post.content || '',
@@ -45,6 +48,37 @@ const ManageBlog = () => {
       });
     }
     setIsModalOpen(true);
+  };
+
+  const handleImageUpload = async (file: File) => {
+    // 2MB product/blog image limit
+    const MAX_SIZE = 2 * 1024 * 1024;
+    setUploadError(null);
+
+    if (file.size > MAX_SIZE) {
+      setUploadError(`File size (${(file.size / (1024 * 1024)).toFixed(2)} MB) exceeds the 2MB limit.`);
+      return;
+    }
+
+    setIsUploadingImage(true);
+    const body = new FormData();
+    body.append('image', file);
+
+    try {
+      const res = await fetch('/api/upload/product', {
+        method: 'POST',
+        body
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || 'Failed to upload image');
+      }
+      setFormData(prev => ({ ...prev, image: data.url }));
+    } catch (err: any) {
+      setUploadError(err.message || 'Error uploading image');
+    } finally {
+      setIsUploadingImage(false);
+    }
   };
 
   const handleSubmit = (e: React.FormEvent) => {
@@ -204,24 +238,71 @@ const ManageBlog = () => {
                 </div>
               </div>
 
-              <div>
-                <label className="block text-sm font-medium text-slate-700 mb-1">Image URL</label>
-                <input 
-                  type="text" 
-                  value={formData.image} 
-                  onChange={e => setFormData({...formData, image: e.target.value})}
-                  placeholder="https://... or /uploads/..."
-                  className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-primary-500 focus:border-primary-500" 
-                />
-                {formData.image && (
-                  <div className="mt-2 rounded-lg overflow-hidden border border-slate-200 h-28 w-48 bg-slate-100">
-                    <img 
-                      src={formData.image} 
-                      alt="Preview" 
-                      className="w-full h-full object-cover" 
-                      onError={(e: any) => { e.target.style.display = 'none'; }}
+              <div className="space-y-2">
+                <div className="flex items-center justify-between">
+                  <label className="block text-sm font-medium text-slate-700">Cover Image</label>
+                  <span className="text-xs text-slate-500 font-semibold bg-slate-100 px-2 py-0.5 rounded">Max 2MB</span>
+                </div>
+
+                <div className="flex flex-col sm:flex-row gap-3 items-start sm:items-center">
+                  <label className={`inline-flex items-center gap-2 px-4 py-2.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-200 rounded-xl text-sm font-semibold cursor-pointer transition-colors shrink-0 ${isUploadingImage ? 'opacity-50 pointer-events-none' : ''}`}>
+                    {isUploadingImage ? (
+                      <>
+                        <Loader2 size={16} className="animate-spin text-emerald-600" />
+                        <span>Uploading (≤2MB)...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Upload size={16} className="text-emerald-600" />
+                        <span>Upload Image (≤ 2MB)</span>
+                      </>
+                    )}
+                    <input 
+                      type="file" 
+                      accept="image/*" 
+                      className="hidden" 
+                      onChange={e => {
+                        const file = e.target.files?.[0];
+                        if (file) handleImageUpload(file);
+                      }}
                     />
+                  </label>
+
+                  <input 
+                    type="text" 
+                    value={formData.image} 
+                    onChange={e => setFormData({...formData, image: e.target.value})}
+                    placeholder="Or paste image URL (e.g. /uploads/... or https://...)"
+                    className="flex-1 w-full px-4 py-2 border border-slate-300 rounded-xl focus:ring-primary-500 focus:border-primary-500 text-sm" 
+                  />
+                </div>
+
+                {uploadError && (
+                  <p className="text-xs text-rose-600 font-medium">{uploadError}</p>
+                )}
+
+                {formData.image ? (
+                  <div className="mt-2 flex items-center gap-3">
+                    <div className="rounded-xl overflow-hidden border border-slate-200 h-24 w-40 bg-slate-100 shrink-0">
+                      <img 
+                        src={formData.image} 
+                        alt="Preview" 
+                        className="w-full h-full object-cover" 
+                        onError={(e: any) => { e.target.style.display = 'none'; }}
+                      />
+                    </div>
+                    <button
+                      type="button"
+                      onClick={() => setFormData({ ...formData, image: '' })}
+                      className="text-xs text-rose-600 hover:text-rose-700 hover:underline"
+                    >
+                      Remove image
+                    </button>
                   </div>
+                ) : (
+                  <p className="text-xs text-slate-400">
+                    Upload an image directly from your computer or enter an image link. Limit: 2MB.
+                  </p>
                 )}
               </div>
 
