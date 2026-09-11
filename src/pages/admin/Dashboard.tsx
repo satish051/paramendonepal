@@ -1,5 +1,6 @@
-import { FileText, MessageSquare, Eye, TrendingUp, Users, Activity } from 'lucide-react';
+import { FileText, MessageSquare, Eye, TrendingUp, Users, Activity, ArrowUpRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const Dashboard = () => {
   const [statsData, setStatsData] = useState<any[]>([]);
@@ -86,12 +87,18 @@ const Dashboard = () => {
           </p>
           
           <div className="flex flex-wrap gap-4 relative z-10">
-            <button className="px-6 py-2.5 bg-primary-600 text-white font-medium rounded-lg shadow-sm hover:bg-primary-700 transition-colors">
+            <Link 
+              to="/admin/blog" 
+              className="inline-flex items-center px-6 py-2.5 bg-primary-600 text-white font-medium rounded-lg shadow-sm hover:bg-primary-700 transition-colors"
+            >
               Write New Blog Post
-            </button>
-            <button className="px-6 py-2.5 bg-white border border-slate-200 text-slate-700 font-medium rounded-lg shadow-sm hover:bg-slate-50 transition-colors">
+            </Link>
+            <Link 
+              to="/admin/messages" 
+              className="inline-flex items-center px-6 py-2.5 bg-white border border-slate-200 text-slate-700 font-medium rounded-lg shadow-sm hover:bg-slate-50 transition-colors"
+            >
               Review Messages
-            </button>
+            </Link>
           </div>
         </div>
         
@@ -106,14 +113,34 @@ const Dashboard = () => {
             </h3>
             
             <div className="space-y-3">
-              <a href="/admin/blog" className="block p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                <div className="font-medium">Manage Blog</div>
-                <div className="text-sm text-slate-400 mt-1">Publish and edit articles</div>
-              </a>
-              <a href="/admin/content" className="block p-4 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors">
-                <div className="font-medium">Edit Website</div>
-                <div className="text-sm text-slate-400 mt-1">Update text and images</div>
-              </a>
+              <Link to="/admin/products" className="block p-3.5 rounded-xl bg-emerald-500/10 border border-emerald-500/20 hover:bg-emerald-500/20 transition-colors group">
+                <div className="flex items-center justify-between font-medium text-emerald-400">
+                  <span>Products & Catalogue</span>
+                  <ArrowUpRight size={16} className="text-emerald-400 group-hover:text-emerald-300 transition-colors" />
+                </div>
+                <div className="text-xs text-slate-300 mt-0.5">Upload product images (≤2MB) & catalogue (≤10MB)</div>
+              </Link>
+              <Link to="/admin/blog" className="block p-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors group">
+                <div className="flex items-center justify-between font-medium">
+                  <span>Manage Blog</span>
+                  <ArrowUpRight size={16} className="text-slate-400 group-hover:text-white transition-colors" />
+                </div>
+                <div className="text-xs text-slate-400 mt-0.5">Publish and edit articles</div>
+              </Link>
+              <Link to="/admin/content" className="block p-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors group">
+                <div className="flex items-center justify-between font-medium">
+                  <span>Edit Website</span>
+                  <ArrowUpRight size={16} className="text-slate-400 group-hover:text-white transition-colors" />
+                </div>
+                <div className="text-xs text-slate-400 mt-0.5">Update site pages, hero & content</div>
+              </Link>
+              <Link to="/admin/media" className="block p-3.5 rounded-xl bg-white/5 border border-white/10 hover:bg-white/10 transition-colors group">
+                <div className="flex items-center justify-between font-medium">
+                  <span>Media Gallery</span>
+                  <ArrowUpRight size={16} className="text-slate-400 group-hover:text-white transition-colors" />
+                </div>
+                <div className="text-xs text-slate-400 mt-0.5">Upload and copy image URLs</div>
+              </Link>
             </div>
           </div>
         </div>

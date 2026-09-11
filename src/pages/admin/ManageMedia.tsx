@@ -13,14 +13,8 @@ const ManageMedia = () => {
   const [isLoading, setIsLoading] = useState(true);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
-  // You will need to replace this base URL with your actual backend URL in production if different
-  // For dev we proxy or use full url
-  const API_URL = import.meta.env.VITE_API_URL || 'http://localhost:5000/api';
-  const BASE_URL = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace('/api', '') : 'http://localhost:5000';
-
-  useEffect(() => {
-    fetchImages();
-  }, []);
+  const API_URL = import.meta.env.VITE_API_URL || '/api';
+  const BASE_URL = import.meta.env.VITE_API_URL ? import.meta.env.VITE_API_URL.replace(/\/api\/?$/, '') : '';
 
   const fetchImages = async () => {
     try {
@@ -36,6 +30,10 @@ const ManageMedia = () => {
       setIsLoading(false);
     }
   };
+
+  useEffect(() => {
+    fetchImages();
+  }, []);
 
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     if (!e.target.files || e.target.files.length === 0) return;
@@ -84,7 +82,7 @@ const ManageMedia = () => {
   };
 
   const copyToClipboard = (url: string) => {
-    const fullUrl = url.startsWith('http') ? url : `${BASE_URL}${url}`;
+    const fullUrl = url.startsWith('http') ? url : `${window.location.origin}${url}`;
     navigator.clipboard.writeText(fullUrl);
     alert('Image URL copied to clipboard!');
   };

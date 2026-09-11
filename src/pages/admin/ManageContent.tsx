@@ -1,17 +1,27 @@
-import { Save } from 'lucide-react';
+import { Save, CheckCircle2, AlertCircle, Loader2, Upload } from 'lucide-react';
 import { useState, useEffect } from 'react';
 
 const ManageContent = () => {
   const [content, setContent] = useState<any>(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isSaving, setIsSaving] = useState(false);
+  const [saveSuccess, setSaveSuccess] = useState(false);
+  const [saveError, setSaveError] = useState('');
+  const [uploadingIndex, setUploadingIndex] = useState<number | null>(null);
+  const [uploadingCatalogueIndex, setUploadingCatalogueIndex] = useState<number | null>(null);
+  const [isUploadingNewCatalogue, setIsUploadingNewCatalogue] = useState(false);
 
   useEffect(() => {
     fetch('/api/content')
       .then(res => res.json())
       .then(data => {
         setContent({
-          ...data,
+          partners: { title: '', subtitle: '', logos: [], ...data?.partners },
+          hero: { title: '', subtitle: '', ...data?.hero },
+          impactMetrics: { badge: '', title: '', metrics: [], ...data?.impactMetrics },
           homeProducts: {
+            title: '',
+            subtitle: '',
             ...data?.homeProducts,
             products: data?.homeProducts?.products || []
           },
@@ -26,21 +36,47 @@ const ManageContent = () => {
               '/catalogue/5.jpg',
               '/catalogue/6.jpg'
             ]
-          }
+          },
+          impactInsights: { title: '', subtitle: '', ...data?.impactInsights },
+          sdg: { title: '', paragraph1: '', paragraph2: '', ...data?.sdg },
+          transformation: { title: '', subtitle: '', ...data?.transformation },
+          footer: { aboutText: '', location: '', email1: '', email2: '', ...data?.footer },
+          ...data
         });
+        setIsLoading(false);
+      })
+      .catch(err => {
+        console.error('Failed to load content:', err);
+        setSaveError('Failed to fetch website content.');
         setIsLoading(false);
       });
   }, []);
 
   const handleSave = (e: React.FormEvent) => {
     e.preventDefault();
+    setIsSaving(true);
+    setSaveSuccess(false);
+    setSaveError('');
+
     fetch('/api/content', {
       method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(content)
     })
-    .then(res => res.json())
-    .then(() => alert('Content updated successfully!'));
+    .then(res => {
+      if (!res.ok) throw new Error('Failed to update content');
+      return res.json();
+    })
+    .then(() => {
+      setSaveSuccess(true);
+      setTimeout(() => setSaveSuccess(false), 4000);
+    })
+    .catch(err => {
+      setSaveError(err.message || 'Error updating content');
+    })
+    .finally(() => {
+      setIsSaving(false);
+    });
   };
 
   const handleNestedChange = (section: string, field: string, value: any) => {
@@ -67,11 +103,116 @@ const ManageContent = () => {
     });
   };
 
+  const handleProductImageUpload = async (index: number, file: File) => {
+    // 2MB product upload limit
+    const MAX_SIZE = 2 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      alert(`File size (${(file.size / (1024 * 1024)).toFixed(2)} MB) exceeds the 2MB limit for products.`);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    setUploadingIndex(index);
+    try {
+      const res = await fetch('/api/upload/product', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || 'Upload failed');
+      }
+      const newProducts = [...(content.homeProducts?.products || [])];
+      newProducts[index] = { ...newProducts[index], image: data.url };
+      handleNestedChange('homeProducts', 'products', newProducts);
+    } catch (err: any) {
+      alert(err.message || 'Error uploading product image');
+    } finally {
+      setUploadingIndex(null);
+    }
+  };
+
+  const handleCatalogueUpload = async (index: number | null, file: File) => {
+    // 10MB catalogue upload limit
+    const MAX_SIZE = 10 * 1024 * 1024;
+    if (file.size > MAX_SIZE) {
+      alert(`File size (${(file.size / (1024 * 1024)).toFixed(2)} MB) exceeds the 10MB limit for the product catalogue.`);
+      return;
+    }
+
+    const formData = new FormData();
+    formData.append('image', file);
+
+    if (index !== null) {
+      setUploadingCatalogueIndex(index);
+    } else {
+      setIsUploadingNewCatalogue(true);
+    }
+
+    try {
+      const res = await fetch('/api/upload/catalogue', {
+        method: 'POST',
+        body: formData
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || 'Upload failed');
+      }
+
+      if (index !== null) {
+        const newImages = [...(content.catalogue?.images || [])];
+        newImages[index] = data.url;
+        handleNestedChange('catalogue', 'images', newImages);
+      } else {
+        const newImages = [...(content.catalogue?.images || []), data.url];
+        handleNestedChange('catalogue', 'images', newImages);
+      }
+    } catch (err: any) {
+      alert(err.message || 'Error uploading catalogue page');
+    } finally {
+      if (index !== null) {
+        setUploadingCatalogueIndex(null);
+      } else {
+        setIsUploadingNewCatalogue(false);
+      }
+    }
+  };
+
   if (isLoading) return <div className="text-slate-500">Loading content...</div>;
 
   return (
     <div>
-      <h1 className="text-2xl font-bold text-slate-900 mb-6">Edit Website Content</h1>
+      <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
+        <div>
+          <h1 className="text-2xl font-bold text-slate-900">Edit Website Content</h1>
+          <p className="text-slate-500 text-sm mt-1">Manage global website sections, texts, products, and catalogue.</p>
+        </div>
+
+        <button 
+          onClick={handleSave} 
+          disabled={isSaving}
+          className="flex items-center px-6 py-2.5 bg-primary-600 text-white rounded-xl font-semibold hover:bg-primary-700 transition-colors shadow-sm disabled:opacity-50 text-sm"
+        >
+          {isSaving ? <Loader2 size={18} className="mr-2 animate-spin" /> : <Save size={18} className="mr-2" />}
+          {isSaving ? 'Saving...' : 'Save All Changes'}
+        </button>
+      </div>
+
+      {saveSuccess && (
+        <div className="mb-6 p-4 bg-emerald-50 border border-emerald-200 text-emerald-800 rounded-xl flex items-center shadow-sm max-w-3xl">
+          <CheckCircle2 className="w-5 h-5 mr-3 text-emerald-600 flex-shrink-0" />
+          <span className="text-sm font-medium">All website content and products have been saved successfully!</span>
+        </div>
+      )}
+
+      {saveError && (
+        <div className="mb-6 p-4 bg-red-50 border border-red-200 text-red-800 rounded-xl flex items-center shadow-sm max-w-3xl">
+          <AlertCircle className="w-5 h-5 mr-3 text-red-600 flex-shrink-0" />
+          <span className="text-sm font-medium">{saveError}</span>
+        </div>
+      )}
 
       <form onSubmit={handleSave} className="space-y-8">
         
@@ -242,18 +383,68 @@ const ManageContent = () => {
                   />
                 </div>
                 <div>
-                  <label className="block text-xs font-bold text-slate-600 mb-1">Image URL (Optional)</label>
-                  <input 
-                    type="text" 
-                    value={product.image || ''} 
-                    onChange={(e) => {
-                      const newProducts = [...(content.homeProducts.products || [])];
-                      newProducts[index] = { ...newProducts[index], image: e.target.value };
-                      handleNestedChange('homeProducts', 'products', newProducts);
-                    }} 
-                    placeholder="https://... or /catalogue/1.jpg"
-                    className="w-full px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500" 
-                  />
+                  <label className="block text-xs font-bold text-slate-600 mb-1">Product Image (Max 2MB)</label>
+                  <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
+                    <input 
+                      type="text" 
+                      value={product.image || ''} 
+                      onChange={(e) => {
+                        const newProducts = [...(content.homeProducts.products || [])];
+                        newProducts[index] = { ...newProducts[index], image: e.target.value };
+                        handleNestedChange('homeProducts', 'products', newProducts);
+                      }} 
+                      placeholder="https://... or upload image"
+                      className="flex-1 px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500 w-full sm:w-auto" 
+                    />
+                    <label className={`inline-flex items-center px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 rounded text-sm font-medium cursor-pointer transition-colors flex-shrink-0 ${uploadingIndex === index ? 'opacity-50 pointer-events-none' : ''}`}>
+                      {uploadingIndex === index ? (
+                        <>
+                          <Loader2 size={16} className="mr-1.5 animate-spin text-primary-600" />
+                          <span>Uploading...</span>
+                        </>
+                      ) : (
+                        <>
+                          <Upload size={16} className="mr-1.5 text-primary-600" />
+                          <span>Upload (Max 2MB)</span>
+                        </>
+                      )}
+                      <input 
+                        type="file" 
+                        accept="image/*" 
+                        className="hidden" 
+                        onChange={(e) => {
+                          if (e.target.files && e.target.files[0]) {
+                            handleProductImageUpload(index, e.target.files[0]);
+                          }
+                        }}
+                      />
+                    </label>
+                  </div>
+
+                  {product.image && (
+                    <div className="mt-2.5 flex items-center gap-3">
+                      <div className="h-16 w-16 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 flex-shrink-0">
+                        <img 
+                          src={product.image} 
+                          alt="Product preview" 
+                          className="h-full w-full object-cover" 
+                          onError={(e: any) => { e.target.style.display = 'none'; }}
+                        />
+                      </div>
+                      <span className="text-xs text-slate-500 truncate max-w-xs">{product.image}</span>
+                      <button
+                        type="button"
+                        onClick={() => {
+                          const newProducts = [...(content.homeProducts.products || [])];
+                          newProducts[index] = { ...newProducts[index], image: '' };
+                          handleNestedChange('homeProducts', 'products', newProducts);
+                        }}
+                        className="text-xs text-red-500 hover:underline"
+                      >
+                        Remove Image
+                      </button>
+                    </div>
+                  )}
                 </div>
               </div>
             ))}
@@ -275,7 +466,13 @@ const ManageContent = () => {
 
         {/* Product Catalogue Section */}
         <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 max-w-3xl">
-          <h2 className="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-100">Product Catalogue</h2>
+          <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
+            <h2 className="text-lg font-semibold text-slate-800">Product Catalogue</h2>
+            <span className="text-xs font-semibold px-2.5 py-1 rounded bg-secondary-50 text-secondary-700 border border-secondary-200">
+              10MB Limit per File
+            </span>
+          </div>
+
           <div className="space-y-4 mb-6">
             <div>
               <label className="block text-sm font-medium text-slate-700 mb-1">Catalogue Section Title</label>
@@ -297,44 +494,110 @@ const ManageContent = () => {
             </div>
           </div>
 
-          <h3 className="text-md font-semibold text-slate-700 mb-3">Catalogue Pages (Image URLs)</h3>
+          <h3 className="text-md font-semibold text-slate-700 mb-3">Catalogue Pages (Max 10MB per file)</h3>
           <div className="space-y-3">
             {content.catalogue?.images?.map((imgUrl: string, index: number) => (
-              <div key={index} className="flex gap-3 items-center bg-slate-50 p-3 rounded-lg border border-slate-200">
-                <span className="text-xs font-bold text-slate-500 w-16 flex-shrink-0">Page {index + 1}</span>
-                <input 
-                  type="text" 
-                  value={imgUrl} 
-                  onChange={(e) => {
-                    const newImages = [...(content.catalogue?.images || [])];
-                    newImages[index] = e.target.value;
-                    handleNestedChange('catalogue', 'images', newImages);
-                  }} 
-                  placeholder="/catalogue/1.jpg or image URL"
-                  className="flex-1 px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500" 
-                />
-                <button 
-                  type="button" 
-                  onClick={() => {
-                    const newImages = content.catalogue.images.filter((_: any, i: number) => i !== index);
-                    handleNestedChange('catalogue', 'images', newImages);
-                  }}
-                  className="px-3 py-1.5 bg-red-100 text-red-600 rounded text-sm hover:bg-red-200 transition-colors flex-shrink-0"
-                >
-                  Remove
-                </button>
+              <div key={index} className="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
+                <div className="flex gap-2 items-center">
+                  <span className="text-xs font-bold text-slate-500 w-14 flex-shrink-0">Page {index + 1}</span>
+                  <input 
+                    type="text" 
+                    value={imgUrl} 
+                    onChange={(e) => {
+                      const newImages = [...(content.catalogue?.images || [])];
+                      newImages[index] = e.target.value;
+                      handleNestedChange('catalogue', 'images', newImages);
+                    }} 
+                    placeholder="/catalogue/1.jpg or image URL"
+                    className="flex-1 px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500 min-w-0" 
+                  />
+                  <label className={`inline-flex items-center px-3 py-1.5 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 rounded text-sm font-medium cursor-pointer transition-colors flex-shrink-0 ${uploadingCatalogueIndex === index ? 'opacity-50 pointer-events-none' : ''}`}>
+                    {uploadingCatalogueIndex === index ? (
+                      <>
+                        <Loader2 size={16} className="mr-1 animate-spin text-primary-600" />
+                        <span>Uploading...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Upload size={16} className="mr-1 text-primary-600" />
+                        <span>Upload (10MB)</span>
+                      </>
+                    )}
+                    <input 
+                      type="file" 
+                      accept="image/*,application/pdf" 
+                      className="hidden" 
+                      onChange={(e) => {
+                        if (e.target.files && e.target.files[0]) {
+                          handleCatalogueUpload(index, e.target.files[0]);
+                        }
+                      }}
+                    />
+                  </label>
+                  <button 
+                    type="button" 
+                    onClick={() => {
+                      const newImages = content.catalogue.images.filter((_: any, i: number) => i !== index);
+                      handleNestedChange('catalogue', 'images', newImages);
+                    }}
+                    className="px-3 py-1.5 bg-red-100 text-red-600 rounded text-sm hover:bg-red-200 transition-colors flex-shrink-0"
+                  >
+                    Remove
+                  </button>
+                </div>
+
+                {imgUrl && (
+                  <div className="flex items-center gap-3 pl-14">
+                    <div className="h-12 w-12 rounded border border-slate-200 overflow-hidden bg-white flex-shrink-0">
+                      <img 
+                        src={imgUrl} 
+                        alt={`Page ${index + 1}`} 
+                        className="h-full w-full object-cover" 
+                        onError={(e: any) => { e.target.style.display = 'none'; }}
+                      />
+                    </div>
+                    <span className="text-xs text-slate-500 truncate max-w-sm">{imgUrl}</span>
+                  </div>
+                )}
               </div>
             ))}
-            <button 
-              type="button"
-              onClick={() => {
-                const newImages = [...(content.catalogue?.images || []), ''];
-                handleNestedChange('catalogue', 'images', newImages);
-              }}
-              className="mt-2 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-200 transition-colors border border-slate-200"
-            >
-              + Add Catalogue Page
-            </button>
+
+            <div className="flex flex-wrap gap-3 pt-2">
+              <button 
+                type="button"
+                onClick={() => {
+                  const newImages = [...(content.catalogue?.images || []), ''];
+                  handleNestedChange('catalogue', 'images', newImages);
+                }}
+                className="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-200 transition-colors border border-slate-200"
+              >
+                + Add Empty Page URL
+              </button>
+
+              <label className={`inline-flex items-center px-4 py-2 bg-primary-50 text-primary-700 hover:bg-primary-100 border border-primary-200 rounded-lg text-sm font-medium cursor-pointer transition-colors ${isUploadingNewCatalogue ? 'opacity-50 pointer-events-none' : ''}`}>
+                {isUploadingNewCatalogue ? (
+                  <>
+                    <Loader2 size={16} className="mr-2 animate-spin text-primary-600" />
+                    <span>Uploading Catalogue Page...</span>
+                  </>
+                ) : (
+                  <>
+                    <Upload size={16} className="mr-2 text-primary-600" />
+                    <span>Upload New Page (Max 10MB)</span>
+                  </>
+                )}
+                <input 
+                  type="file" 
+                  accept="image/*,application/pdf" 
+                  className="hidden" 
+                  onChange={(e) => {
+                    if (e.target.files && e.target.files[0]) {
+                      handleCatalogueUpload(null, e.target.files[0]);
+                    }
+                  }}
+                />
+              </label>
+            </div>
           </div>
         </div>
 
@@ -387,10 +650,14 @@ const ManageContent = () => {
           </div>
         </div>
 
-        <div className="flex justify-start max-w-3xl">
-          <button type="submit" className="flex items-center px-8 py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors shadow-lg">
-            <Save size={20} className="mr-2" />
-            Save All Content Changes
+        <div className="flex justify-start max-w-3xl pt-4">
+          <button 
+            type="submit" 
+            disabled={isSaving}
+            className="flex items-center px-8 py-3 bg-primary-600 text-white rounded-xl font-bold hover:bg-primary-700 transition-colors shadow-lg disabled:opacity-50"
+          >
+            {isSaving ? <Loader2 size={20} className="mr-2 animate-spin" /> : <Save size={20} className="mr-2" />}
+            {isSaving ? 'Saving Changes...' : 'Save All Content Changes'}
           </button>
         </div>
       </form>

@@ -17,19 +17,19 @@ const defaultProducts = [
     id: 1,
     title: "Recycled HDPE Boards",
     description: "Heavy-duty boards designed to replace traditional timber and plywood.",
-    image: ""
+    image: "https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
   {
     id: 2,
     title: "Eco-Friendly Furniture",
     description: "Sustainable furniture pieces crafted from upcycled multi-layered plastics.",
-    image: ""
+    image: "https://images.pexels.com/photos/2768961/pexels-photo-2768961.jpeg?auto=compress&cs=tinysrgb&w=800"
   },
   {
     id: 3,
     title: "\"Carry Everest\" Souvenirs",
     description: "Premium eco-friendly mountain souvenirs supporting local communities.",
-    image: ""
+    image: "https://images.pexels.com/photos/3182512/pexels-photo-3182512.jpeg?auto=compress&cs=tinysrgb&w=800"
   }
 ];
 

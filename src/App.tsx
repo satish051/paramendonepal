@@ -28,6 +28,7 @@ import ManageBlog from './pages/admin/ManageBlog';
 import ManageContent from './pages/admin/ManageContent';
 import ViewMessages from './pages/admin/ViewMessages';
 import ManageMedia from './pages/admin/ManageMedia';
+import ManageProducts from './pages/admin/ManageProducts';
 
 const MainLayout = () => (
   <div className="flex flex-col min-h-screen font-sans">
@@ -69,6 +70,7 @@ function App() {
         <Route element={<ProtectedRoute />}>
           <Route path="/admin" element={<AdminLayout />}>
             <Route index element={<Dashboard />} />
+            <Route path="products" element={<ManageProducts />} />
             <Route path="blog" element={<ManageBlog />} />
             <Route path="content" element={<ManageContent />} />
             <Route path="media" element={<ManageMedia />} />

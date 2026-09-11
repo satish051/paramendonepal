@@ -7,6 +7,7 @@ const ManageBlog = () => {
   
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [editingPost, setEditingPost] = useState<any>(null);
+  const [isSaving, setIsSaving] = useState(false);
   
   const [formData, setFormData] = useState({ 
     title: '', status: 'Draft', content: '', 
@@ -18,6 +19,10 @@ const ManageBlog = () => {
       .then(res => res.json())
       .then(data => {
         setPosts(data);
+        setLoading(false);
+      })
+      .catch(err => {
+        console.error('Failed to load posts:', err);
         setLoading(false);
       });
   };
@@ -47,13 +52,25 @@ const ManageBlog = () => {
     const url = editingPost ? `/api/blogs/${editingPost.id}` : '/api/blogs';
     const method = editingPost ? 'PUT' : 'POST';
 
+    setIsSaving(true);
     fetch(url, {
       method,
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify(formData)
-    }).then(() => {
+    })
+    .then(res => {
+      if (!res.ok) throw new Error('Failed to save blog post');
+      return res.json();
+    })
+    .then(() => {
       setIsModalOpen(false);
       loadPosts();
+    })
+    .catch(err => {
+      alert(err.message || 'Error saving post');
+    })
+    .finally(() => {
+      setIsSaving(false);
     });
   };
 
@@ -193,8 +210,19 @@ const ManageBlog = () => {
                   type="text" 
                   value={formData.image} 
                   onChange={e => setFormData({...formData, image: e.target.value})}
+                  placeholder="https://... or /uploads/..."
                   className="w-full px-4 py-2 border border-slate-300 rounded-lg focus:ring-primary-500 focus:border-primary-500" 
                 />
+                {formData.image && (
+                  <div className="mt-2 rounded-lg overflow-hidden border border-slate-200 h-28 w-48 bg-slate-100">
+                    <img 
+                      src={formData.image} 
+                      alt="Preview" 
+                      className="w-full h-full object-cover" 
+                      onError={(e: any) => { e.target.style.display = 'none'; }}
+                    />
+                  </div>
+                )}
               </div>
 
               <div>
@@ -219,11 +247,20 @@ const ManageBlog = () => {
               </div>
               
               <div className="flex justify-end pt-4 space-x-3">
-                <button type="button" onClick={() => setIsModalOpen(false)} className="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50">
+                <button 
+                  type="button" 
+                  onClick={() => setIsModalOpen(false)} 
+                  disabled={isSaving}
+                  className="px-4 py-2 border border-slate-300 text-slate-700 rounded-lg hover:bg-slate-50 disabled:opacity-50"
+                >
                   Cancel
                 </button>
-                <button type="submit" className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700">
-                  {editingPost ? 'Update' : 'Publish'}
+                <button 
+                  type="submit" 
+                  disabled={isSaving}
+                  className="px-4 py-2 bg-primary-600 text-white rounded-lg hover:bg-primary-700 disabled:opacity-50"
+                >
+                  {isSaving ? 'Saving...' : editingPost ? 'Update' : 'Publish'}
                 </button>
               </div>
             </form>

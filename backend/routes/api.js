@@ -2,12 +2,22 @@ import express from 'express';
 
 const router = express.Router();
 
-// Mock data for dashboard
+// Mock data for messages
+let messages = [
+  { id: 1, name: 'Satis Bdr', email: 'satis@example.com', subject: 'Partnership Inquiry', message: 'Hello Paramendo team, we would like to collaborate on community plastic waste collection in Dhading.', date: '2024-11-25', status: 'Unread' },
+  { id: 2, name: 'Ramesh K.', email: 'ramesh@example.com', subject: 'Recycling Collection Request', message: 'We have collected approximately 200kg of HDPE containers ready for upcycling.', date: '2024-11-24', status: 'Read' },
+];
+let nextMessageId = 3;
+
+// Dashboard stats endpoint (dynamically computed from current blogs & messages)
 router.get('/stats', (req, res) => {
+  const unreadMessagesCount = messages.filter(m => m.status === 'Unread').length;
+  const publishedBlogsCount = blogs.filter(b => b.status === 'Published').length;
+
   res.json({
     stats: [
-      { name: 'Total Blog Posts', value: '12', trend: '+2 this month' },
-      { name: 'Unread Messages', value: '4', trend: 'Requires attention' },
+      { name: 'Total Blog Posts', value: blogs.length.toString(), trend: `${publishedBlogsCount} published` },
+      { name: 'Unread Messages', value: unreadMessagesCount.toString(), trend: unreadMessagesCount > 0 ? `${unreadMessagesCount} require attention` : 'All read' },
       { name: 'Website Views', value: '1,204', trend: '+18% from last week' },
       { name: 'Active Users', value: '328', trend: '+5% from last week' }
     ]
@@ -110,6 +120,48 @@ router.put('/blogs/:id', (req, res) => {
 router.delete('/blogs/:id', (req, res) => {
   const id = parseInt(req.params.id);
   blogs = blogs.filter(b => b.id !== id);
+  res.status(204).send();
+});
+
+// --- Messages Endpoints ---
+
+// Get all messages
+router.get('/messages', (req, res) => {
+  res.json(messages);
+});
+
+// Submit a new contact message
+router.post('/messages', (req, res) => {
+  const { name, email, subject, message } = req.body;
+  const newMsg = {
+    id: nextMessageId++,
+    name: name || 'Anonymous',
+    email: email || '',
+    subject: subject || 'General Inquiry',
+    message: message || '',
+    date: new Date().toISOString().split('T')[0],
+    status: 'Unread'
+  };
+  messages.unshift(newMsg);
+  res.status(201).json(newMsg);
+});
+
+// Update a message (status: Read / Unread)
+router.put('/messages/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = messages.findIndex(m => m.id === id);
+  if (index !== -1) {
+    messages[index] = { ...messages[index], ...req.body };
+    res.json(messages[index]);
+  } else {
+    res.status(404).json({ error: 'Message not found' });
+  }
+});
+
+// Delete a message
+router.delete('/messages/:id', (req, res) => {
+  const id = parseInt(req.params.id);
+  messages = messages.filter(m => m.id !== id);
   res.status(204).send();
 });
 

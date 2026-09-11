@@ -1,11 +1,23 @@
 import { Link, Outlet, useLocation, useNavigate } from 'react-router-dom';
-import { LayoutDashboard, FileText, Settings, MessageSquare, LogOut, Menu, X, Image as ImageIcon } from 'lucide-react';
-import { useState } from 'react';
+import { LayoutDashboard, FileText, Settings, MessageSquare, LogOut, Menu, X, Image as ImageIcon, ExternalLink, Package } from 'lucide-react';
+import { useState, useEffect } from 'react';
 
 const AdminLayout = () => {
   const [isSidebarOpen, setIsSidebarOpen] = useState(false);
+  const [unreadCount, setUnreadCount] = useState(0);
   const location = useLocation();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    fetch('/api/messages')
+      .then(res => res.json())
+      .then(data => {
+        if (Array.isArray(data)) {
+          setUnreadCount(data.filter((m: any) => m.status === 'Unread').length);
+        }
+      })
+      .catch(() => {});
+  }, [location.pathname]);
 
   const handleLogout = () => {
     localStorage.removeItem('adminAuth');
@@ -14,10 +26,11 @@ const AdminLayout = () => {
 
   const navItems = [
     { name: 'Dashboard', path: '/admin', icon: LayoutDashboard },
+    { name: 'Products & Catalogue', path: '/admin/products', icon: Package },
     { name: 'Media Gallery', path: '/admin/media', icon: ImageIcon },
     { name: 'Manage Blog', path: '/admin/blog', icon: FileText },
     { name: 'Edit Content', path: '/admin/content', icon: Settings },
-    { name: 'Messages', path: '/admin/messages', icon: MessageSquare },
+    { name: 'Messages', path: '/admin/messages', icon: MessageSquare, badge: unreadCount },
   ];
 
   return (
@@ -69,27 +82,45 @@ const AdminLayout = () => {
                     to={item.path}
                     onClick={() => setIsSidebarOpen(false)}
                     className={`
-                      flex items-center px-3 py-3 rounded-lg transition-colors group
+                      flex items-center justify-between px-3 py-3 rounded-lg transition-colors group
                       ${isActive 
-                        ? 'bg-primary-600 text-white' 
+                        ? 'bg-primary-600 text-white font-medium' 
                         : 'text-slate-300 hover:bg-slate-800 hover:text-white'
                       }
                     `}
                   >
-                    <Icon size={20} className={`mr-3 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-white'}`} />
-                    {item.name}
+                    <div className="flex items-center">
+                      <Icon size={20} className={`mr-3 ${isActive ? 'text-white' : 'text-slate-400 group-hover:text-white'}`} />
+                      <span>{item.name}</span>
+                    </div>
+                    {Boolean(item.badge && item.badge > 0) && (
+                      <span className="px-2 py-0.5 text-xs font-bold bg-primary-500 text-white rounded-full">
+                        {item.badge}
+                      </span>
+                    )}
                   </Link>
                 );
               })}
             </nav>
           </div>
 
-          <div className="p-4 border-t border-slate-800">
+          <div className="p-4 border-t border-slate-800 space-y-1">
+            <Link
+              to="/"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between w-full px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors text-sm"
+            >
+              <div className="flex items-center">
+                <ExternalLink size={18} className="mr-3 text-slate-400" />
+                <span>View Website</span>
+              </div>
+            </Link>
             <button
               onClick={handleLogout}
-              className="flex items-center w-full px-3 py-3 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors group"
+              className="flex items-center w-full px-3 py-2.5 rounded-lg text-slate-300 hover:bg-slate-800 hover:text-white transition-colors group text-sm"
             >
-              <LogOut size={20} className="mr-3 text-slate-400 group-hover:text-white" />
+              <LogOut size={18} className="mr-3 text-slate-400 group-hover:text-white" />
               Logout
             </button>
           </div>
