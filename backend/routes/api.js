@@ -257,6 +257,18 @@ let siteContent = {
     location: "Pulchowk, Lalitpur, Bagmati Province, Nepal",
     email1: "contact@paramendonepal.com",
     email2: "paramendonepal@gmail.com"
+  },
+  contact: {
+    heroTitle: "Join Our Journey Toward a Zero-Waste Future.",
+    heroSubtitle: "Whether you are an architect looking for sustainable building supplies, a business seeking Extended Producer Responsibility (EPR) solutions, or a consumer choosing eco-friendly products, your partnership turns waste into purpose.",
+    email1: "contact@paramendonepal.com",
+    email2: "paramendonepal@gmail.com",
+    location: "Pulchowk, Lalitpur, Nepal",
+    socialLinks: {
+      facebook: "https://www.facebook.com/ParamendoNepal",
+      instagram: "https://www.instagram.com/paramendonepal/",
+      linkedin: "https://www.linkedin.com/company/paramendo-nepal/"
+    }
   }
 };
 

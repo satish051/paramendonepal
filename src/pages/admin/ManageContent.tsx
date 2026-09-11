@@ -1,5 +1,6 @@
-import { Save, CheckCircle2, AlertCircle, Loader2, Upload } from 'lucide-react';
+import { Save, CheckCircle2, AlertCircle, Loader2, Package, ArrowUpRight } from 'lucide-react';
 import { useState, useEffect } from 'react';
+import { Link } from 'react-router-dom';
 
 const ManageContent = () => {
   const [content, setContent] = useState<any>(null);
@@ -7,9 +8,6 @@ const ManageContent = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveError, setSaveError] = useState('');
-  const [uploadingIndex, setUploadingIndex] = useState<number | null>(null);
-  const [uploadingCatalogueIndex, setUploadingCatalogueIndex] = useState<number | null>(null);
-  const [isUploadingNewCatalogue, setIsUploadingNewCatalogue] = useState(false);
 
   useEffect(() => {
     fetch('/api/content')
@@ -41,6 +39,15 @@ const ManageContent = () => {
           sdg: { title: '', paragraph1: '', paragraph2: '', ...data?.sdg },
           transformation: { title: '', subtitle: '', ...data?.transformation },
           footer: { aboutText: '', location: '', email1: '', email2: '', ...data?.footer },
+          contact: {
+            heroTitle: '',
+            heroSubtitle: '',
+            email1: '',
+            email2: '',
+            location: '',
+            socialLinks: { facebook: '', instagram: '', linkedin: '' },
+            ...data?.contact
+          },
           ...data
         });
         setIsLoading(false);
@@ -101,83 +108,6 @@ const ManageContent = () => {
         }
       };
     });
-  };
-
-  const handleProductImageUpload = async (index: number, file: File) => {
-    // 2MB product upload limit
-    const MAX_SIZE = 2 * 1024 * 1024;
-    if (file.size > MAX_SIZE) {
-      alert(`File size (${(file.size / (1024 * 1024)).toFixed(2)} MB) exceeds the 2MB limit for products.`);
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('image', file);
-
-    setUploadingIndex(index);
-    try {
-      const res = await fetch('/api/upload/product', {
-        method: 'POST',
-        body: formData
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.message || 'Upload failed');
-      }
-      const newProducts = [...(content.homeProducts?.products || [])];
-      newProducts[index] = { ...newProducts[index], image: data.url };
-      handleNestedChange('homeProducts', 'products', newProducts);
-    } catch (err: any) {
-      alert(err.message || 'Error uploading product image');
-    } finally {
-      setUploadingIndex(null);
-    }
-  };
-
-  const handleCatalogueUpload = async (index: number | null, file: File) => {
-    // 10MB catalogue upload limit
-    const MAX_SIZE = 10 * 1024 * 1024;
-    if (file.size > MAX_SIZE) {
-      alert(`File size (${(file.size / (1024 * 1024)).toFixed(2)} MB) exceeds the 10MB limit for the product catalogue.`);
-      return;
-    }
-
-    const formData = new FormData();
-    formData.append('image', file);
-
-    if (index !== null) {
-      setUploadingCatalogueIndex(index);
-    } else {
-      setIsUploadingNewCatalogue(true);
-    }
-
-    try {
-      const res = await fetch('/api/upload/catalogue', {
-        method: 'POST',
-        body: formData
-      });
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.message || 'Upload failed');
-      }
-
-      if (index !== null) {
-        const newImages = [...(content.catalogue?.images || [])];
-        newImages[index] = data.url;
-        handleNestedChange('catalogue', 'images', newImages);
-      } else {
-        const newImages = [...(content.catalogue?.images || []), data.url];
-        handleNestedChange('catalogue', 'images', newImages);
-      }
-    } catch (err: any) {
-      alert(err.message || 'Error uploading catalogue page');
-    } finally {
-      if (index !== null) {
-        setUploadingCatalogueIndex(null);
-      } else {
-        setIsUploadingNewCatalogue(false);
-      }
-    }
   };
 
   if (isLoading) return <div className="text-slate-500">Loading content...</div>;
@@ -325,278 +255,132 @@ const ManageContent = () => {
           </div>
         </div>
 
-        {/* Our Products Section */}
-        <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 max-w-3xl">
-          <h2 className="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-100">Our Products</h2>
-          <div className="space-y-4 mb-6">
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Title</label>
-              <input type="text" value={content.homeProducts?.title || ''} onChange={(e) => handleNestedChange('homeProducts', 'title', e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:ring-primary-500 focus:border-primary-500" />
-            </div>
-            <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Subtitle</label>
-              <textarea rows={2} value={content.homeProducts?.subtitle || ''} onChange={(e) => handleNestedChange('homeProducts', 'subtitle', e.target.value)} className="w-full px-4 py-2 border rounded-lg focus:ring-primary-500 focus:border-primary-500" />
-            </div>
-          </div>
-
-          <h3 className="text-md font-semibold text-slate-700 mb-3">Product Items</h3>
-          <div className="space-y-4">
-            {content.homeProducts?.products?.map((product: any, index: number) => (
-              <div key={product.id || index} className="p-4 bg-slate-50 rounded-lg border border-slate-200 space-y-3">
-                <div className="flex justify-between items-center">
-                  <span className="text-xs font-bold uppercase tracking-wider text-slate-500">Product #{index + 1}</span>
-                  <button 
-                    type="button" 
-                    onClick={() => {
-                      const newProducts = content.homeProducts.products.filter((_: any, i: number) => i !== index);
-                      handleNestedChange('homeProducts', 'products', newProducts);
-                    }}
-                    className="px-2.5 py-1 bg-red-100 text-red-600 rounded text-xs font-medium hover:bg-red-200 transition-colors"
-                  >
-                    Remove
-                  </button>
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-600 mb-1">Product Title</label>
-                  <input 
-                    type="text" 
-                    value={product.title || ''} 
-                    onChange={(e) => {
-                      const newProducts = [...(content.homeProducts.products || [])];
-                      newProducts[index] = { ...newProducts[index], title: e.target.value };
-                      handleNestedChange('homeProducts', 'products', newProducts);
-                    }} 
-                    className="w-full px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500" 
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-600 mb-1">Description</label>
-                  <textarea 
-                    rows={2} 
-                    value={product.description || ''} 
-                    onChange={(e) => {
-                      const newProducts = [...(content.homeProducts.products || [])];
-                      newProducts[index] = { ...newProducts[index], description: e.target.value };
-                      handleNestedChange('homeProducts', 'products', newProducts);
-                    }} 
-                    className="w-full px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500" 
-                  />
-                </div>
-                <div>
-                  <label className="block text-xs font-bold text-slate-600 mb-1">Product Image (Max 2MB)</label>
-                  <div className="flex flex-col sm:flex-row gap-2 items-start sm:items-center">
-                    <input 
-                      type="text" 
-                      value={product.image || ''} 
-                      onChange={(e) => {
-                        const newProducts = [...(content.homeProducts.products || [])];
-                        newProducts[index] = { ...newProducts[index], image: e.target.value };
-                        handleNestedChange('homeProducts', 'products', newProducts);
-                      }} 
-                      placeholder="https://... or upload image"
-                      className="flex-1 px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500 w-full sm:w-auto" 
-                    />
-                    <label className={`inline-flex items-center px-3 py-1.5 bg-slate-100 hover:bg-slate-200 border border-slate-300 text-slate-700 rounded text-sm font-medium cursor-pointer transition-colors flex-shrink-0 ${uploadingIndex === index ? 'opacity-50 pointer-events-none' : ''}`}>
-                      {uploadingIndex === index ? (
-                        <>
-                          <Loader2 size={16} className="mr-1.5 animate-spin text-primary-600" />
-                          <span>Uploading...</span>
-                        </>
-                      ) : (
-                        <>
-                          <Upload size={16} className="mr-1.5 text-primary-600" />
-                          <span>Upload (Max 2MB)</span>
-                        </>
-                      )}
-                      <input 
-                        type="file" 
-                        accept="image/*" 
-                        className="hidden" 
-                        onChange={(e) => {
-                          if (e.target.files && e.target.files[0]) {
-                            handleProductImageUpload(index, e.target.files[0]);
-                          }
-                        }}
-                      />
-                    </label>
-                  </div>
-
-                  {product.image && (
-                    <div className="mt-2.5 flex items-center gap-3">
-                      <div className="h-16 w-16 rounded-lg overflow-hidden border border-slate-200 bg-slate-100 flex-shrink-0">
-                        <img 
-                          src={product.image} 
-                          alt="Product preview" 
-                          className="h-full w-full object-cover" 
-                          onError={(e: any) => { e.target.style.display = 'none'; }}
-                        />
-                      </div>
-                      <span className="text-xs text-slate-500 truncate max-w-xs">{product.image}</span>
-                      <button
-                        type="button"
-                        onClick={() => {
-                          const newProducts = [...(content.homeProducts.products || [])];
-                          newProducts[index] = { ...newProducts[index], image: '' };
-                          handleNestedChange('homeProducts', 'products', newProducts);
-                        }}
-                        className="text-xs text-red-500 hover:underline"
-                      >
-                        Remove Image
-                      </button>
-                    </div>
-                  )}
-                </div>
+        {/* Products & Catalogue Shortcut Notice */}
+        <div className="bg-gradient-to-r from-emerald-50 to-teal-50 border border-emerald-200 rounded-2xl p-6 max-w-3xl shadow-sm">
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div className="flex items-start gap-3">
+              <div className="p-3 bg-emerald-600 text-white rounded-xl shrink-0">
+                <Package size={24} />
               </div>
-            ))}
-            <button 
-              type="button"
-              onClick={() => {
-                const newProducts = [
-                  ...(content.homeProducts?.products || []),
-                  { id: Date.now(), title: 'New Product', description: '', image: '' }
-                ];
-                handleNestedChange('homeProducts', 'products', newProducts);
-              }}
-              className="mt-2 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-200 transition-colors border border-slate-200"
+              <div>
+                <h3 className="text-base font-bold text-slate-800">Looking to manage Products & Catalogue?</h3>
+                <p className="text-slate-600 text-xs mt-1">
+                  Products (2MB image limit) and Catalogue (10MB image/PDF limit) are now exclusively managed in the dedicated <strong>Products & Catalogue</strong> panel to prevent accidental double-updates.
+                </p>
+              </div>
+            </div>
+            <Link
+              to="/admin/products"
+              className="inline-flex items-center gap-1.5 px-4 py-2 bg-emerald-600 hover:bg-emerald-700 text-white text-xs font-bold rounded-xl transition-all shadow-sm shrink-0"
             >
-              + Add Product
-            </button>
+              <span>Open Products Panel</span>
+              <ArrowUpRight size={14} />
+            </Link>
           </div>
         </div>
 
-        {/* Product Catalogue Section */}
+        {/* Contact Us & Social Links Section */}
         <div className="bg-white rounded-xl shadow-sm border border-slate-100 p-6 max-w-3xl">
-          <div className="flex justify-between items-center mb-4 pb-2 border-b border-slate-100">
-            <h2 className="text-lg font-semibold text-slate-800">Product Catalogue</h2>
-            <span className="text-xs font-semibold px-2.5 py-1 rounded bg-secondary-50 text-secondary-700 border border-secondary-200">
-              10MB Limit per File
-            </span>
-          </div>
-
+          <h2 className="text-lg font-semibold text-slate-800 mb-4 pb-2 border-b border-slate-100">Contact Us & Social Links</h2>
+          
           <div className="space-y-4 mb-6">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Contact Page Header</h3>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Catalogue Section Title</label>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Header Title</label>
               <input 
                 type="text" 
-                value={content.catalogue?.title || ''} 
-                onChange={(e) => handleNestedChange('catalogue', 'title', e.target.value)} 
-                className="w-full px-4 py-2 border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
+                value={content.contact?.heroTitle || ''} 
+                onChange={(e) => handleNestedChange('contact', 'heroTitle', e.target.value)} 
+                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
+                placeholder="Join Our Journey Toward a Zero-Waste Future."
               />
             </div>
             <div>
-              <label className="block text-sm font-medium text-slate-700 mb-1">Catalogue Subtitle</label>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Header Subtitle</label>
               <textarea 
                 rows={2} 
-                value={content.catalogue?.subtitle || ''} 
-                onChange={(e) => handleNestedChange('catalogue', 'subtitle', e.target.value)} 
-                className="w-full px-4 py-2 border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
+                value={content.contact?.heroSubtitle || ''} 
+                onChange={(e) => handleNestedChange('contact', 'heroSubtitle', e.target.value)} 
+                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
               />
             </div>
           </div>
 
-          <h3 className="text-md font-semibold text-slate-700 mb-3">Catalogue Pages (Max 10MB per file)</h3>
-          <div className="space-y-3">
-            {content.catalogue?.images?.map((imgUrl: string, index: number) => (
-              <div key={index} className="p-3 bg-slate-50 rounded-lg border border-slate-200 space-y-2">
-                <div className="flex gap-2 items-center">
-                  <span className="text-xs font-bold text-slate-500 w-14 flex-shrink-0">Page {index + 1}</span>
-                  <input 
-                    type="text" 
-                    value={imgUrl} 
-                    onChange={(e) => {
-                      const newImages = [...(content.catalogue?.images || [])];
-                      newImages[index] = e.target.value;
-                      handleNestedChange('catalogue', 'images', newImages);
-                    }} 
-                    placeholder="/catalogue/1.jpg or image URL"
-                    className="flex-1 px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500 min-w-0" 
-                  />
-                  <label className={`inline-flex items-center px-3 py-1.5 bg-white hover:bg-slate-100 border border-slate-300 text-slate-700 rounded text-sm font-medium cursor-pointer transition-colors flex-shrink-0 ${uploadingCatalogueIndex === index ? 'opacity-50 pointer-events-none' : ''}`}>
-                    {uploadingCatalogueIndex === index ? (
-                      <>
-                        <Loader2 size={16} className="mr-1 animate-spin text-primary-600" />
-                        <span>Uploading...</span>
-                      </>
-                    ) : (
-                      <>
-                        <Upload size={16} className="mr-1 text-primary-600" />
-                        <span>Upload (10MB)</span>
-                      </>
-                    )}
-                    <input 
-                      type="file" 
-                      accept="image/*,application/pdf" 
-                      className="hidden" 
-                      onChange={(e) => {
-                        if (e.target.files && e.target.files[0]) {
-                          handleCatalogueUpload(index, e.target.files[0]);
-                        }
-                      }}
-                    />
-                  </label>
-                  <button 
-                    type="button" 
-                    onClick={() => {
-                      const newImages = content.catalogue.images.filter((_: any, i: number) => i !== index);
-                      handleNestedChange('catalogue', 'images', newImages);
-                    }}
-                    className="px-3 py-1.5 bg-red-100 text-red-600 rounded text-sm hover:bg-red-200 transition-colors flex-shrink-0"
-                  >
-                    Remove
-                  </button>
-                </div>
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-6 pt-2 border-t border-slate-100">
+            <div>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Primary Email</label>
+              <input 
+                type="email" 
+                value={content.contact?.email1 || ''} 
+                onChange={(e) => handleNestedChange('contact', 'email1', e.target.value)} 
+                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
+                placeholder="contact@paramendonepal.com"
+              />
+            </div>
+            <div>
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Secondary Email</label>
+              <input 
+                type="email" 
+                value={content.contact?.email2 || ''} 
+                onChange={(e) => handleNestedChange('contact', 'email2', e.target.value)} 
+                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
+                placeholder="paramendonepal@gmail.com"
+              />
+            </div>
+            <div className="sm:col-span-2">
+              <label className="block text-xs font-semibold text-slate-600 mb-1">Location / Address</label>
+              <input 
+                type="text" 
+                value={content.contact?.location || ''} 
+                onChange={(e) => handleNestedChange('contact', 'location', e.target.value)} 
+                className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
+                placeholder="Pulchowk, Lalitpur, Nepal"
+              />
+            </div>
+          </div>
 
-                {imgUrl && (
-                  <div className="flex items-center gap-3 pl-14">
-                    <div className="h-12 w-12 rounded border border-slate-200 overflow-hidden bg-white flex-shrink-0">
-                      <img 
-                        src={imgUrl} 
-                        alt={`Page ${index + 1}`} 
-                        className="h-full w-full object-cover" 
-                        onError={(e: any) => { e.target.style.display = 'none'; }}
-                      />
-                    </div>
-                    <span className="text-xs text-slate-500 truncate max-w-sm">{imgUrl}</span>
-                  </div>
-                )}
-              </div>
-            ))}
-
-            <div className="flex flex-wrap gap-3 pt-2">
-              <button 
-                type="button"
-                onClick={() => {
-                  const newImages = [...(content.catalogue?.images || []), ''];
-                  handleNestedChange('catalogue', 'images', newImages);
-                }}
-                className="px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-200 transition-colors border border-slate-200"
-              >
-                + Add Empty Page URL
-              </button>
-
-              <label className={`inline-flex items-center px-4 py-2 bg-primary-50 text-primary-700 hover:bg-primary-100 border border-primary-200 rounded-lg text-sm font-medium cursor-pointer transition-colors ${isUploadingNewCatalogue ? 'opacity-50 pointer-events-none' : ''}`}>
-                {isUploadingNewCatalogue ? (
-                  <>
-                    <Loader2 size={16} className="mr-2 animate-spin text-primary-600" />
-                    <span>Uploading Catalogue Page...</span>
-                  </>
-                ) : (
-                  <>
-                    <Upload size={16} className="mr-2 text-primary-600" />
-                    <span>Upload New Page (Max 10MB)</span>
-                  </>
-                )}
+          <div className="space-y-4 pt-2 border-t border-slate-100">
+            <h3 className="text-xs font-bold uppercase tracking-wider text-slate-500">Follow Our Journey - Social Links</h3>
+            <div className="space-y-3">
+              <div>
+                <label className="block text-xs font-semibold text-slate-600 mb-1">Facebook URL</label>
                 <input 
-                  type="file" 
-                  accept="image/*,application/pdf" 
-                  className="hidden" 
+                  type="url" 
+                  value={content.contact?.socialLinks?.facebook || ''} 
                   onChange={(e) => {
-                    if (e.target.files && e.target.files[0]) {
-                      handleCatalogueUpload(null, e.target.files[0]);
-                    }
-                  }}
+                    const updated = { ...(content.contact?.socialLinks || {}), facebook: e.target.value };
+                    handleNestedChange('contact', 'socialLinks', updated);
+                  }} 
+                  className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
+                  placeholder="https://www.facebook.com/ParamendoNepal"
                 />
-              </label>
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-600 mb-1">Instagram URL</label>
+                <input 
+                  type="url" 
+                  value={content.contact?.socialLinks?.instagram || ''} 
+                  onChange={(e) => {
+                    const updated = { ...(content.contact?.socialLinks || {}), instagram: e.target.value };
+                    handleNestedChange('contact', 'socialLinks', updated);
+                  }} 
+                  className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
+                  placeholder="https://www.instagram.com/paramendonepal/"
+                />
+              </div>
+              <div>
+                <label className="block text-xs font-semibold text-slate-600 mb-1">LinkedIn URL</label>
+                <input 
+                  type="url" 
+                  value={content.contact?.socialLinks?.linkedin || ''} 
+                  onChange={(e) => {
+                    const updated = { ...(content.contact?.socialLinks || {}), linkedin: e.target.value };
+                    handleNestedChange('contact', 'socialLinks', updated);
+                  }} 
+                  className="w-full px-3 py-2 text-sm border rounded-lg focus:ring-primary-500 focus:border-primary-500" 
+                  placeholder="https://www.linkedin.com/company/paramendo-nepal/"
+                />
+              </div>
             </div>
           </div>
         </div>
