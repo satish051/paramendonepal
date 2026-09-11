@@ -1,38 +1,53 @@
 import express from 'express';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 
 const router = express.Router();
 
-// Mock data for messages
-let messages = [
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
+const dataDir = path.join(__dirname, '../data');
+
+// Ensure data directory exists
+if (!fs.existsSync(dataDir)) {
+  fs.mkdirSync(dataDir, { recursive: true });
+}
+
+const blogsFilePath = path.join(dataDir, 'blogs.json');
+const messagesFilePath = path.join(dataDir, 'messages.json');
+const contentFilePath = path.join(dataDir, 'content.json');
+
+const loadData = (filePath, defaultData) => {
+  try {
+    if (fs.existsSync(filePath)) {
+      const data = fs.readFileSync(filePath, 'utf8');
+      return JSON.parse(data);
+    }
+  } catch (err) {
+    console.error(`Error loading ${filePath}:`, err);
+  }
+  return defaultData;
+};
+
+const saveData = (filePath, data) => {
+  try {
+    fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf8');
+  } catch (err) {
+    console.error(`Error saving ${filePath}:`, err);
+  }
+};
+
+// Default mock data for messages
+const defaultMessages = [
   { id: 1, name: 'Satis Bdr', email: 'satis@example.com', subject: 'Partnership Inquiry', message: 'Hello Paramendo team, we would like to collaborate on community plastic waste collection in Dhading.', date: '2024-11-25', status: 'Unread' },
   { id: 2, name: 'Ramesh K.', email: 'ramesh@example.com', subject: 'Recycling Collection Request', message: 'We have collected approximately 200kg of HDPE containers ready for upcycling.', date: '2024-11-24', status: 'Read' },
 ];
-let nextMessageId = 3;
+let messages = loadData(messagesFilePath, defaultMessages);
+let nextMessageId = Math.max(...messages.map(m => m.id || 0), 2) + 1;
 
-// Dashboard stats endpoint (dynamically computed from current blogs & messages)
-router.get('/stats', (req, res) => {
-  const unreadMessagesCount = messages.filter(m => m.status === 'Unread').length;
-  const publishedBlogsCount = blogs.filter(b => b.status === 'Published').length;
-
-  res.json({
-    stats: [
-      { name: 'Total Blog Posts', value: blogs.length.toString(), trend: `${publishedBlogsCount} published` },
-      { name: 'Unread Messages', value: unreadMessagesCount.toString(), trend: unreadMessagesCount > 0 ? `${unreadMessagesCount} require attention` : 'All read' },
-      { name: 'Website Views', value: '1,204', trend: '+18% from last week' },
-      { name: 'Active Users', value: '328', trend: '+5% from last week' }
-    ]
-  });
-});
-
-// Health check endpoint
-router.get('/health', (req, res) => {
-  res.status(200).json({ status: 'ok', message: 'Backend is running correctly' });
-});
-
-// --- Blog Endpoints ---
-
-// In-memory database for blogs (temporary until DB is added)
-let blogs = [
+// Default blogs
+const defaultBlogs = [
   { 
     id: 1, 
     title: 'The Future of Recycling in Nepal', 
@@ -67,7 +82,30 @@ let blogs = [
     image: 'https://images.pexels.com/photos/3182512/pexels-photo-3182512.jpeg?auto=compress&cs=tinysrgb&w=800'
   },
 ];
-let nextId = 4;
+let blogs = loadData(blogsFilePath, defaultBlogs);
+let nextId = Math.max(...blogs.map(b => b.id || 0), 3) + 1;
+
+// Dashboard stats endpoint (dynamically computed from current blogs & messages)
+router.get('/stats', (req, res) => {
+  const unreadMessagesCount = messages.filter(m => m.status === 'Unread').length;
+  const publishedBlogsCount = blogs.filter(b => b.status === 'Published').length;
+
+  res.json({
+    stats: [
+      { name: 'Total Blog Posts', value: blogs.length.toString(), trend: `${publishedBlogsCount} published` },
+      { name: 'Unread Messages', value: unreadMessagesCount.toString(), trend: unreadMessagesCount > 0 ? `${unreadMessagesCount} require attention` : 'All read' },
+      { name: 'Website Views', value: '1,204', trend: '+18% from last week' },
+      { name: 'Active Users', value: '328', trend: '+5% from last week' }
+    ]
+  });
+});
+
+// Health check endpoint
+router.get('/health', (req, res) => {
+  res.status(200).json({ status: 'ok', message: 'Backend is running correctly' });
+});
+
+// --- Blog Endpoints ---
 
 // Get all blogs
 router.get('/blogs', (req, res) => {
@@ -101,6 +139,7 @@ router.post('/blogs', (req, res) => {
     externalLink: externalLink || ''
   };
   blogs.push(newBlog);
+  saveData(blogsFilePath, blogs);
   res.status(201).json(newBlog);
 });
 
@@ -110,6 +149,7 @@ router.put('/blogs/:id', (req, res) => {
   const index = blogs.findIndex(b => b.id === id);
   if (index !== -1) {
     blogs[index] = { ...blogs[index], ...req.body };
+    saveData(blogsFilePath, blogs);
     res.json(blogs[index]);
   } else {
     res.status(404).json({ error: 'Blog not found' });
@@ -120,6 +160,7 @@ router.put('/blogs/:id', (req, res) => {
 router.delete('/blogs/:id', (req, res) => {
   const id = parseInt(req.params.id);
   blogs = blogs.filter(b => b.id !== id);
+  saveData(blogsFilePath, blogs);
   res.status(204).send();
 });
 
@@ -143,6 +184,7 @@ router.post('/messages', (req, res) => {
     status: 'Unread'
   };
   messages.unshift(newMsg);
+  saveData(messagesFilePath, messages);
   res.status(201).json(newMsg);
 });
 
@@ -152,6 +194,7 @@ router.put('/messages/:id', (req, res) => {
   const index = messages.findIndex(m => m.id === id);
   if (index !== -1) {
     messages[index] = { ...messages[index], ...req.body };
+    saveData(messagesFilePath, messages);
     res.json(messages[index]);
   } else {
     res.status(404).json({ error: 'Message not found' });
@@ -162,11 +205,12 @@ router.put('/messages/:id', (req, res) => {
 router.delete('/messages/:id', (req, res) => {
   const id = parseInt(req.params.id);
   messages = messages.filter(m => m.id !== id);
+  saveData(messagesFilePath, messages);
   res.status(204).send();
 });
 
 // --- Content Endpoints ---
-let siteContent = {
+const defaultSiteContent = {
   hero: {
     title: "Turning Himalayan Plastic Waste into Sustainable Value",
     subtitle: "Paramendo Nepal builds community-centric circular economies by upcycling high-density plastics and multi-layered waste into premium recycled boards, structural materials, and eco-friendly products."
@@ -273,6 +317,8 @@ let siteContent = {
   }
 };
 
+let siteContent = loadData(contentFilePath, defaultSiteContent);
+
 router.get('/content', (req, res) => {
   res.json(siteContent);
 });
@@ -286,6 +332,7 @@ router.put('/content', (req, res) => {
       siteContent[key] = req.body[key];
     }
   }
+  saveData(contentFilePath, siteContent);
   res.json(siteContent);
 });
 

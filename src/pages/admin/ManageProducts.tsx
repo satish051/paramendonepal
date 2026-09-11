@@ -1,4 +1,4 @@
-﻿import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
   Package, 
   BookOpen, 
@@ -12,7 +12,8 @@ import {
   Image as ImageIcon,
   FileText,
   MoveUp,
-  MoveDown
+  MoveDown,
+  Home
 } from 'lucide-react';
 
 interface ProductItem {
@@ -20,6 +21,7 @@ interface ProductItem {
   title: string;
   description: string;
   image?: string;
+  showOnHome?: boolean;
 }
 
 interface HomeProductsData {
@@ -69,7 +71,14 @@ const ManageProducts: React.FC = () => {
       if (res.ok) {
         const data = await res.json();
         if (data.homeProducts) {
-          setProductsData(data.homeProducts);
+          const prods = (data.homeProducts.products || []).map((p: any, i: number) => ({
+            ...p,
+            showOnHome: p.showOnHome !== undefined ? !!p.showOnHome : (i < 3)
+          }));
+          setProductsData({
+            ...data.homeProducts,
+            products: prods
+          });
         }
         if (data.catalogue) {
           setCatalogueData(data.catalogue);
@@ -91,20 +100,37 @@ const ManageProducts: React.FC = () => {
   };
 
   // Product handlers
-  const handleProductFieldChange = (id: number, field: keyof ProductItem, value: string) => {
+  const handleProductFieldChange = (id: number, field: keyof ProductItem, value: any) => {
     setProductsData(prev => ({
       ...prev,
       products: prev.products.map(p => p.id === id ? { ...p, [field]: value } : p)
     }));
   };
 
+  const handleToggleHomeFeatured = (id: number) => {
+    const currentFeaturedCount = productsData.products.filter(p => p.showOnHome).length;
+    const targetProduct = productsData.products.find(p => p.id === id);
+    
+    if (!targetProduct) return;
+
+    // If currently not featured and trying to feature a 4th product
+    if (!targetProduct.showOnHome && currentFeaturedCount >= 3) {
+      showNotification('error', 'Only 3 products can be featured on the Home Page. Please uncheck another product first.');
+      return;
+    }
+
+    handleProductFieldChange(id, 'showOnHome', !targetProduct.showOnHome);
+  };
+
   const handleAddProduct = () => {
     const newId = Date.now();
+    const currentFeaturedCount = productsData.products.filter(p => p.showOnHome).length;
     const newProduct: ProductItem = {
       id: newId,
       title: 'New Recycled Product',
       description: 'Product description and technical advantages...',
-      image: 'https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=800'
+      image: 'https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=800',
+      showOnHome: currentFeaturedCount < 3
     };
     setProductsData(prev => ({
       ...prev,
@@ -361,12 +387,26 @@ const ManageProducts: React.FC = () => {
             </div>
           </div>
 
-          {/* Product Items List */}
-          <div className="flex items-center justify-between">
-            <h2 className="text-lg font-bold text-slate-800">Product Items</h2>
+          {/* Product Items List Header & Notice */}
+          <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+            <div>
+              <div className="flex items-center gap-2">
+                <h2 className="text-lg font-bold text-slate-800">Product Items</h2>
+                <span className={`text-xs font-bold px-2.5 py-1 rounded-full border ${
+                  productsData.products.filter(p => p.showOnHome).length === 3
+                    ? 'bg-emerald-50 text-emerald-700 border-emerald-200'
+                    : 'bg-amber-50 text-amber-700 border-amber-200'
+                }`}>
+                  {productsData.products.filter(p => p.showOnHome).length} / 3 Featured on Home
+                </span>
+              </div>
+              <p className="text-xs text-slate-500 mt-0.5">
+                Toggle the <strong>&quot;Show on Home&quot;</strong> badge on any 3 products to decide which items appear on the homepage.
+              </p>
+            </div>
             <button
               onClick={handleAddProduct}
-              className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded-xl text-sm font-semibold transition-colors"
+              className="flex items-center gap-2 px-4 py-2 bg-emerald-50 text-emerald-700 hover:bg-emerald-100 rounded-xl text-sm font-semibold transition-colors shrink-0"
             >
               <Plus size={16} />
               Add Product
@@ -377,13 +417,32 @@ const ManageProducts: React.FC = () => {
             {productsData.products?.map((product, idx) => (
               <div 
                 key={product.id}
-                className="bg-white p-6 rounded-2xl shadow-sm border border-slate-100 flex flex-col justify-between space-y-5"
+                className={`bg-white p-6 rounded-2xl shadow-sm border transition-all flex flex-col justify-between space-y-5 ${
+                  product.showOnHome 
+                    ? 'border-emerald-500/50 ring-2 ring-emerald-500/10' 
+                    : 'border-slate-100'
+                }`}
               >
                 <div className="space-y-4">
                   <div className="flex items-center justify-between">
-                    <span className="text-xs font-bold px-2.5 py-1 bg-slate-100 text-slate-600 rounded-lg">
-                      Product #{idx + 1}
-                    </span>
+                    <div className="flex items-center gap-2">
+                      <span className="text-xs font-bold px-2.5 py-1 bg-slate-100 text-slate-600 rounded-lg">
+                        Product #{idx + 1}
+                      </span>
+                      <button
+                        type="button"
+                        onClick={() => handleToggleHomeFeatured(product.id)}
+                        className={`inline-flex items-center gap-1.5 px-2.5 py-1 rounded-lg text-xs font-bold border transition-all ${
+                          product.showOnHome 
+                            ? 'bg-emerald-600 text-white border-emerald-600 shadow-xs' 
+                            : 'bg-slate-50 text-slate-600 border-slate-200 hover:bg-slate-100'
+                        }`}
+                        title={product.showOnHome ? 'Click to remove from Home Page' : 'Click to feature on Home Page'}
+                      >
+                        <Home size={12} />
+                        <span>{product.showOnHome ? 'Featured on Home (1 of 3)' : 'Show on Home'}</span>
+                      </button>
+                    </div>
                     <button
                       onClick={() => handleDeleteProduct(product.id)}
                       className="p-1.5 text-slate-400 hover:text-rose-600 hover:bg-rose-50 rounded-lg transition-colors"

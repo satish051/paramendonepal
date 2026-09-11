@@ -1,0 +1,35 @@
+[
+  {
+    "id": 1,
+    "title": "The Future of Recycling in Nepal",
+    "date": "2024-10-15",
+    "status": "Published",
+    "content": "Recycling in Nepal is taking a new turn with community initiatives...",
+    "excerpt": "Discover how local communities are driving the new wave of recycling in Nepal.",
+    "author": "Paramendo Team",
+    "category": "Innovation",
+    "image": "https://images.pexels.com/photos/802221/pexels-photo-802221.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    "id": 2,
+    "title": "How We Process Plastic Waste",
+    "date": "2024-11-02",
+    "status": "Published",
+    "content": "We collect HDPE and PP plastics, wash them, and shred them into granules...",
+    "excerpt": "A deep dive into our manufacturing process that turns waste into durable tiles.",
+    "author": "Operations",
+    "category": "Process",
+    "image": "https://images.pexels.com/photos/2768961/pexels-photo-2768961.jpeg?auto=compress&cs=tinysrgb&w=800"
+  },
+  {
+    "id": 3,
+    "title": "New Community Initiatives",
+    "date": "2024-11-20",
+    "status": "Draft",
+    "content": "Our upcoming projects in Dhading...",
+    "excerpt": "Upcoming projects aiming to empower the Dhading community.",
+    "author": "Community Outreach",
+    "category": "Community",
+    "image": "https://images.pexels.com/photos/3182512/pexels-photo-3182512.jpeg?auto=compress&cs=tinysrgb&w=800"
+  }
+]
