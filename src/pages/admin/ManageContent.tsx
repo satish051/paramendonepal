@@ -1,4 +1,4 @@
-import { Save, CheckCircle2, AlertCircle, Loader2, Package, ArrowUpRight, PhoneCall } from 'lucide-react';
+import { Save, CheckCircle2, AlertCircle, Loader2, Package, ArrowUpRight, PhoneCall, Upload, Trash2, Plus, Image as ImageIcon } from 'lucide-react';
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 
@@ -8,6 +8,8 @@ const ManageContent = () => {
   const [isSaving, setIsSaving] = useState(false);
   const [saveSuccess, setSaveSuccess] = useState(false);
   const [saveError, setSaveError] = useState('');
+  const [uploadingPartnerIndex, setUploadingPartnerIndex] = useState<number | null>(null);
+  const [partnerUploadError, setPartnerUploadError] = useState<string | null>(null);
 
   useEffect(() => {
     fetch('/api/content')
@@ -110,6 +112,47 @@ const ManageContent = () => {
     });
   };
 
+  const handlePartnerLogoUpload = async (index: number, file: File) => {
+    const MAX_SIZE = 2 * 1024 * 1024; // 2MB limit
+    setPartnerUploadError(null);
+
+    if (file.size > MAX_SIZE) {
+      setPartnerUploadError(`File size (${(file.size / (1024 * 1024)).toFixed(2)} MB) exceeds the 2MB limit.`);
+      return;
+    }
+
+    setUploadingPartnerIndex(index);
+    const body = new FormData();
+    body.append('image', file);
+
+    try {
+      const res = await fetch('/api/upload/product', {
+        method: 'POST',
+        body
+      });
+      const data = await res.json();
+      if (!res.ok) {
+        throw new Error(data.message || 'Failed to upload partner logo');
+      }
+
+      setContent((prev: any) => {
+        const newLogos = [...(prev.partners?.logos || [])];
+        newLogos[index] = { ...newLogos[index], url: data.url };
+        return {
+          ...prev,
+          partners: {
+            ...prev.partners,
+            logos: newLogos
+          }
+        };
+      });
+    } catch (err: any) {
+      setPartnerUploadError(err.message || 'Error uploading partner logo');
+    } finally {
+      setUploadingPartnerIndex(null);
+    }
+  };
+
   if (isLoading) return <div className="text-slate-500">Loading content...</div>;
 
   return (
@@ -160,47 +203,155 @@ const ManageContent = () => {
             </div>
           </div>
           
-          <h3 className="text-md font-semibold text-slate-700 mb-3">Partner Logos</h3>
-          <div className="space-y-4">
-            {content.partners.logos?.map((logo: any, index: number) => (
-              <div key={logo.id || index} className="flex gap-4 items-end bg-slate-50 p-3 rounded-lg border border-slate-200">
-                <div className="flex-1">
-                  <label className="block text-xs font-bold text-slate-500 mb-1">Partner Name</label>
-                  <input type="text" value={logo.name} onChange={(e) => {
-                    const newLogos = [...(content.partners.logos || [])];
-                    newLogos[index] = { ...newLogos[index], name: e.target.value };
-                    handleNestedChange('partners', 'logos', newLogos);
-                  }} className="w-full px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500" />
-                </div>
-                <div className="flex-[2]">
-                  <label className="block text-xs font-bold text-slate-500 mb-1">Logo Image URL</label>
-                  <input type="text" value={logo.url} onChange={(e) => {
-                    const newLogos = [...(content.partners.logos || [])];
-                    newLogos[index] = { ...newLogos[index], url: e.target.value };
-                    handleNestedChange('partners', 'logos', newLogos);
-                  }} className="w-full px-3 py-1.5 text-sm border rounded focus:ring-primary-500 focus:border-primary-500" />
-                </div>
-                <button 
-                  type="button" 
-                  onClick={() => {
-                    const newLogos = content.partners.logos.filter((_: any, i: number) => i !== index);
-                    handleNestedChange('partners', 'logos', newLogos);
-                  }}
-                  className="px-3 py-1.5 bg-red-100 text-red-600 rounded text-sm hover:bg-red-200 transition-colors"
-                >
-                  Remove
-                </button>
-              </div>
-            ))}
+          <div className="flex items-center justify-between mb-3">
+            <div>
+              <h3 className="text-md font-semibold text-slate-800">Partner Logos</h3>
+              <p className="text-xs text-slate-500">Add partner organization logos either by direct image upload (≤ 2MB) or external URL.</p>
+            </div>
             <button 
               type="button"
               onClick={() => {
                 const newLogos = [...(content.partners.logos || []), { id: Date.now(), name: 'New Partner', url: '' }];
                 handleNestedChange('partners', 'logos', newLogos);
               }}
-              className="mt-2 px-4 py-2 bg-slate-100 text-slate-700 rounded-lg text-sm font-medium hover:bg-slate-200 transition-colors border border-slate-200"
+              className="inline-flex items-center gap-1.5 px-3 py-1.5 bg-primary-50 text-primary-700 hover:bg-primary-100 rounded-lg text-xs font-bold border border-primary-200 transition-colors"
             >
-              + Add Partner Logo
+              <Plus size={14} />
+              <span>Add Partner</span>
+            </button>
+          </div>
+
+          {partnerUploadError && (
+            <div className="mb-4 p-3 bg-rose-50 border border-rose-200 text-rose-700 rounded-xl text-xs font-medium flex items-center gap-2">
+              <AlertCircle size={16} className="shrink-0" />
+              <span>{partnerUploadError}</span>
+            </div>
+          )}
+
+          <div className="space-y-4">
+            {content.partners.logos?.length === 0 && (
+              <div className="text-center py-8 bg-slate-50 rounded-xl border border-dashed border-slate-300 text-slate-500 text-sm">
+                No partner logos added yet. Click &quot;Add Partner&quot; to begin.
+              </div>
+            )}
+
+            {content.partners.logos?.map((logo: any, index: number) => {
+              const isUploadingThis = uploadingPartnerIndex === index;
+              return (
+                <div key={logo.id || index} className="bg-slate-50/70 p-4 rounded-xl border border-slate-200 hover:border-slate-300 transition-all">
+                  <div className="flex flex-col sm:flex-row gap-4 items-start">
+                    {/* Logo Preview thumbnail */}
+                    <div className="w-24 h-20 bg-white border border-slate-200 rounded-xl flex items-center justify-center p-2 shrink-0 shadow-sm overflow-hidden relative group">
+                      {logo.url ? (
+                        <img 
+                          src={logo.url} 
+                          alt={logo.name || 'Partner logo'} 
+                          className="max-w-full max-h-full object-contain"
+                          onError={(e: any) => { e.target.style.opacity = '0.3'; }}
+                        />
+                      ) : (
+                        <div className="flex flex-col items-center text-slate-300">
+                          <ImageIcon size={24} />
+                          <span className="text-[10px] text-slate-400 mt-1 font-medium">No Logo</span>
+                        </div>
+                      )}
+                    </div>
+
+                    {/* Inputs */}
+                    <div className="flex-1 w-full space-y-3">
+                      <div className="flex flex-col sm:flex-row gap-3">
+                        <div className="flex-1">
+                          <label className="block text-xs font-bold text-slate-600 mb-1">Partner Organization Name</label>
+                          <input 
+                            type="text" 
+                            value={logo.name} 
+                            placeholder="e.g. Prarambha, WWF, Coca-Cola..."
+                            onChange={(e) => {
+                              const newLogos = [...(content.partners.logos || [])];
+                              newLogos[index] = { ...newLogos[index], name: e.target.value };
+                              handleNestedChange('partners', 'logos', newLogos);
+                            }} 
+                            className="w-full px-3 py-1.5 text-sm bg-white border border-slate-300 rounded-lg focus:ring-primary-500 focus:border-primary-500" 
+                          />
+                        </div>
+
+                        <div className="sm:w-auto self-end">
+                          <button 
+                            type="button" 
+                            onClick={() => {
+                              const newLogos = content.partners.logos.filter((_: any, i: number) => i !== index);
+                              handleNestedChange('partners', 'logos', newLogos);
+                            }}
+                            className="inline-flex items-center gap-1.5 px-3 py-2 bg-rose-50 text-rose-600 hover:bg-rose-100 rounded-lg text-xs font-medium transition-colors border border-rose-200"
+                            title="Remove Partner"
+                          >
+                            <Trash2 size={14} />
+                            <span>Remove</span>
+                          </button>
+                        </div>
+                      </div>
+
+                      {/* Image Upload + URL Input */}
+                      <div>
+                        <div className="flex items-center justify-between mb-1">
+                          <label className="block text-xs font-bold text-slate-600">Logo Image (Upload or URL)</label>
+                          <span className="text-[10px] text-slate-500 bg-slate-200/70 px-1.5 py-0.5 rounded font-medium">Max 2MB</span>
+                        </div>
+                        <div className="flex flex-col sm:flex-row gap-2 items-stretch sm:items-center">
+                          <label className={`inline-flex items-center justify-center gap-1.5 px-3 py-1.5 bg-emerald-50 hover:bg-emerald-100 text-emerald-700 border border-emerald-300 rounded-lg text-xs font-semibold cursor-pointer transition-colors shrink-0 shadow-sm ${isUploadingThis ? 'opacity-60 pointer-events-none' : ''}`}>
+                            {isUploadingThis ? (
+                              <>
+                                <Loader2 size={14} className="animate-spin text-emerald-600" />
+                                <span>Uploading...</span>
+                              </>
+                            ) : (
+                              <>
+                                <Upload size={14} className="text-emerald-600" />
+                                <span>Upload File</span>
+                              </>
+                            )}
+                            <input 
+                              type="file" 
+                              accept="image/*" 
+                              className="hidden" 
+                              disabled={isUploadingThis}
+                              onChange={(e) => {
+                                const file = e.target.files?.[0];
+                                if (file) handlePartnerLogoUpload(index, file);
+                                e.target.value = '';
+                              }}
+                            />
+                          </label>
+
+                          <input 
+                            type="text" 
+                            value={logo.url} 
+                            placeholder="Or paste image URL (e.g. /uploads/... or https://...)"
+                            onChange={(e) => {
+                              const newLogos = [...(content.partners.logos || [])];
+                              newLogos[index] = { ...newLogos[index], url: e.target.value };
+                              handleNestedChange('partners', 'logos', newLogos);
+                            }} 
+                            className="flex-1 px-3 py-1.5 text-xs sm:text-sm bg-white border border-slate-300 rounded-lg focus:ring-primary-500 focus:border-primary-500 font-mono" 
+                          />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              );
+            })}
+
+            <button 
+              type="button"
+              onClick={() => {
+                const newLogos = [...(content.partners.logos || []), { id: Date.now(), name: 'New Partner', url: '' }];
+                handleNestedChange('partners', 'logos', newLogos);
+              }}
+              className="w-full py-2.5 bg-slate-50 hover:bg-slate-100 text-slate-700 rounded-xl text-sm font-semibold transition-colors border border-dashed border-slate-300 flex items-center justify-center gap-2"
+            >
+              <Plus size={16} />
+              <span>Add Another Partner Logo</span>
             </button>
           </div>
         </div>
