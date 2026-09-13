@@ -132,7 +132,7 @@ const Hero = () => {
           className="mt-12 flex flex-col sm:flex-row justify-start items-center gap-4"
         >
           <Link
-            to="/work"
+            to="/products"
             className="w-full sm:w-auto inline-flex items-center justify-center bg-red text-white px-10 py-4 rounded-full hover:bg-white hover:text-black transition-colors duration-300 font-body font-bold text-sm tracking-widest uppercase"
           >
             Explore Recycled Products
