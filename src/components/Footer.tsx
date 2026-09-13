@@ -21,6 +21,13 @@ const Footer = () => {
 
   return (
     <footer className="bg-black py-16 px-6 md:px-12 lg:px-20 relative overflow-hidden transition-colors duration-300">
+      {/* Decorative line art — flower & mountains (inverted for dark bg) */}
+      <img 
+        src="/art-flower.png" 
+        alt="" 
+        aria-hidden="true"
+        className="absolute -bottom-10 -right-10 w-[350px] lg:w-[450px] opacity-[0.06] pointer-events-none select-none invert"
+      />
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-16">
           

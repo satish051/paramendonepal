@@ -44,6 +44,13 @@ const VisionMission = () => {
           transition={{ duration: 0.8 }}
           className="relative py-24 px-8 md:px-16 flex flex-col justify-center bg-white overflow-hidden"
         >
+          {/* Decorative line art — Nepal scene */}
+          <img 
+            src="/art-nepal.png" 
+            alt="" 
+            aria-hidden="true"
+            className="absolute bottom-0 right-0 w-[350px] lg:w-[400px] opacity-[0.05] pointer-events-none select-none"
+          />
           <div className="relative z-10 max-w-xl mr-auto">
             <div className="inline-flex items-center space-x-2 bg-white px-4 py-2 rounded-full mb-6 border border-black/10">
               <Target className="w-5 h-5 text-black" />

@@ -39,7 +39,14 @@ const Contact = () => {
   return (
     <div className="bg-white">
       {/* Hero Header */}
-      <div className="bg-white py-24 px-6 md:px-12 lg:px-20 text-center relative">
+      <div className="bg-white py-24 px-6 md:px-12 lg:px-20 text-center relative overflow-hidden">
+        {/* Decorative line art — flower & mountains */}
+        <img 
+          src="/art-flower.png" 
+          alt="" 
+          aria-hidden="true"
+          className="absolute -bottom-10 right-0 w-[350px] lg:w-[450px] opacity-[0.04] pointer-events-none select-none"
+        />
         <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
           <div className="inline-flex items-center space-x-2 px-4 py-2 mb-6 border border-black/10 rounded-full">
             <span className="text-sm font-bold text-black font-body tracking-wide uppercase">Get In Touch</span>

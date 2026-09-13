@@ -5,7 +5,14 @@ const About = () => {
   return (
     <div className="bg-white">
       {/* Hero Section: Our Story */}
-      <section id="about" className="py-24 px-6 md:px-12 lg:px-20 overflow-hidden">
+      <section id="about" className="py-24 px-6 md:px-12 lg:px-20 overflow-hidden relative">
+        {/* Decorative line art — flower & mountains */}
+        <img 
+          src="/art-flower.png" 
+          alt="" 
+          aria-hidden="true"
+          className="absolute bottom-0 right-0 w-[400px] lg:w-[500px] opacity-[0.04] pointer-events-none select-none"
+        />
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
             <div className="order-2 lg:order-1">
@@ -64,6 +71,13 @@ const About = () => {
 
       {/* What Sets Us Apart */}
       <section className="bg-white py-24 px-6 md:px-12 lg:px-20 relative overflow-hidden">
+        {/* Decorative line art — Nepal scene */}
+        <img 
+          src="/art-nepal.png" 
+          alt="" 
+          aria-hidden="true"
+          className="absolute -bottom-10 -left-10 w-[350px] lg:w-[450px] opacity-[0.04] pointer-events-none select-none"
+        />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">
             <h3 className="text-4xl md:text-5xl font-heading tracking-wider uppercase text-black">What Sets Us Apart</h3>
