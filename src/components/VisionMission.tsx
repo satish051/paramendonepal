@@ -49,7 +49,7 @@ const VisionMission = () => {
             src="/art-nepal.png" 
             alt="" 
             aria-hidden="true"
-            className="absolute bottom-0 right-0 w-[350px] lg:w-[400px] opacity-[0.05] pointer-events-none select-none"
+            className="absolute bottom-0 right-0 w-[400px] lg:w-[500px] opacity-[0.08] pointer-events-none select-none"
           />
           <div className="relative z-10 max-w-xl mr-auto">
             <div className="inline-flex items-center space-x-2 bg-white px-4 py-2 rounded-full mb-6 border border-black/10">

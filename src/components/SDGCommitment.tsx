@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
+import { Link } from 'react-router-dom';
 import { 
   ArrowRight,
   Coins,
@@ -100,10 +101,10 @@ const SDGCommitment = () => {
             </div>
             
             <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4, duration: 0.5 }} className="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full">
-              <a href="#" className="border border-white text-white hover:bg-white hover:text-black px-8 py-3 rounded-full transition-colors duration-300 font-body text-sm tracking-wide inline-flex items-center group">
+              <Link to="/sdg" className="border border-white text-white hover:bg-white hover:text-black px-8 py-3 rounded-full transition-colors duration-300 font-body text-sm tracking-wide inline-flex items-center group">
                 Learn More
                 <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
-              </a>
+              </Link>
               <div className="text-white/60 font-body text-sm">
                 Hover over the wheel to explore
               </div>

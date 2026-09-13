@@ -19,6 +19,7 @@ import DataRoomPage from './pages/DataRoomPage';
 import JoinTheLoopPage from './pages/JoinTheLoopPage';
 import CRCPortalPage from './pages/CRCPortalPage';
 import MediaKitPage from './pages/MediaKitPage';
+import SDGPage from './pages/SDGPage';
 
 // Admin Pages
 import AdminLayout from './components/AdminLayout';
@@ -63,6 +64,8 @@ function App() {
           <Route path="/blog/:id" element={<SingleBlogPage />} />
           <Route path="/media" element={<MediaKitPage />} />
           <Route path="/media-kit" element={<MediaKitPage />} />
+          <Route path="/sdg" element={<SDGPage />} />
+          <Route path="/sdg-commitment" element={<SDGPage />} />
           <Route path="/privacy" element={<PrivacyPolicyPage />} />
           <Route path="/terms" element={<TermsOfServicePage />} />
         </Route>

@@ -26,7 +26,7 @@ const Footer = () => {
         src="/art-flower.png" 
         alt="" 
         aria-hidden="true"
-        className="absolute -bottom-10 -right-10 w-[350px] lg:w-[450px] opacity-[0.06] pointer-events-none select-none invert"
+        className="absolute -bottom-10 -right-10 w-[450px] lg:w-[550px] opacity-[0.10] pointer-events-none select-none invert"
       />
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-16">
@@ -79,6 +79,7 @@ const Footer = () => {
               <li><a href="https://paramendonepal.vercel.app/learn" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-white/60 hover:text-white transition-colors inline-flex items-center group"><ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0" /> School Programs</a></li>
               <li><Link to="/crc-portal" className="font-body text-sm text-white/60 hover:text-white transition-colors inline-flex items-center group"><ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0" /> CRC Portal</Link></li>
               <li><Link to="/transparency" className="font-body text-sm text-white/60 hover:text-white transition-colors inline-flex items-center group"><ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0" /> Data Room</Link></li>
+              <li><Link to="/sdg" className="font-body text-sm text-white/60 hover:text-white transition-colors inline-flex items-center group"><ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0" /> UN SDG Commitment</Link></li>
               <li><Link to="/join-the-loop" className="font-body text-sm text-white/60 hover:text-white transition-colors inline-flex items-center group"><ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0" /> Join the Loop Map</Link></li>
               <li className="pt-4 mt-4 border-t border-white/10"><a href="https://canva.link/xqyuac8lr9t875v" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-white/60 hover:text-white transition-colors inline-flex items-center group"><ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0" /> Product Catalogue</a></li>
               <li><a href="https://docs.google.com/document/d/1Cc2TJQ5bW9kBvsW-0IsrJpRBcW5tUIkjP-7sHYviBZY/edit?usp=sharing" target="_blank" rel="noopener noreferrer" className="font-body text-sm text-white/60 hover:text-white transition-colors inline-flex items-center group"><ArrowRight className="w-3 h-3 mr-2 opacity-0 -ml-5 transition-all duration-300 group-hover:opacity-100 group-hover:ml-0" /> Media Kit</a></li>

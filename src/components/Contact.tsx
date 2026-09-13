@@ -45,7 +45,7 @@ const Contact = () => {
           src="/art-flower.png" 
           alt="" 
           aria-hidden="true"
-          className="absolute -bottom-10 right-0 w-[350px] lg:w-[450px] opacity-[0.04] pointer-events-none select-none"
+          className="absolute -bottom-10 right-0 w-[450px] lg:w-[550px] opacity-[0.08] pointer-events-none select-none"
         />
         <div className="relative z-10 max-w-3xl mx-auto flex flex-col items-center">
           <div className="inline-flex items-center space-x-2 px-4 py-2 mb-6 border border-black/10 rounded-full">

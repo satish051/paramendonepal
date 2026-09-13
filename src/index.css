@@ -103,9 +103,22 @@
 .goog-te-gadget-icon {
   display: none !important;
 }
+/* Force body to stay at top — Google Translate pushes it down */
 body {
   top: 0px !important;
+  position: relative !important;
+}
+/* Hide Google Translate top banner completely */
+.skiptranslate {
+  display: none !important;
 }
 .skiptranslate iframe {
   display: none !important;
 }
+.goog-te-banner-frame {
+  display: none !important;
+}
+#goog-gt-tt {
+  display: none !important;
+}
+
