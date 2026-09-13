@@ -28,10 +28,8 @@ const Navbar = () => {
         initial={{ y: -100 }}
         animate={{ y: 0 }}
         transition={{ duration: 0.6, type: "spring", stiffness: 50 }}
-        className={`pointer-events-auto transition-all duration-300 w-full max-w-5xl rounded-full relative ${
-        isScrolled 
-          ? 'bg-white/90 backdrop-blur-md border border-slate-200 shadow-lg py-0.5' 
-          : 'bg-white/70 backdrop-blur-md border border-white/40 shadow-md py-1'
+        className={`pointer-events-auto transition-all duration-300 w-full max-w-5xl rounded-full relative bg-white/90 backdrop-blur-md border border-black/10 ${
+        isScrolled ? 'py-0.5 shadow-lg' : 'py-1 shadow-md'
       }`}>
         <div className="w-full px-4 lg:px-8">
           <div className="flex justify-between items-center relative min-h-[3rem]">
@@ -50,17 +48,17 @@ const Navbar = () => {
                   <Link 
                     key={link.name} 
                     to={link.path}
-                    className={`relative px-2 py-1.5 text-sm lg:text-base font-semibold whitespace-nowrap transition-colors ${
+                    className={`relative px-2 py-1.5 font-body text-sm tracking-wide transition-colors ${
                       isActive 
-                        ? 'text-primary-700' 
-                        : 'text-slate-800 hover:text-primary-700'
+                        ? 'text-black font-bold' 
+                        : 'text-black/70 hover:text-black'
                     }`}
                   >
                     {link.name}
                     {isActive && (
                       <motion.div
                         layoutId="navbar-active-indicator"
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary-600"
+                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-black"
                         initial={false}
                         transition={{ type: "spring", stiffness: 300, damping: 30 }}
                       />
@@ -73,7 +71,7 @@ const Navbar = () => {
             <div className="md:hidden flex items-center">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="text-slate-700 hover:text-primary-600 focus:outline-none p-2"
+                className="text-black/70 hover:text-black focus:outline-none p-2"
                 aria-label="Toggle Menu"
               >
                 {isOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
@@ -83,7 +81,7 @@ const Navbar = () => {
         </div>
 
         {isOpen && (
-          <div className="md:hidden bg-white/95 backdrop-blur-md border border-slate-100 shadow-xl absolute w-[95%] left-[2.5%] top-full mt-2 rounded-2xl overflow-hidden z-50">
+          <div className="md:hidden bg-white border-t border-black/10 absolute w-[95%] left-[2.5%] top-full mt-2 rounded-2xl overflow-hidden z-50 shadow-xl">
             <div className="px-4 py-4 space-y-1">
               {navLinks.map((link) => {
                 const isActive = location.pathname === link.path;
@@ -92,10 +90,10 @@ const Navbar = () => {
                     key={link.name}
                     to={link.path}
                     onClick={() => setIsOpen(false)}
-                    className={`block px-4 py-3 rounded-xl text-base font-medium transition-colors ${
+                    className={`block px-4 py-3 font-body text-base transition-colors ${
                       isActive 
-                        ? 'text-primary-600 bg-primary-50' 
-                        : 'text-slate-700 hover:text-primary-600 hover:bg-slate-50'
+                        ? 'text-black font-bold bg-black/5 rounded-xl' 
+                        : 'text-black hover:bg-black/5 rounded-xl'
                     }`}
                   >
                     {link.name}

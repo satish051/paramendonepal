@@ -64,16 +64,16 @@ const SDGCommitment = () => {
   const segmentLength = circumference / 17;
 
   return (
-    <section className="relative py-24 overflow-hidden">
+    <section className="relative py-24 px-6 md:px-12 lg:px-20 overflow-hidden bg-black">
       {/* Background Image with Overlay */}
       <div 
         className="absolute inset-0 z-0 bg-cover bg-center bg-no-repeat bg-fixed"
         style={{ backgroundImage: 'url("https://images.unsplash.com/photo-1511497584788-876760111969?ixlib=rb-4.0.3&auto=format&fit=crop&w=2000&q=80")' }}
       >
-        <div className="absolute inset-0 bg-slate-900/80 backdrop-blur-[2px]" />
+        <div className="absolute inset-0 bg-black/70" />
       </div>
 
-      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div className="relative z-10 max-w-7xl mx-auto">
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-16 lg:gap-12 items-center">
           
           {/* Text Content */}
@@ -84,16 +84,13 @@ const SDGCommitment = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.6 }}
             >
-              <div className="inline-block px-4 py-1.5 rounded-full bg-primary-500/20 border border-primary-500/30 text-primary-400 font-semibold text-sm mb-4">
-                Our Impact
-              </div>
-              <h2 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight tracking-tight">
+              <h2 className="font-heading text-4xl md:text-5xl tracking-wider text-white uppercase">
                 {content.title}
               </h2>
-              <div className="w-24 h-1.5 bg-gradient-to-r from-secondary-500 to-primary-500 rounded-full mt-6" />
+              <div className="w-12 h-0.5 bg-red mt-6" />
             </motion.div>
             
-            <div className="space-y-5 text-gray-300 text-lg">
+            <div className="space-y-5 text-white/80 font-body text-sm leading-relaxed">
               <motion.p initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.1, duration: 0.5 }}>
                 {content.paragraph1}
               </motion.p>
@@ -103,12 +100,12 @@ const SDGCommitment = () => {
             </div>
             
             <motion.div initial={{ opacity: 0, y: 10 }} whileInView={{ opacity: 1, y: 0 }} viewport={{ once: true }} transition={{ delay: 0.4, duration: 0.5 }} className="pt-2 flex flex-col sm:flex-row items-start sm:items-center gap-6 w-full">
-              <a href="#" className="inline-flex items-center px-6 py-3 rounded-full bg-white text-slate-900 font-bold hover:bg-primary-50 transition-all duration-300 group hover:shadow-[0_0_20px_rgba(255,255,255,0.3)] shrink-0">
+              <a href="#" className="border border-white text-white hover:bg-white hover:text-black px-8 py-3 rounded-full transition-colors duration-300 font-body text-sm tracking-wide inline-flex items-center group">
                 Learn More
-                <ArrowRight className="ml-2 w-5 h-5 group-hover:translate-x-1 transition-transform" />
+                <ArrowRight className="ml-2 w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
-              <div className="text-primary-300/80 text-sm md:text-base font-medium flex items-center bg-primary-900/20 px-4 py-2 rounded-full border border-primary-500/20">
-                ✨ Hover over the wheel to explore
+              <div className="text-white/60 font-body text-sm">
+                Hover over the wheel to explore
               </div>
             </motion.div>
           </div>
@@ -121,12 +118,9 @@ const SDGCommitment = () => {
             transition={{ type: "spring", stiffness: 50, damping: 20, duration: 1.5 }}
             className="flex justify-center items-center relative"
           >
-             {/* Glow effect behind wheel */}
-             <div className="absolute inset-0 bg-secondary-500/20 blur-[100px] rounded-full" />
-             
              <div className="relative w-[320px] h-[320px] md:w-[380px] md:h-[380px] lg:w-[450px] lg:h-[450px]">
                 {/* SVG Wheel */}
-                <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90 drop-shadow-2xl">
+                <svg viewBox="0 0 100 100" className="w-full h-full -rotate-90">
                   {sdgGoals.map((goal, index) => {
                      const dashOffset = -(index * segmentLength);
                      const isActive = activeGoal === goal.id;
@@ -153,7 +147,7 @@ const SDGCommitment = () => {
 
                 {/* Center Content */}
                 <div className="absolute inset-0 flex justify-center items-center pointer-events-none">
-                   <div className="bg-white rounded-full w-[45%] h-[45%] flex flex-col justify-center items-center text-center shadow-[0_0_30px_rgba(0,0,0,0.3)] z-10 p-4 transition-all duration-300">
+                   <div className="bg-white rounded-full w-[45%] h-[45%] flex flex-col justify-center items-center text-center z-10 p-4 transition-all duration-300">
                       {activeGoal !== null ? (
                         <motion.div 
                           initial={{ opacity: 0, scale: 0.8 }}
@@ -161,7 +155,7 @@ const SDGCommitment = () => {
                           className="flex flex-col items-center justify-center space-y-2"
                         >
                           <div 
-                            className="w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center text-white font-bold shadow-inner transition-colors duration-300"
+                            className="w-8 h-8 md:w-12 md:h-12 rounded-full flex items-center justify-center text-white transition-colors duration-300"
                             style={{ backgroundColor: sdgGoals[activeGoal-1].color }}
                           >
                             {(() => {
@@ -169,7 +163,7 @@ const SDGCommitment = () => {
                               return <Icon className="w-4 h-4 md:w-6 md:h-6" />;
                             })()}
                           </div>
-                          <span className="text-xs md:text-sm lg:text-base font-bold text-slate-800 leading-tight">
+                          <span className="font-heading text-xs md:text-sm lg:text-base tracking-wider text-black">
                             {sdgGoals[activeGoal-1].name}
                           </span>
                         </motion.div>
@@ -179,10 +173,10 @@ const SDGCommitment = () => {
                           animate={{ opacity: 1 }}
                           className="flex flex-col items-center justify-center"
                         >
-                          <span className="text-[10px] md:text-xs font-bold text-gray-500 tracking-widest uppercase mb-1 leading-tight">
+                          <span className="font-body text-[10px] md:text-xs text-black/60 tracking-widest uppercase mb-1">
                             Sustainable<br/>Development
                           </span>
-                          <span className="text-xl md:text-3xl font-black text-[#00689D] tracking-wider">
+                          <span className="font-heading text-xl md:text-3xl text-black tracking-wider">
                             GOALS
                           </span>
                         </motion.div>
@@ -203,7 +197,7 @@ const SDGCommitment = () => {
                   return (
                     <div 
                       key={goal.id}
-                      className="absolute pointer-events-none flex justify-center items-center text-white drop-shadow-md transition-all duration-300"
+                      className="absolute pointer-events-none flex justify-center items-center text-white transition-all duration-300"
                       style={{
                         left: `${x}%`,
                         top: `${y}%`,

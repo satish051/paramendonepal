@@ -43,53 +43,56 @@ const services = [
 
 const ServicesPage = () => {
   return (
-    <div className="pt-32 pb-20 px-4 max-w-7xl mx-auto min-h-screen">
-      <div className="text-center mb-16">
+    <div className="min-h-screen">
+      <div className="bg-black pt-32 pb-16 px-6 md:px-12 lg:px-20 text-center">
         <motion.h1 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight"
+          className="font-heading text-5xl md:text-7xl tracking-wider text-white uppercase"
         >
           Our Initiatives & Services
         </motion.h1>
-        <p className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto font-light">
+        <div className="w-12 h-0.5 bg-red mt-4 mb-6 mx-auto" />
+        <p className="text-white/70 font-body text-lg max-w-2xl mx-auto">
           We provide a range of services and impact-driven initiatives designed to build community-centric circular economies across Nepal.
         </p>
       </div>
       
-      <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {services.map((service, idx) => {
-          const Icon = service.icon;
-          const isExternal = service.link.startsWith('http');
-          const MotionLink = isExternal ? motion.a : motion(Link);
-          
-          return (
-            <MotionLink
-              href={isExternal ? service.link : undefined}
-              to={!isExternal ? service.link : undefined}
-              target={isExternal ? "_blank" : undefined}
-              rel={isExternal ? "noopener noreferrer" : undefined}
-              key={idx}
-              initial={{ opacity: 0, y: 20 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ delay: idx * 0.1 }}
-              className="bg-white dark:bg-slate-900 p-8 rounded-3xl shadow-sm border border-slate-200 dark:border-slate-800 hover:shadow-xl hover:border-primary-500/30 transition-all duration-300 group flex flex-col h-full"
-            >
-              <div className="w-14 h-14 rounded-2xl bg-primary-50 dark:bg-primary-900/30 flex items-center justify-center mb-6 group-hover:scale-110 group-hover:bg-primary-500 transition-all duration-300">
-                <Icon className="w-7 h-7 text-primary-600 dark:text-primary-400 group-hover:text-white transition-colors" />
-              </div>
-              <h3 className="text-2xl font-bold text-slate-900 dark:text-white mb-3 group-hover:text-primary-600 dark:group-hover:text-primary-400 transition-colors">
-                {service.title}
-              </h3>
-              <p className="text-slate-600 dark:text-slate-400 mb-8 flex-grow">
-                {service.desc}
-              </p>
-              <div className="flex items-center text-primary-600 dark:text-primary-400 font-semibold mt-auto">
-                Explore Initiative <ArrowRight className="w-4 h-4 ml-2 group-hover:translate-x-2 transition-transform" />
-              </div>
-            </MotionLink>
-          );
-        })}
+      <div className="bg-white py-24 px-6 md:px-12 lg:px-20">
+        <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+          {services.map((service, idx) => {
+            const Icon = service.icon;
+            const isExternal = service.link.startsWith('http');
+            const MotionLink = isExternal ? motion.a : motion(Link);
+            
+            return (
+              <MotionLink
+                href={isExternal ? service.link : undefined}
+                to={!isExternal ? service.link : undefined}
+                target={isExternal ? "_blank" : undefined}
+                rel={isExternal ? "noopener noreferrer" : undefined}
+                key={idx}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ delay: idx * 0.1 }}
+                className="bg-white border border-black/10 rounded-lg p-8 hover:border-black/40 hover:-translate-y-1 transition-all duration-300 group flex flex-col h-full"
+              >
+                <div className="mb-4">
+                  <Icon className="w-8 h-8 text-red" />
+                </div>
+                <h3 className="font-heading text-2xl tracking-wider text-black mb-2 uppercase">
+                  {service.title}
+                </h3>
+                <p className="text-black/60 font-body text-sm flex-grow">
+                  {service.desc}
+                </p>
+                <div className="text-black hover:text-red transition-colors font-body text-sm mt-4 inline-flex items-center gap-2">
+                  Explore Initiative <ArrowRight className="w-4 h-4" />
+                </div>
+              </MotionLink>
+            );
+          })}
+        </div>
       </div>
     </div>
   );

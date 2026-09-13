@@ -32,19 +32,19 @@ const OurPartners = () => {
   const marqueePartners = [...content.logos, ...content.logos, ...content.logos, ...content.logos];
 
   return (
-    <section className="py-12 bg-gradient-to-b from-white to-primary-50 overflow-hidden relative transition-colors duration-300">
+    <section className="bg-white py-24 px-6 md:px-12 lg:px-20 overflow-hidden relative">
       <motion.div 
         initial={{ opacity: 0, y: 30 }}
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, amount: 0.5 }}
         transition={{ duration: 0.6 }}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center mb-8"
+        className="max-w-7xl mx-auto text-center mb-16"
       >
-        <h2 className="text-3xl md:text-4xl font-extrabold text-primary-600 mb-4 inline-block relative">
+        <h2 className="text-4xl md:text-5xl font-heading tracking-wider uppercase text-black text-center">
           {content.title}
-          <div className="absolute -bottom-2 left-0 right-0 h-1 bg-gradient-to-r from-secondary-400 to-primary-500 rounded-full"></div>
         </h2>
-        <p className="text-lg text-slate-600 max-w-2xl mx-auto mt-6">
+        <div className="w-12 h-0.5 bg-red mt-4 mb-6 mx-auto" />
+        <p className="text-black/60 font-body text-sm max-w-2xl mx-auto mt-6">
           {content.subtitle}
         </p>
       </motion.div>
@@ -53,20 +53,20 @@ const OurPartners = () => {
       <div className="relative w-full overflow-hidden flex">
         {/* Left/Right Fade Gradients for smooth entering/exiting */}
         <div className="absolute left-0 top-0 bottom-0 w-24 bg-gradient-to-r from-white to-transparent z-10 pointer-events-none"></div>
-        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-primary-50 to-transparent z-10 pointer-events-none"></div>
+        <div className="absolute right-0 top-0 bottom-0 w-24 bg-gradient-to-l from-white to-transparent z-10 pointer-events-none"></div>
 
         {/* Sliding Track */}
         <div className="flex animate-marquee w-max py-4">
           {marqueePartners.map((partner, index) => (
             <div 
               key={index}
-              className="flex-shrink-0 mx-4 group"
+              className="flex-shrink-0 mx-8 group"
             >
-              <div className="flex items-center justify-center w-64 h-32 p-4 bg-white rounded-xl shadow-sm border-2 border-transparent hover:border-secondary-400 hover:shadow-lg hover:-translate-y-1 hover:rotate-1 transition-all duration-300 cursor-pointer">
+              <div className="flex items-center justify-center w-48 h-24 cursor-pointer">
                 <img 
                   src={partner.url} 
                   alt={partner.name} 
-                  className="max-w-full max-h-full object-contain grayscale opacity-60 group-hover:grayscale-0 group-hover:opacity-100 transition-all duration-300 transform group-hover:scale-105"
+                  className="max-w-full max-h-full object-contain grayscale opacity-60 hover:grayscale-0 hover:opacity-100 transition-all duration-300"
                 />
               </div>
             </div>

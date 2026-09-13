@@ -3,14 +3,14 @@ import { Home, School, Building2, CheckCircle2 } from 'lucide-react';
 
 const SponsorARoofPage = () => {
   return (
-    <div className="pt-32 pb-20 min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+    <div className="min-h-screen bg-white">
       
       {/* Hero Section */}
-      <section className="px-4 max-w-7xl mx-auto text-center mb-24">
+      <section className="bg-black pt-32 pb-16 px-6 md:px-12 lg:px-20 text-center">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="inline-block px-4 py-1.5 rounded-full bg-red-100 dark:bg-red-900/30 text-red-700 dark:text-red-400 font-bold text-sm mb-6 border border-red-200 dark:border-red-800 uppercase tracking-widest"
+          className="inline-block px-4 py-1.5 border border-white/20 text-white font-body text-sm mb-6 uppercase tracking-widest"
         >
           Monsoon Relief Campaign
         </motion.div>
@@ -18,105 +18,107 @@ const SponsorARoofPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight"
+          className="font-heading text-5xl md:text-7xl tracking-wider text-white uppercase"
         >
           Sponsor a Rural Roof
         </motion.h1>
+        <div className="w-12 h-0.5 bg-red mx-auto mt-4 mb-6" />
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-lg md:text-xl text-slate-600 dark:text-slate-300 max-w-3xl mx-auto font-light leading-relaxed"
+          className="text-white/70 font-body text-lg max-w-2xl mx-auto"
         >
           In rural Dhading, the monsoon season brings severe roof leaks to homes and schools. Your sponsorship directly provides families with our waterproof, upcycled LDPE roofing sheets.
         </motion.p>
       </section>
 
       {/* Progress Bar Section */}
-      <section className="px-4 max-w-3xl mx-auto mb-32">
-        <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 md:p-12 shadow-xl border border-slate-200 dark:border-slate-800 relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-primary-500 to-secondary-500"></div>
-          <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2">Monsoon Relief Progress</h2>
-          <p className="text-slate-600 dark:text-slate-400 mb-8">Help us reach our goal of insulating 500 roofs before the heavy rains begin.</p>
+      <section className="bg-white py-24 px-6 md:px-12 lg:px-20">
+        <div className="max-w-3xl mx-auto">
+          <h2 className="font-heading text-3xl tracking-wider text-black uppercase mb-4">Monsoon Relief Progress</h2>
+          <div className="w-12 h-0.5 bg-red mb-6" />
+          <p className="text-black/60 font-body text-sm mb-8">Help us reach our goal of insulating 500 roofs before the heavy rains begin.</p>
           
           <div className="flex justify-between items-end mb-3">
             <div>
-              <span className="text-4xl font-black text-slate-900 dark:text-white">342</span>
-              <span className="text-slate-500 font-medium ml-2">Roofs Insulated</span>
+              <span className="font-heading text-4xl tracking-wider text-black">342</span>
+              <span className="text-black/60 font-body text-sm ml-2">Roofs Insulated</span>
             </div>
-            <div className="text-sm font-semibold text-slate-500 uppercase tracking-wider">Goal: 500</div>
+            <div className="font-heading text-xl tracking-wider text-black">Goal: 500</div>
           </div>
           
-          <div className="w-full h-4 bg-slate-100 dark:bg-slate-800 rounded-full overflow-hidden mb-3">
+          <div className="w-full h-3 bg-black/10 rounded-full overflow-hidden mb-3">
             <motion.div 
               initial={{ width: 0 }}
               whileInView={{ width: '68%' }}
               viewport={{ once: true }}
               transition={{ duration: 1.5, ease: "easeOut" }}
-              className="h-full bg-primary-500 rounded-full"
+              className="h-full bg-red rounded-full"
             ></motion.div>
           </div>
-          <div className="text-right text-sm font-bold text-primary-600 dark:text-primary-400">
+          <div className="text-right font-body text-sm font-bold text-red">
             68% Funded — Thank you!
           </div>
         </div>
       </section>
 
       {/* Pricing/Impact Section */}
-      <section className="px-4 max-w-7xl mx-auto mb-32">
+      <section className="bg-white py-24 px-6 md:px-12 lg:px-20">
         <div className="text-center mb-16">
-          <h2 className="text-3xl font-extrabold text-slate-900 dark:text-white mb-4">Choose Your Impact</h2>
-          <p className="text-slate-600 dark:text-slate-400">100% of your sponsorship goes directly towards materials and local installation.</p>
+          <h2 className="font-heading text-4xl md:text-5xl tracking-wider text-black uppercase">Choose Your Impact</h2>
+          <div className="w-12 h-0.5 bg-red mx-auto mt-4 mb-6" />
+          <p className="text-black/60 font-body text-sm">100% of your sponsorship goes directly towards materials and local installation.</p>
         </div>
 
         <div className="grid md:grid-cols-3 gap-8 max-w-6xl mx-auto">
           {/* Option 1 */}
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow flex flex-col">
-            <div className="w-16 h-16 bg-blue-50 dark:bg-blue-900/30 rounded-2xl flex items-center justify-center mb-6 text-blue-600 dark:text-blue-400">
+          <div className="bg-white border border-black/10 rounded-lg p-8 hover:border-black/40 hover:-translate-y-1 transition-all duration-300 flex flex-col">
+            <div className="mb-6 text-red">
               <Home className="w-8 h-8" />
             </div>
             <div className="mb-6">
-              <span className="text-4xl font-black text-slate-900 dark:text-white">$35</span>
-              <span className="text-slate-500 font-medium ml-1">USD</span>
+              <span className="font-heading text-4xl tracking-wider text-black">$35</span>
+              <span className="text-black/60 font-body text-sm ml-1">USD</span>
             </div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Sponsor a Family Home</h3>
-            <p className="text-slate-600 dark:text-slate-400 mb-8 flex-grow">Provide enough LDPE roofing sheets to waterproof a standard rural home for the monsoon season.</p>
-            <button className="w-full py-4 rounded-xl font-bold text-blue-600 bg-blue-50 hover:bg-blue-100 dark:text-blue-400 dark:bg-blue-900/20 dark:hover:bg-blue-900/40 transition-colors">
+            <h3 className="font-heading text-2xl tracking-wider text-black mb-3 uppercase">Sponsor a Family Home</h3>
+            <p className="text-black/60 font-body text-sm mb-8 flex-grow">Provide enough LDPE roofing sheets to waterproof a standard rural home for the monsoon season.</p>
+            <button className="bg-transparent border border-black text-black px-8 py-3 rounded-full hover:bg-black hover:text-white transition-colors duration-300 font-body text-sm tracking-wide w-full">
               Sponsor Now
             </button>
           </div>
 
           {/* Option 2 (Popular) */}
-          <div className="bg-slate-900 dark:bg-slate-800 rounded-3xl p-8 border border-slate-800 shadow-2xl relative transform md:-translate-y-4 flex flex-col">
-            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-gradient-to-r from-primary-500 to-secondary-500 text-white px-4 py-1 rounded-full text-sm font-bold uppercase tracking-widest shadow-lg">
+          <div className="bg-white border-2 border-red rounded-lg p-8 hover:border-black/40 hover:-translate-y-1 transition-all duration-300 flex flex-col relative md:-translate-y-4">
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-red text-white px-4 py-1 text-sm font-body font-bold uppercase tracking-widest">
               Most Popular
             </div>
-            <div className="w-16 h-16 bg-white/10 rounded-2xl flex items-center justify-center mb-6 text-white">
+            <div className="mb-6 text-red">
               <School className="w-8 h-8" />
             </div>
             <div className="mb-6">
-              <span className="text-4xl font-black text-white">$75</span>
-              <span className="text-slate-400 font-medium ml-1">USD</span>
+              <span className="font-heading text-4xl tracking-wider text-black">$75</span>
+              <span className="text-black/60 font-body text-sm ml-1">USD</span>
             </div>
-            <h3 className="text-xl font-bold text-white mb-3">Sponsor a Classroom</h3>
-            <p className="text-slate-300 mb-8 flex-grow">Insulate and waterproof a village classroom, ensuring students can learn comfortably during heavy rains.</p>
-            <button className="w-full py-4 rounded-xl font-bold text-white bg-primary-600 hover:bg-primary-500 transition-colors shadow-[0_0_20px_rgba(59,130,246,0.3)]">
+            <h3 className="font-heading text-2xl tracking-wider text-black mb-3 uppercase">Sponsor a Classroom</h3>
+            <p className="text-black/60 font-body text-sm mb-8 flex-grow">Insulate and waterproof a village classroom, ensuring students can learn comfortably during heavy rains.</p>
+            <button className="bg-red text-white px-8 py-3 rounded-full hover:bg-black transition-colors duration-300 font-body font-bold text-sm tracking-wide w-full">
               Sponsor Now
             </button>
           </div>
 
           {/* Option 3 */}
-          <div className="bg-white dark:bg-slate-900 rounded-3xl p-8 border border-slate-200 dark:border-slate-800 shadow-sm hover:shadow-xl transition-shadow flex flex-col">
-            <div className="w-16 h-16 bg-purple-50 dark:bg-purple-900/30 rounded-2xl flex items-center justify-center mb-6 text-purple-600 dark:text-purple-400">
+          <div className="bg-white border border-black/10 rounded-lg p-8 hover:border-black/40 hover:-translate-y-1 transition-all duration-300 flex flex-col">
+            <div className="mb-6 text-red">
               <Building2 className="w-8 h-8" />
             </div>
             <div className="mb-6">
-              <span className="text-4xl font-black text-slate-900 dark:text-white">$150</span>
-              <span className="text-slate-500 font-medium ml-1">USD</span>
+              <span className="font-heading text-4xl tracking-wider text-black">$150</span>
+              <span className="text-black/60 font-body text-sm ml-1">USD</span>
             </div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Sponsor a Village Shelter</h3>
-            <p className="text-slate-600 dark:text-slate-400 mb-8 flex-grow">Cover a large community gathering space or emergency shelter used by multiple families.</p>
-            <button className="w-full py-4 rounded-xl font-bold text-purple-600 bg-purple-50 hover:bg-purple-100 dark:text-purple-400 dark:bg-purple-900/20 dark:hover:bg-purple-900/40 transition-colors">
+            <h3 className="font-heading text-2xl tracking-wider text-black mb-3 uppercase">Sponsor a Village Shelter</h3>
+            <p className="text-black/60 font-body text-sm mb-8 flex-grow">Cover a large community gathering space or emergency shelter used by multiple families.</p>
+            <button className="bg-transparent border border-black text-black px-8 py-3 rounded-full hover:bg-black hover:text-white transition-colors duration-300 font-body text-sm tracking-wide w-full">
               Sponsor Now
             </button>
           </div>
@@ -124,30 +126,28 @@ const SponsorARoofPage = () => {
       </section>
 
       {/* How it works */}
-      <section className="px-4 max-w-5xl mx-auto">
-        <h2 className="text-3xl font-extrabold text-center text-slate-900 dark:text-white mb-16">What happens after you sponsor?</h2>
+      <section className="bg-white py-24 px-6 md:px-12 lg:px-20 max-w-5xl mx-auto">
+        <h2 className="font-heading text-4xl md:text-5xl tracking-wider text-center text-black uppercase mb-16">What happens after you sponsor?</h2>
         
-        <div className="grid md:grid-cols-3 gap-8 relative">
-          <div className="hidden md:block absolute top-8 left-[16%] right-[16%] h-0.5 bg-slate-200 dark:bg-slate-800 z-0"></div>
-          
-          <div className="relative z-10 text-center">
-            <div className="w-16 h-16 mx-auto bg-white dark:bg-slate-900 rounded-full border-4 border-primary-500 flex items-center justify-center text-xl font-black text-primary-600 dark:text-primary-400 mb-6 shadow-xl">1</div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Materials Prepared</h3>
-            <p className="text-slate-600 dark:text-slate-400">Our Dhading CRC manufactures the required LDPE sheets from locally upcycled plastic waste.</p>
+        <div className="flex flex-col space-y-12 max-w-2xl mx-auto">
+          <div className="border-l-2 border-red pl-6 relative">
+            <div className="absolute -left-3 top-0 w-6 h-6 bg-white border-2 border-red flex items-center justify-center font-heading text-xs text-black">1</div>
+            <h3 className="font-heading text-2xl tracking-wider text-black mb-2 uppercase">Materials Prepared</h3>
+            <p className="text-black/60 font-body text-sm">Our Dhading CRC manufactures the required LDPE sheets from locally upcycled plastic waste.</p>
           </div>
           
-          <div className="relative z-10 text-center">
-            <div className="w-16 h-16 mx-auto bg-white dark:bg-slate-900 rounded-full border-4 border-primary-500 flex items-center justify-center text-xl font-black text-primary-600 dark:text-primary-400 mb-6 shadow-xl">2</div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Local Installation</h3>
-            <p className="text-slate-600 dark:text-slate-400">Our trained community technicians install the waterproof sheets on the designated home or school.</p>
+          <div className="border-l-2 border-red pl-6 relative">
+            <div className="absolute -left-3 top-0 w-6 h-6 bg-white border-2 border-red flex items-center justify-center font-heading text-xs text-black">2</div>
+            <h3 className="font-heading text-2xl tracking-wider text-black mb-2 uppercase">Local Installation</h3>
+            <p className="text-black/60 font-body text-sm">Our trained community technicians install the waterproof sheets on the designated home or school.</p>
           </div>
           
-          <div className="relative z-10 text-center">
-            <div className="w-16 h-16 mx-auto bg-primary-500 rounded-full border-4 border-primary-500 flex items-center justify-center text-white mb-6 shadow-xl shadow-primary-500/30">
-              <CheckCircle2 className="w-8 h-8" />
+          <div className="border-l-2 border-red pl-6 relative">
+            <div className="absolute -left-3 top-0 w-6 h-6 bg-red flex items-center justify-center text-white">
+              <CheckCircle2 className="w-4 h-4" />
             </div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-3">Photo Update</h3>
-            <p className="text-slate-600 dark:text-slate-400">You receive a real-time photo of the installed roof, optionally tagged with your name or dedication.</p>
+            <h3 className="font-heading text-2xl tracking-wider text-black mb-2 uppercase">Photo Update</h3>
+            <p className="text-black/60 font-body text-sm">You receive a real-time photo of the installed roof, optionally tagged with your name or dedication.</p>
           </div>
         </div>
       </section>

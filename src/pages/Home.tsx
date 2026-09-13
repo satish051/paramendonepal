@@ -8,7 +8,7 @@ import OurPartners from '../components/OurPartners';
 
 const Home = () => {
   return (
-    <>
+    <div className="bg-white">
       <Hero />
       <ImpactMetrics />
       <HomeProducts />
@@ -16,7 +16,7 @@ const Home = () => {
       <MediaAndInsights />
       <SDGCommitment />
       <Transformation />
-    </>
+    </div>
   );
 };
 

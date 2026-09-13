@@ -71,23 +71,24 @@ const Transformation = () => {
   }, [isDragging]);
 
   return (
-    <section className="py-24 bg-white dark:bg-slate-950 transition-colors duration-300 overflow-hidden">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="text-center max-w-3xl mx-auto mb-16">
+    <section className="bg-black text-white py-24 px-6 md:px-12 lg:px-20 overflow-hidden">
+      <div className="max-w-7xl mx-auto">
+        <div className="text-center max-w-3xl mx-auto mb-16 flex flex-col items-center">
           <motion.h2 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl md:text-5xl font-extrabold text-slate-900 dark:text-white mb-6"
+            className="font-heading text-4xl md:text-5xl tracking-wider text-white uppercase"
           >
             {content.title}
           </motion.h2>
+          <div className="w-12 h-0.5 bg-red mt-4 mb-8" />
           <motion.p 
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
             transition={{ delay: 0.1 }}
-            className="text-lg text-slate-600 dark:text-slate-400"
+            className="text-white/70 font-body text-lg"
           >
             {content.subtitle}
           </motion.p>
@@ -97,7 +98,7 @@ const Transformation = () => {
         <motion.div 
           ref={containerRef}
           style={{ y: yParallax }}
-          className="relative w-full aspect-video md:aspect-[21/9] rounded-2xl overflow-hidden shadow-2xl select-none group"
+          className="relative w-full aspect-video md:aspect-[21/9] rounded-lg overflow-hidden border border-white/20 select-none group"
         >
           
           {/* AFTER Image (Background) */}
@@ -105,8 +106,8 @@ const Transformation = () => {
             className="absolute inset-0 flex items-center justify-end px-12 md:px-24 bg-cover bg-center"
             style={{ backgroundImage: 'url("https://images.pexels.com/photos/1250283/pexels-photo-1250283.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=2")' }}
           >
-            <div className="bg-white/90 backdrop-blur px-4 py-2 rounded-lg shadow-xl border border-white/20">
-              <span className="font-bold text-primary-600 text-sm md:text-base">AFTER: Durable PP Tile</span>
+            <div className="bg-white/90 backdrop-blur px-4 py-2 rounded border border-black/10">
+              <span className="font-heading tracking-widest uppercase text-black text-sm">AFTER: Durable PP Tile</span>
             </div>
           </div>
 
@@ -118,18 +119,22 @@ const Transformation = () => {
               clipPath: `inset(0 ${100 - sliderPosition}% 0 0)` 
             }}
           >
-            <div className="bg-slate-900/90 backdrop-blur px-4 py-2 rounded-lg shadow-xl border border-slate-700">
-              <span className="font-bold text-white text-sm md:text-base">BEFORE: Plastic Waste</span>
+            <div className="bg-black/80 backdrop-blur px-4 py-2 rounded border border-white/20">
+              <span className="font-heading tracking-widest uppercase text-white text-sm">BEFORE: Plastic Waste</span>
             </div>
           </div>
 
           {/* Slider Line & Handle */}
           <div 
-            className="absolute top-0 bottom-0 w-1 bg-white cursor-ew-resize flex items-center justify-center z-10"
-            style={{ left: `calc(${sliderPosition}% - 2px)` }}
+            className="absolute top-0 bottom-0 w-0.5 bg-white cursor-ew-resize flex items-center justify-center z-10"
+            style={{ left: `calc(${sliderPosition}% - 1px)` }}
           >
-            <div className="w-8 h-8 md:w-10 md:h-10 bg-white rounded-full flex items-center justify-center shadow-lg border-2 border-primary-600 text-primary-600">
-              <ArrowLeftRight className="w-4 h-4 md:w-5 md:h-5" />
+            <div 
+              className="w-8 h-8 bg-white rounded-full flex items-center justify-center shadow border border-black/10 text-black cursor-ew-resize hover:bg-gray-100 transition-colors"
+              onMouseDown={() => setIsDragging(true)}
+              onTouchStart={() => setIsDragging(true)}
+            >
+              <ArrowLeftRight className="w-4 h-4" />
             </div>
           </div>
 

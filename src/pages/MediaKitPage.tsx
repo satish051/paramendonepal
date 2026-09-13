@@ -1,4 +1,4 @@
-﻿import { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import { Image as ImageIcon, Download, ExternalLink, Sparkles, FileText, ArrowRight } from 'lucide-react';
 import { Link } from 'react-router-dom';
@@ -30,13 +30,13 @@ const MediaKitPage = () => {
   }, []);
 
   return (
-    <div className="pt-32 pb-24 min-h-screen bg-slate-50 dark:bg-slate-950 transition-colors duration-300">
+    <div className="bg-white min-h-screen">
       {/* Hero Section */}
-      <section className="px-4 max-w-5xl mx-auto text-center mb-16">
+      <section className="bg-white pt-32 pb-16 px-6 md:px-12 lg:px-20 text-center">
         <motion.div 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
-          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full bg-primary-50 dark:bg-primary-950/50 text-primary-700 dark:text-primary-300 font-bold text-xs mb-6 border border-primary-200 dark:border-primary-800 uppercase tracking-widest"
+          className="inline-flex items-center gap-2 px-4 py-1.5 rounded-full border border-black/10 text-black font-body text-xs mb-6 uppercase tracking-widest"
         >
           <Sparkles size={14} />
           <span>Brand Assets & Gallery</span>
@@ -45,15 +45,16 @@ const MediaKitPage = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.1 }}
-          className="text-4xl md:text-6xl font-extrabold text-slate-900 dark:text-white mb-6 tracking-tight"
+          className="font-heading text-5xl md:text-7xl tracking-wider text-black uppercase"
         >
           Media Kit & Visual Gallery
         </motion.h1>
+        <div className="w-12 h-0.5 bg-red mt-4 mb-6 mx-auto" />
         <motion.p 
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.2 }}
-          className="text-lg md:text-xl text-slate-600 dark:text-slate-300 mx-auto max-w-3xl font-light leading-relaxed mb-8"
+          className="text-black/60 font-body text-lg max-w-2xl mx-auto mb-8 leading-relaxed"
         >
           Explore official brand photographs, factory recycling processes, mountain community collection initiatives, and digital assets of Paramendo Nepal.
         </motion.p>
@@ -69,7 +70,7 @@ const MediaKitPage = () => {
             href="https://docs.google.com/document/d/1Cc2TJQ5bW9kBvsW-0IsrJpRBcW5tUIkjP-7sHYviBZY/edit?usp=sharing"
             target="_blank"
             rel="noopener noreferrer"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-primary-600 hover:bg-primary-700 text-white rounded-full font-semibold transition-all shadow-md hover:shadow-lg text-sm"
+            className="inline-flex items-center gap-2 bg-red text-white px-8 py-3 rounded-full hover:bg-black transition-colors duration-300 font-body font-bold text-sm tracking-wide"
           >
             <FileText size={16} />
             <span>Open Official Media Kit Doc</span>
@@ -78,7 +79,7 @@ const MediaKitPage = () => {
 
           <Link
             to="/products"
-            className="inline-flex items-center gap-2 px-6 py-3 bg-white dark:bg-slate-900 border border-slate-300 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-200 rounded-full font-semibold transition-all text-sm"
+            className="inline-flex items-center gap-2 bg-transparent border border-black text-black px-8 py-3 rounded-full hover:bg-black hover:text-white transition-colors duration-300 font-body text-sm tracking-wide"
           >
             <span>View Products Catalogue</span>
             <ArrowRight size={14} />
@@ -87,46 +88,46 @@ const MediaKitPage = () => {
       </section>
 
       {/* Gallery Grid */}
-      <section className="px-4 max-w-7xl mx-auto">
-        <div className="flex items-center justify-between mb-8 pb-4 border-b border-slate-200 dark:border-slate-800">
+      <section className="py-24 px-6 md:px-12 lg:px-20 max-w-7xl mx-auto">
+        <div className="flex items-center justify-between mb-8 pb-4 border-b border-black/10">
           <div>
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white">Media Assets</h2>
-            <p className="text-sm text-slate-500 dark:text-slate-400 mt-1">
+            <h2 className="font-heading tracking-wider text-2xl text-black uppercase">Media Assets</h2>
+            <p className="font-body text-sm text-black/60 mt-1">
               High-resolution media assets from the Paramendo collection
             </p>
           </div>
-          <span className="text-xs font-bold px-3 py-1.5 bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-slate-300 rounded-full">
+          <span className="text-xs font-body uppercase tracking-wider px-3 py-1.5 border border-black/10 text-black rounded-full">
             {images.length} Assets
           </span>
         </div>
 
         {loading ? (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {[...Array(8)].map((_, i) => (
-              <div key={i} className="animate-pulse bg-slate-200 dark:bg-slate-800 rounded-2xl h-64"></div>
+              <div key={i} className="animate-pulse bg-black/5 rounded-lg h-64 border border-black/10"></div>
             ))}
           </div>
         ) : images.length === 0 ? (
-          <div className="text-center py-24 bg-white dark:bg-slate-900 rounded-3xl border border-slate-200 dark:border-slate-800 p-8">
-            <div className="w-16 h-16 bg-slate-100 dark:bg-slate-800 text-slate-400 rounded-2xl flex items-center justify-center mx-auto mb-4">
+          <div className="text-center py-24 bg-white rounded-lg border border-black/10 p-8">
+            <div className="w-16 h-16 border border-black/10 text-black rounded-full flex items-center justify-center mx-auto mb-4">
               <ImageIcon size={32} />
             </div>
-            <h3 className="text-lg font-bold text-slate-800 dark:text-white">No Media Files Found</h3>
-            <p className="text-sm text-slate-500 dark:text-slate-400 max-w-md mx-auto mt-1 mb-6">
+            <h3 className="font-heading tracking-wider text-xl text-black uppercase">No Media Files Found</h3>
+            <p className="font-body text-sm text-black/60 max-w-md mx-auto mt-1 mb-6">
               Uploaded images from the admin panel gallery will automatically appear here for media kits and public viewing.
             </p>
             <a
               href="https://docs.google.com/document/d/1Cc2TJQ5bW9kBvsW-0IsrJpRBcW5tUIkjP-7sHYviBZY/edit?usp=sharing"
               target="_blank"
               rel="noopener noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-2.5 bg-primary-600 text-white rounded-xl text-sm font-semibold"
+              className="inline-flex items-center gap-2 border border-black text-black px-6 py-2 rounded-full hover:bg-black hover:text-white transition-colors duration-300 font-body text-sm tracking-wide"
             >
               <FileText size={16} />
               <span>Read Media Guidelines Document</span>
             </a>
           </div>
         ) : (
-          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-6">
+          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
             {images.map((item, idx) => (
               <motion.div
                 key={item.filename || idx}
@@ -134,10 +135,10 @@ const MediaKitPage = () => {
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
                 transition={{ delay: (idx % 8) * 0.05 }}
-                className="group relative bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 overflow-hidden shadow-xs hover:shadow-xl transition-all duration-300 flex flex-col justify-between"
+                className="group relative bg-white rounded-lg overflow-hidden border border-black/10 hover:border-black/40 transition-all cursor-pointer flex flex-col justify-between"
               >
                 <div 
-                  className="aspect-w-4 aspect-h-3 w-full bg-slate-100 dark:bg-slate-800 overflow-hidden cursor-pointer"
+                  className="aspect-w-4 aspect-h-3 w-full bg-black/5 overflow-hidden"
                   onClick={() => setSelectedImage(item.url)}
                 >
                   <img
@@ -150,8 +151,8 @@ const MediaKitPage = () => {
                   />
                 </div>
 
-                <div className="p-4 flex items-center justify-between gap-2 border-t border-slate-100 dark:border-slate-800/80 bg-white/95 dark:bg-slate-900/95">
-                  <span className="text-xs font-mono text-slate-500 dark:text-slate-400 truncate max-w-[160px]" title={item.filename}>
+                <div className="p-4 flex items-center justify-between gap-2 border-t border-black/10 bg-white">
+                  <span className="font-body text-xs text-black/60 truncate max-w-[160px]" title={item.filename}>
                     {item.filename}
                   </span>
                   <div className="flex items-center gap-1.5 shrink-0">
@@ -160,7 +161,7 @@ const MediaKitPage = () => {
                       target="_blank"
                       rel="noopener noreferrer"
                       download={item.filename}
-                      className="p-1.5 rounded-lg text-slate-500 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-slate-800 transition-colors"
+                      className="p-1.5 text-black hover:text-red transition-colors"
                       title="Download Image"
                     >
                       <Download size={16} />
@@ -168,7 +169,7 @@ const MediaKitPage = () => {
                     <button
                       type="button"
                       onClick={() => setSelectedImage(item.url)}
-                      className="p-1.5 rounded-lg text-slate-500 hover:text-primary-600 hover:bg-primary-50 dark:hover:bg-slate-800 transition-colors"
+                      className="p-1.5 text-black hover:text-red transition-colors"
                       title="Full View"
                     >
                       <ExternalLink size={16} />
@@ -184,22 +185,22 @@ const MediaKitPage = () => {
       {/* Lightbox / Modal for enlarged photo */}
       {selectedImage && (
         <div 
-          className="fixed inset-0 z-50 bg-black/80 backdrop-blur-xs flex items-center justify-center p-4 cursor-pointer"
+          className="fixed inset-0 z-50 bg-black/90 backdrop-blur-sm flex items-center justify-center p-4 cursor-pointer"
           onClick={() => setSelectedImage(null)}
         >
-          <div className="relative max-w-5xl max-h-[90vh] bg-slate-900 rounded-2xl overflow-hidden shadow-2xl p-2" onClick={e => e.stopPropagation()}>
+          <div className="relative max-w-5xl max-h-[90vh] bg-black rounded-lg overflow-hidden border border-white/10 p-2" onClick={e => e.stopPropagation()}>
             <img 
               src={selectedImage} 
               alt="Expanded media asset" 
               className="max-w-full max-h-[80vh] object-contain mx-auto rounded-lg"
             />
-            <div className="flex items-center justify-between p-3 text-white text-sm">
+            <div className="flex items-center justify-between p-4 bg-black border-t border-white/10">
               <a
                 href={selectedImage}
                 target="_blank"
                 rel="noopener noreferrer"
                 download
-                className="inline-flex items-center gap-2 px-4 py-1.5 bg-primary-600 hover:bg-primary-700 text-white rounded-lg text-xs font-bold"
+                className="inline-flex items-center gap-2 border border-white text-white px-6 py-2 rounded-full hover:bg-white hover:text-black transition-colors duration-300 font-body text-sm tracking-wide"
               >
                 <Download size={14} />
                 <span>Download Asset</span>
@@ -207,7 +208,7 @@ const MediaKitPage = () => {
               <button
                 type="button"
                 onClick={() => setSelectedImage(null)}
-                className="px-3 py-1 bg-slate-800 hover:bg-slate-700 rounded-lg text-xs font-bold"
+                className="border border-white/30 text-white/80 hover:text-white px-6 py-2 rounded-full transition-colors font-body text-sm tracking-wide"
               >
                 Close (ESC)
               </button>
