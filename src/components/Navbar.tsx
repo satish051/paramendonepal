@@ -35,7 +35,7 @@ const Navbar = () => {
           <div className="flex justify-between items-center relative min-h-[3rem]">
             <Link to="/" className="flex items-center shrink-0">
               <img 
-                src="/logo.webp" 
+                src="/logo.png" 
                 alt="Paramendo Logo" 
                 className="w-auto h-8 md:h-10 object-contain drop-shadow-md" 
               />

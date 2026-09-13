@@ -28,7 +28,7 @@ const Footer = () => {
           <div className="md:col-span-12 lg:col-span-4 space-y-8">
             <Link to="/" className="inline-block group">
               <div className="bg-white p-3 rounded-2xl transition-colors border border-black/10 inline-block">
-                <img src="/logo.webp" alt="Paramendo Logo" className="h-14 w-auto object-contain group-hover:scale-105 transition-transform" />
+                <img src="/logo.png" alt="Paramendo Logo" className="h-14 w-auto object-contain group-hover:scale-105 transition-transform" />
               </div>
             </Link>
             <p className="font-body text-white/70 leading-relaxed max-w-sm">

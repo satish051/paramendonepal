@@ -39,7 +39,7 @@ const Login = () => {
         
         <div className="relative z-10 flex flex-col justify-between w-full p-12 text-white">
           <div>
-            <img src="/logo.webp" alt="Paramendo Logo" className="h-14 w-auto object-contain" />
+            <img src="/logo.png" alt="Paramendo Logo" className="h-14 w-auto object-contain" />
           </div>
           
           <div className="space-y-6 max-w-lg">
@@ -63,7 +63,7 @@ const Login = () => {
           {/* Mobile Logo */}
           <div className="lg:hidden mb-10 flex justify-center">
             <div className="p-3 bg-slate-900 rounded-2xl inline-block shadow-md">
-              <img src="/logo.webp" alt="Paramendo Logo" className="h-10 w-auto object-contain" />
+              <img src="/logo.png" alt="Paramendo Logo" className="h-10 w-auto object-contain" />
             </div>
           </div>
 

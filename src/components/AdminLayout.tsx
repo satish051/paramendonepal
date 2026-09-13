@@ -39,7 +39,7 @@ const AdminLayout = () => {
       {/* Mobile sidebar toggle */}
       <div className="lg:hidden fixed top-0 left-0 right-0 h-16 bg-white border-b border-slate-200 z-50 flex items-center justify-between px-4">
         <div className="flex items-center space-x-3">
-          <img src="/logo.webp" alt="Logo" className="h-8 w-auto" />
+          <img src="/logo.png" alt="Logo" className="h-8 w-auto" />
           <span className="font-bold text-slate-800">Admin</span>
         </div>
         <button 
@@ -66,7 +66,7 @@ const AdminLayout = () => {
       `}>
         <div className="h-full flex flex-col">
           <div className="h-16 flex items-center px-6 border-b border-slate-800 hidden lg:flex space-x-3">
-            <img src="/logo.webp" alt="Logo" className="h-8 w-auto bg-white rounded p-1" />
+            <img src="/logo.png" alt="Logo" className="h-8 w-auto bg-white rounded p-1" />
             <span className="text-lg font-bold">Admin Panel</span>
           </div>
 
