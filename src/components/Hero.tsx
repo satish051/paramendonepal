@@ -84,12 +84,12 @@ const Hero = () => {
   return (
     <section className="relative min-h-screen flex items-center justify-center py-32 overflow-hidden bg-transparent">
       {/* Background Video */}
-      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none bg-black/60">
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
         <div className="absolute top-1/2 left-1/2 w-[100vw] h-[56.25vw] min-h-[100vh] min-w-[177.77vh] -translate-x-1/2 -translate-y-1/2 opacity-100">
           <div id="youtube-player" className="w-full h-full border-0 pointer-events-none"></div>
         </div>
-        {/* Simple dark overlay */}
-        <div className="absolute inset-0 bg-black/60 z-10"></div>
+        {/* Subtle, cinema-grade vignette overlay that keeps video bright and clear */}
+        <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-black/25 to-black/35 z-10"></div>
       </div>
 
       {/* Sound Toggle Button */}
@@ -111,7 +111,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.4, duration: 0.8 }}
-          className="font-heading text-5xl md:text-7xl lg:text-8xl tracking-wider text-white uppercase mb-6"
+          className="font-heading text-5xl md:text-7xl lg:text-8xl tracking-wider text-white uppercase mb-6 drop-shadow-[0_4px_16px_rgba(0,0,0,0.5)]"
         >
           {heroContent.title}
         </motion.h1>
@@ -120,7 +120,7 @@ const Hero = () => {
           initial={{ opacity: 0, y: 20 }}
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.6, duration: 0.8 }}
-          className="font-body text-lg md:text-xl text-white/80 max-w-2xl"
+          className="font-body text-lg md:text-xl text-white/95 max-w-2xl leading-relaxed drop-shadow-[0_2px_8px_rgba(0,0,0,0.6)]"
         >
           {heroContent.subtitle}
         </motion.p>
