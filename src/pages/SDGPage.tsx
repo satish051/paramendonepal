@@ -201,21 +201,27 @@ const sdgGoalsData = [
 const SDGPage = () => {
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="bg-black pt-32 pb-20 px-6 md:px-12 lg:px-20 text-center relative overflow-hidden">
+      {/* Hero Section - Warm, Minimalist Editorial Opening */}
+      <section className="relative pt-36 pb-20 px-6 md:px-12 lg:px-20 text-center border-b border-black/10 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EFEA]/60 to-white">
         {/* Subtle decorative line-art watermark */}
         <img 
           src="/art-flower.png" 
           alt="" 
           aria-hidden="true"
-          className="absolute -bottom-10 -right-10 w-[450px] lg:w-[600px] opacity-[0.08] pointer-events-none select-none invert"
+          className="absolute -bottom-10 -right-10 w-[450px] lg:w-[600px] opacity-[0.08] pointer-events-none select-none"
+        />
+        <img 
+          src="/art-nepal.png" 
+          alt="" 
+          aria-hidden="true"
+          className="absolute -top-12 -left-10 w-[350px] lg:w-[480px] opacity-[0.04] pointer-events-none select-none"
         />
 
         <div className="max-w-4xl mx-auto relative z-10">
           <motion.div 
             initial={{ opacity: 0, y: 15 }}
             animate={{ opacity: 1, y: 0 }}
-            className="inline-flex items-center space-x-2 px-4 py-1.5 border border-white/20 text-white font-body text-xs md:text-sm mb-6 uppercase tracking-widest rounded-full"
+            className="inline-flex items-center space-x-2 px-4 py-1.5 border border-black/10 bg-white/80 backdrop-blur-sm text-black font-body text-xs md:text-sm mb-6 uppercase tracking-widest rounded-full"
           >
             <Globe2 className="w-4 h-4 text-red" />
             <span>United Nations Agenda 2030</span>
@@ -225,7 +231,7 @@ const SDGPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="font-heading text-4xl sm:text-5xl md:text-7xl tracking-wider text-white uppercase leading-tight"
+            className="font-heading text-4xl sm:text-5xl md:text-7xl tracking-wider text-black uppercase leading-tight"
           >
             Our Commitment To UN Sustainable Development Goals
           </motion.h1>
@@ -236,7 +242,7 @@ const SDGPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
-            className="text-white/80 font-body text-base md:text-xl leading-relaxed max-w-3xl mx-auto"
+            className="text-black/80 font-body text-base md:text-xl leading-relaxed max-w-3xl mx-auto"
           >
             Paramendo Nepal activities are focused on adding value to the Triple Bottom Line of <strong>'People, Planet and Prosperity'</strong>, thereby creating an entity that can truly achieve a Net Positive Impact.
           </motion.p>
@@ -245,7 +251,7 @@ const SDGPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3 }}
-            className="text-white/60 font-body text-sm md:text-base leading-relaxed max-w-2xl mx-auto mt-4"
+            className="text-black/60 font-body text-sm md:text-base leading-relaxed max-w-2xl mx-auto mt-4"
           >
             With the United Nation's Sustainable Development Goals serving as our guiding light, all our activities have a positive environmental and social impact on individuals and communities across Nepal.
           </motion.p>

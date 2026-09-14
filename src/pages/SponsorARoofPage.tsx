@@ -5,32 +5,43 @@ const SponsorARoofPage = () => {
   return (
     <div className="min-h-screen bg-white">
       
-      {/* Hero Section */}
-      <section className="bg-black pt-32 pb-16 px-6 md:px-12 lg:px-20 text-center">
-        <motion.div 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="inline-block px-4 py-1.5 border border-white/20 text-white font-body text-sm mb-6 uppercase tracking-widest"
-        >
-          Monsoon Relief Campaign
-        </motion.div>
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.1 }}
-          className="font-heading text-5xl md:text-7xl tracking-wider text-white uppercase"
-        >
-          Sponsor a Rural Roof
-        </motion.h1>
-        <div className="w-12 h-0.5 bg-red mx-auto mt-4 mb-6" />
-        <motion.p 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ delay: 0.2 }}
-          className="text-white/70 font-body text-lg max-w-2xl mx-auto"
-        >
-          In rural Dhading, the monsoon season brings severe roof leaks to homes and schools. Your sponsorship directly provides families with our waterproof, upcycled LDPE roofing sheets.
-        </motion.p>
+      {/* Hero Section - Warm, Minimalist Editorial Opening */}
+      <section className="relative pt-36 pb-20 px-6 md:px-12 lg:px-20 text-center border-b border-black/10 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EFEA]/60 to-white">
+        {/* Decorative line art */}
+        <img 
+          src="/art-nepal.png" 
+          alt="" 
+          aria-hidden="true"
+          className="absolute -bottom-10 -right-10 w-[420px] lg:w-[520px] opacity-[0.06] pointer-events-none select-none"
+        />
+
+        <div className="relative z-10 max-w-3xl mx-auto">
+          <motion.div 
+            initial={{ opacity: 0, y: 15 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="inline-flex items-center space-x-2 px-4 py-1.5 border border-black/10 bg-white/80 backdrop-blur-sm text-black font-body text-xs md:text-sm mb-6 uppercase tracking-widest rounded-full"
+          >
+            <span className="w-1.5 h-1.5 rounded-full bg-red"></span>
+            <span>Monsoon Relief Campaign</span>
+          </motion.div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.1 }}
+            className="font-heading text-5xl md:text-7xl tracking-wider text-black uppercase leading-tight"
+          >
+            Sponsor a Rural Roof
+          </motion.h1>
+          <div className="w-12 h-0.5 bg-red mx-auto mt-4 mb-6" />
+          <motion.p 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ delay: 0.2 }}
+            className="text-black/70 font-body text-lg max-w-2xl mx-auto leading-relaxed"
+          >
+            In rural Dhading, the monsoon season brings severe roof leaks to homes and schools. Your sponsorship directly provides families with our waterproof, upcycled LDPE roofing sheets.
+          </motion.p>
+        </div>
       </section>
 
       {/* Progress Bar Section */}

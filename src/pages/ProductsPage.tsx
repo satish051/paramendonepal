@@ -67,18 +67,35 @@ const ProductsPage = () => {
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section */}
-      <section className="bg-black pt-32 pb-16 px-6 md:px-12 lg:px-20 text-center">
-        <div className="inline-block px-3 py-1 border border-white/20 text-white font-body text-xs uppercase mb-6">
-          Sustainable Solutions
+      {/* Hero Section - Warm, Minimalist Editorial Opening */}
+      <section className="relative pt-36 pb-20 px-6 md:px-12 lg:px-20 text-center border-b border-black/10 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EFEA]/60 to-white">
+        {/* Subtle warm decorative line-art illustration */}
+        <img 
+          src="/art-flower.png" 
+          alt="" 
+          aria-hidden="true"
+          className="absolute -bottom-12 -right-12 w-[380px] lg:w-[480px] opacity-[0.07] pointer-events-none select-none"
+        />
+        <img 
+          src="/art-nepal.png" 
+          alt="" 
+          aria-hidden="true"
+          className="absolute -top-12 -left-12 w-[320px] lg:w-[420px] opacity-[0.04] pointer-events-none select-none"
+        />
+
+        <div className="relative z-10 max-w-3xl mx-auto">
+          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-black/10 bg-white/80 backdrop-blur-sm text-black font-body text-xs uppercase tracking-widest mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-red"></span>
+            <span>Sustainable Solutions</span>
+          </div>
+          <h1 className="font-heading text-5xl md:text-7xl tracking-wider text-black uppercase leading-tight">
+            {content?.homeProducts?.title || "Our Products"}
+          </h1>
+          <div className="w-12 h-0.5 bg-red mt-4 mb-6 mx-auto" />
+          <p className="text-black/70 font-body text-lg max-w-2xl mx-auto leading-relaxed">
+            {content?.homeProducts?.subtitle || "Premium recycled boards, structural materials, and eco-friendly products made from high-density plastics and multi-layered waste."}
+          </p>
         </div>
-        <h1 className="font-heading text-5xl md:text-7xl tracking-wider text-white uppercase">
-          {content?.homeProducts?.title || "Our Products"}
-        </h1>
-        <div className="w-12 h-0.5 bg-red mt-4 mb-6 mx-auto" />
-        <p className="text-white/70 font-body text-lg max-w-2xl mx-auto">
-          {content?.homeProducts?.subtitle || "Premium recycled boards, structural materials, and eco-friendly products made from high-density plastics and multi-layered waste."}
-        </p>
       </section>
 
       {/* Product Section */}

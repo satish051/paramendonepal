@@ -5,13 +5,13 @@ const CRCPortalPage = () => {
   return (
     <div className="min-h-screen bg-white">
       
-      {/* Header Section */}
-      <section className="bg-black pt-32 pb-16 px-6 md:px-12 lg:px-20 text-center flex flex-col md:flex-row md:items-end justify-between">
-        <div className="text-left">
+      {/* Header Section - Warm Editorial Opening */}
+      <section className="relative pt-36 pb-16 px-6 md:px-12 lg:px-20 border-b border-black/10 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EFEA]/60 to-white flex flex-col md:flex-row md:items-end justify-between">
+        <div className="text-left relative z-10">
           <motion.h1 
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
-            className="font-heading text-5xl text-white tracking-wider uppercase mb-2"
+            className="font-heading text-5xl text-black tracking-wider uppercase mb-2"
           >
             CRC Collector Portal
           </motion.h1>
@@ -20,7 +20,7 @@ const CRCPortalPage = () => {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.1 }}
-            className="flex items-center text-white/60 font-body"
+            className="flex items-center text-black/60 font-body text-sm"
           >
             <span className="w-2 h-2 bg-red rounded-full mr-2"></span>
             Dhading Branch - Collector ID #8842

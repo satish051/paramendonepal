@@ -44,19 +44,40 @@ const services = [
 const ServicesPage = () => {
   return (
     <div className="min-h-screen">
-      <div className="bg-black pt-32 pb-16 px-6 md:px-12 lg:px-20 text-center">
-        <motion.h1 
-          initial={{ opacity: 0, y: 20 }}
-          animate={{ opacity: 1, y: 0 }}
-          className="font-heading text-5xl md:text-7xl tracking-wider text-white uppercase"
-        >
-          Our Initiatives & Services
-        </motion.h1>
-        <div className="w-12 h-0.5 bg-red mt-4 mb-6 mx-auto" />
-        <p className="text-white/70 font-body text-lg max-w-2xl mx-auto">
-          We provide a range of services and impact-driven initiatives designed to build community-centric circular economies across Nepal.
-        </p>
-      </div>
+      {/* Hero Section - Warm, Minimalist Editorial Opening */}
+      <section className="relative pt-36 pb-20 px-6 md:px-12 lg:px-20 text-center border-b border-black/10 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EFEA]/60 to-white">
+        {/* Decorative line art */}
+        <img 
+          src="/art-nepal.png" 
+          alt="" 
+          aria-hidden="true"
+          className="absolute -bottom-10 -right-10 w-[420px] lg:w-[520px] opacity-[0.06] pointer-events-none select-none"
+        />
+        <img 
+          src="/art-flower.png" 
+          alt="" 
+          aria-hidden="true"
+          className="absolute -top-12 -left-12 w-[320px] lg:w-[420px] opacity-[0.05] pointer-events-none select-none"
+        />
+
+        <div className="relative z-10 max-w-3xl mx-auto">
+          <div className="inline-flex items-center space-x-2 px-4 py-1.5 rounded-full border border-black/10 bg-white/80 backdrop-blur-sm text-black font-body text-xs uppercase tracking-widest mb-6">
+            <span className="w-1.5 h-1.5 rounded-full bg-red"></span>
+            <span>Circular Enterprise</span>
+          </div>
+          <motion.h1 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            className="font-heading text-5xl md:text-7xl tracking-wider text-black uppercase leading-tight"
+          >
+            Our Initiatives & Services
+          </motion.h1>
+          <div className="w-12 h-0.5 bg-red mt-4 mb-6 mx-auto" />
+          <p className="text-black/70 font-body text-lg max-w-2xl mx-auto leading-relaxed">
+            We provide a range of services and impact-driven initiatives designed to build community-centric circular economies across Nepal.
+          </p>
+        </div>
+      </section>
       
       <div className="bg-white py-24 px-6 md:px-12 lg:px-20">
         <div className="max-w-7xl mx-auto grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
