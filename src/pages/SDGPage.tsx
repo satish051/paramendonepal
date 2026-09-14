@@ -203,18 +203,12 @@ const SDGPage = () => {
     <div className="min-h-screen bg-white">
       {/* Hero Section - Warm, Minimalist Editorial Opening */}
       <section className="relative pt-36 pb-20 px-6 md:px-12 lg:px-20 text-center border-b border-black/10 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EFEA]/60 to-white">
-        {/* Subtle decorative line-art watermark */}
+        {/* Tasteful editorial line-art watermark along bottom edge */}
         <img 
           src="/art-flower.png" 
           alt="" 
           aria-hidden="true"
-          className="absolute -bottom-6 right-4 sm:right-10 w-[260px] md:w-[340px] lg:w-[420px] opacity-[0.22] pointer-events-none select-none"
-        />
-        <img 
-          src="/art-nepal.png" 
-          alt="" 
-          aria-hidden="true"
-          className="absolute top-20 left-4 sm:left-10 w-[240px] md:w-[300px] lg:w-[380px] opacity-[0.16] pointer-events-none select-none"
+          className="absolute -bottom-6 right-0 md:right-8 w-[300px] md:w-[380px] lg:w-[460px] opacity-[0.14] pointer-events-none select-none z-0"
         />
 
         <div className="max-w-4xl mx-auto relative z-10">

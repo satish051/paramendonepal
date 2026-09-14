@@ -69,18 +69,12 @@ const ProductsPage = () => {
     <div className="min-h-screen bg-white">
       {/* Hero Section - Warm, Minimalist Editorial Opening */}
       <section className="relative pt-36 pb-20 px-6 md:px-12 lg:px-20 text-center border-b border-black/10 overflow-hidden bg-gradient-to-b from-[#FAF8F5] via-[#F4EFEA]/60 to-white">
-        {/* Distinct line-art illustration */}
-        <img 
-          src="/art-flower.png" 
-          alt="" 
-          aria-hidden="true"
-          className="absolute -bottom-6 right-4 sm:right-10 w-[240px] md:w-[320px] lg:w-[400px] opacity-[0.22] pointer-events-none select-none"
-        />
+        {/* Tasteful editorial landscape illustration along bottom edge */}
         <img 
           src="/art-nepal.png" 
           alt="" 
           aria-hidden="true"
-          className="absolute top-20 left-4 sm:left-10 w-[220px] md:w-[280px] lg:w-[360px] opacity-[0.16] pointer-events-none select-none"
+          className="absolute -bottom-6 right-0 md:right-8 w-[320px] md:w-[420px] lg:w-[500px] opacity-[0.14] pointer-events-none select-none z-0"
         />
 
         <div className="relative z-10 max-w-3xl mx-auto">
