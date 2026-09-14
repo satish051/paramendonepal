@@ -11,7 +11,7 @@ const About = () => {
           src="/art-flower.png" 
           alt="" 
           aria-hidden="true"
-          className="absolute bottom-0 right-0 w-[500px] lg:w-[600px] opacity-[0.08] pointer-events-none select-none"
+          className="absolute bottom-4 right-4 sm:right-10 w-[300px] md:w-[400px] lg:w-[480px] opacity-[0.20] pointer-events-none select-none"
         />
         <div className="max-w-7xl mx-auto">
           <div className="grid lg:grid-cols-2 gap-16 lg:gap-24 items-center">
@@ -76,7 +76,7 @@ const About = () => {
           src="/art-nepal.png" 
           alt="" 
           aria-hidden="true"
-          className="absolute -bottom-10 -left-10 w-[450px] lg:w-[550px] opacity-[0.08] pointer-events-none select-none"
+          className="absolute bottom-4 left-4 sm:left-10 w-[280px] md:w-[380px] lg:w-[460px] opacity-[0.18] pointer-events-none select-none"
         />
         <div className="max-w-7xl mx-auto relative z-10">
           <div className="text-center max-w-3xl mx-auto mb-16">

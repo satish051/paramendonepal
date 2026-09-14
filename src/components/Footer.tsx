@@ -26,7 +26,7 @@ const Footer = () => {
         src="/art-flower.png" 
         alt="" 
         aria-hidden="true"
-        className="absolute -bottom-10 -right-10 w-[450px] lg:w-[550px] opacity-[0.10] pointer-events-none select-none invert"
+        className="absolute bottom-2 right-4 sm:right-10 w-[280px] md:w-[360px] lg:w-[440px] opacity-[0.22] pointer-events-none select-none invert"
       />
       <div className="max-w-7xl mx-auto relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-16">

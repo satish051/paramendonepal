@@ -208,13 +208,13 @@ const SDGPage = () => {
           src="/art-flower.png" 
           alt="" 
           aria-hidden="true"
-          className="absolute -bottom-10 -right-10 w-[450px] lg:w-[600px] opacity-[0.08] pointer-events-none select-none"
+          className="absolute -bottom-6 right-4 sm:right-10 w-[260px] md:w-[340px] lg:w-[420px] opacity-[0.22] pointer-events-none select-none"
         />
         <img 
           src="/art-nepal.png" 
           alt="" 
           aria-hidden="true"
-          className="absolute -top-12 -left-10 w-[350px] lg:w-[480px] opacity-[0.04] pointer-events-none select-none"
+          className="absolute top-20 left-4 sm:left-10 w-[240px] md:w-[300px] lg:w-[380px] opacity-[0.16] pointer-events-none select-none"
         />
 
         <div className="max-w-4xl mx-auto relative z-10">

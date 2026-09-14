@@ -51,13 +51,13 @@ const ServicesPage = () => {
           src="/art-nepal.png" 
           alt="" 
           aria-hidden="true"
-          className="absolute -bottom-10 -right-10 w-[420px] lg:w-[520px] opacity-[0.06] pointer-events-none select-none"
+          className="absolute -bottom-6 right-4 sm:right-10 w-[260px] md:w-[340px] lg:w-[420px] opacity-[0.20] pointer-events-none select-none"
         />
         <img 
           src="/art-flower.png" 
           alt="" 
           aria-hidden="true"
-          className="absolute -top-12 -left-12 w-[320px] lg:w-[420px] opacity-[0.05] pointer-events-none select-none"
+          className="absolute top-20 left-4 sm:left-10 w-[200px] md:w-[260px] lg:w-[340px] opacity-[0.18] pointer-events-none select-none"
         />
 
         <div className="relative z-10 max-w-3xl mx-auto">
